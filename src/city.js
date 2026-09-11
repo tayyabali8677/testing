@@ -393,6 +393,41 @@ export class City {
     return { x: n.x, z: n.z };
   }
 
+  /** Random point on a pavement, clear of buildings. Used by pedestrians. */
+  randomSidewalkPoint(near = null, radius = 0) {
+    const inset = 1.3;
+    const edge = this.segLen / 2 - inset;
+
+    for (let attempt = 0; attempt < 60; attempt++) {
+      let cell;
+      if (near) {
+        // Bias toward cells around a point so pedestrians appear near the
+        // player rather than uniformly across the whole map.
+        const ci = Math.floor(near.x / this.pitch) +
+          this.rng.int(-Math.ceil(radius / this.pitch), Math.ceil(radius / this.pitch));
+        const cj = Math.floor(near.z / this.pitch) +
+          this.rng.int(-Math.ceil(radius / this.pitch), Math.ceil(radius / this.pitch));
+        if (ci < 0 || cj < 0 || ci >= this.size - 1 || cj >= this.size - 1) continue;
+        cell = this.cells[ci * (this.size - 1) + cj];
+      } else {
+        cell = this.rng.pick(this.cells);
+      }
+      if (!cell) continue;
+
+      const along = this.rng.range(-edge, edge);
+      let x = cell.x, z = cell.z;
+      switch (this.rng.int(0, 3)) {
+        case 0: x += along; z -= edge; break;
+        case 1: x += along; z += edge; break;
+        case 2: x -= edge; z += along; break;
+        default: x += edge; z += along; break;
+      }
+      if (!this.blocked(x, z, 0.45)) return { x, z };
+    }
+    const p = this.randomRoadPoint();
+    return p;
+  }
+
   // ---- collision -------------------------------------------------------
 
   /**

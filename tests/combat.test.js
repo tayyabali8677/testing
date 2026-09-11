@@ -106,16 +106,35 @@ suite("combat", () => {
   });
 
   test("headshots do more damage than body shots", () => {
-    const p = city.randomRoadPoint();
-    const body = spawnChar(p.x, p.z - 8);
-    const head = spawnChar(p.x + 40, p.z - 8);
-    const lo = new Loadout(["wpn_pistol"]);
+    // Find a firing line with nothing in the way, so the result depends on
+    // aim height alone rather than on where the generator put a wall.
+    let shot = null;
+    for (let i = 0; i < 300 && !shot; i++) {
+      const p = city.randomRoadPoint();
+      const q = { x: p.x, z: p.z - 8 };
+      if (city.blocked(q.x, q.z, 0.6)) continue;
+      const clear = city.raycast(p.x, 1.0, p.z, 0, 0, -1, 8);
+      if (clear) continue;
+      shot = { p, q };
+    }
+    assert(shot, "could not find an unobstructed firing line");
 
-    combat.fire(null, lo, new THREE.Vector3(p.x, 1.0, p.z),
-      new THREE.Vector3(0, 0, -1), { characters: [body], vehicles: [] }, 1000);
-    lo.cooldown = 0;
-    combat.fire(null, lo, new THREE.Vector3(p.x + 40, HEIGHT * 0.95, p.z),
-      new THREE.Vector3(0, 0, -1), { characters: [head], vehicles: [] }, 1000);
+    const fireAt = (target, y) => {
+      const lo = new Loadout(["wpn_pistol"]);
+      // Accuracy divides spread, so a large value makes the shot exact and
+      // removes the unseeded Math.random jitter from the result.
+      combat.fire(null, lo, new THREE.Vector3(shot.p.x, y, shot.p.z),
+        new THREE.Vector3(0, 0, -1),
+        { characters: [target], vehicles: [] }, 100000);
+    };
+
+    const body = spawnChar(shot.q.x, shot.q.z);
+    fireAt(body, 1.0);
+    assert(body.hp < 100, "the body shot missed entirely");
+
+    const head = spawnChar(shot.q.x, shot.q.z);
+    fireAt(head, HEIGHT * 0.95);
+    assert(head.hp < 100, "the head shot missed entirely");
 
     assert(head.hp < body.hp,
       `headshot left ${head.hp}, body shot left ${body.hp}`);

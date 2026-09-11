@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liberty Grid 3D</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0c10; }
+  body { font: 14px/1.5 "Segoe UI", system-ui, sans-serif; color: #e8ecf2; }
+  #game { display: block; width: 100vw; height: 100vh; }
+
+  #overlay {
+    position: fixed; inset: 0; z-index: 20; display: flex;
+    align-items: center; justify-content: center; text-align: center;
+    background: radial-gradient(ellipse at center,
+      rgba(16,20,28,.88), rgba(4,5,8,.97));
+    backdrop-filter: blur(4px);
+  }
+  #overlay.hidden { display: none; }
+
+  .panel { max-width: 620px; padding: 30px 36px; }
+  .panel h1 {
+    margin: 0 0 2px; font-size: 50px; letter-spacing: 7px; text-transform: uppercase;
+    color: #ffd34d; text-shadow: 0 3px 0 #6b4f00, 0 0 36px rgba(255,211,77,.35);
+  }
+  .panel .sub {
+    margin: 0 0 26px; letter-spacing: 3px; font-size: 11px; color: #8b97a8;
+    text-transform: uppercase;
+  }
+
+  .keys {
+    display: grid; grid-template-columns: auto 1fr auto 1fr; gap: 7px 12px;
+    text-align: left; margin: 0 auto 26px; font-size: 13px;
+  }
+  .keys b { color: #ffd34d; font-weight: 600; white-space: nowrap; }
+  .keys span { color: #aab4c2; }
+
+  #start {
+    font: 600 14px/1 "Segoe UI", system-ui, sans-serif; letter-spacing: 2px;
+    text-transform: uppercase; color: #0c0e13; background: #7fe08a;
+    border: 0; border-radius: 8px; padding: 13px 30px; cursor: pointer;
+  }
+  #start:disabled { background: #39414d; color: #8b97a8; cursor: default; }
+  #start:not(:disabled):hover { background: #96e89f; }
+
+  #status { margin-top: 16px; font-size: 13px; color: #8b97a8; min-height: 20px; }
+  #status code {
+    background: rgba(255,255,255,.09); padding: 1px 6px; border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .hint { margin-top: 18px; font-size: 12px; color: #6c7787; }
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div id="overlay">
+  <div class="panel">
+    <h1>Liberty Grid</h1>
+    <p class="sub">an open city, a fast car, bad decisions</p>
+
+    <div class="keys">
+      <b>W A S D</b><span>move / drive</span>
+      <b>Mouse</b><span>look</span>
+      <b>Shift</b><span>sprint</span>
+      <b>Space</b><span>handbrake</span>
+      <b>Left click</b><span>shoot</span>
+      <b>Right click</b><span>aim</span>
+      <b>F</b><span>enter / exit car</span>
+      <b>R</b><span>reload</span>
+      <b>1 - 4</b><span>weapons</span>
+      <b>Tab</b><span>map</span>
+      <b>Alt</b><span>free look while driving</span>
+      <b>M</b><span>mute</span>
+    </div>
+
+    <button id="start" disabled>Loading</button>
+    <div id="status">Starting...</div>
+    <p class="hint">
+      Reach the gold marker to get paid. Shooting and running people over
+      brings the police. Break line of sight to lose them.
+    </p>
+  </div>
+</div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
