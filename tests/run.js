@@ -7,6 +7,7 @@ import { run } from "./harness.js";
 import "./mathx.test.js";
 import "./city.test.js";
 import "./vehicle.test.js";
+import "./combat.test.js";
 
 const ok = await run();
 process.exit(ok ? 0 : 1);

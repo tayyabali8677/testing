@@ -226,10 +226,13 @@ export class City {
         const size = this.buildingSizes.get(key);
         batcher.add(key, new THREE.Vector3(px, this.curbH, pz), rot);
 
-        // Collider uses the rotated footprint.
+        // Collider uses the rotated footprint. Height is carried alongside so
+        // bullets and the camera can tell a tower from a bungalow.
         const hw = (swapped ? size.d : size.w) / 2;
         const hd = (swapped ? size.w : size.d) / 2;
-        this.colliders.push(new Box2(px, pz, hw, hd));
+        const box = new Box2(px, pz, hw, hd);
+        box.height = this.curbH + size.h;
+        this.colliders.push(box);
       }
     }
   }
@@ -440,6 +443,90 @@ export class City {
 
     const len = Math.hypot(nx, nz) || 1;
     return { x, z, hit, nx: nx / len, nz: nz / len };
+  }
+
+  /**
+   * Nearest hit along a ray against buildings and the ground plane.
+   *
+   * Buildings are axis-aligned boxes, so this is a slab test in XZ with a
+   * height check, which is both exact and far cheaper than raycasting the
+   * scene graph. Candidates come from marching the spatial hash along the ray.
+   *
+   * Returns { t, nx, ny, nz, kind } or null.
+   */
+  raycast(ox, oy, oz, dx, dy, dz, maxDist) {
+    let best = maxDist;
+    let nx = 0, ny = 0, nz = 0;
+    let kind = null;
+
+    // Ground. Roads sit at y=0 and pavements a kerb above; testing the lower
+    // plane and then confirming the surface height avoids a second trace.
+    if (dy < -1e-6) {
+      for (const plane of [this.curbH, 0]) {
+        const t = (plane - oy) / dy;
+        if (t < 0 || t > best) continue;
+        const px = ox + dx * t, pz = oz + dz * t;
+        if (Math.abs(this.groundHeight(px, pz) - plane) > 1e-6) continue;
+        best = t; nx = 0; ny = 1; nz = 0; kind = "ground";
+        break;
+      }
+    }
+
+    const seen = new Set();
+    const step = Math.max(4, this.hash.cell * 0.75);
+    const samples = Math.ceil(maxDist / step);
+    const candidates = [];
+
+    for (let i = 0; i <= samples; i++) {
+      const t = Math.min(maxDist, i * step);
+      const list = this.hash.query(ox + dx * t, oz + dz * t, step);
+      for (const b of list) {
+        if (seen.has(b)) continue;
+        seen.add(b);
+        candidates.push(b);
+      }
+    }
+
+    for (const b of candidates) {
+      let tmin = 0, tmax = best;
+      let axis = -1, sign = 1;
+      let ok = true;
+
+      for (let a = 0; a < 2 && ok; a++) {
+        const o = a === 0 ? ox : oz;
+        const d = a === 0 ? dx : dz;
+        const c = a === 0 ? b.x : b.z;
+        const h = a === 0 ? b.hw : b.hd;
+        const lo = c - h, hi = c + h;
+
+        if (Math.abs(d) < 1e-9) {
+          if (o < lo || o > hi) ok = false;
+          continue;
+        }
+        let t1 = (lo - o) / d;
+        let t2 = (hi - o) / d;
+        let s = -1;
+        if (t1 > t2) { const tmp = t1; t1 = t2; t2 = tmp; s = 1; }
+        if (t1 > tmin) { tmin = t1; axis = a; sign = s; }
+        if (t2 < tmax) tmax = t2;
+        if (tmin > tmax) ok = false;
+      }
+
+      if (!ok || tmin < 0 || tmin >= best) continue;
+
+      const hitY = oy + dy * tmin;
+      const top = b.height ?? 1e6;
+      if (hitY < 0 || hitY > top) continue;
+
+      best = tmin;
+      kind = "building";
+      nx = axis === 0 ? sign : 0;
+      ny = 0;
+      nz = axis === 1 ? sign : 0;
+    }
+
+    if (!kind) return null;
+    return { t: best, nx, ny, nz, kind };
   }
 
   /** Cheap yes/no test, for bullets and spawn validation. */
