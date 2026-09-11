@@ -271,6 +271,11 @@ export class Hud {
     const range = this.bigMap ? city.extent * 0.62 : this.minimapRange;
     const scale = size / (range * 2);
     const cx = size / 2, cy = size / 2;
+    // The full map shows the whole city, so it frames the city centre; the
+    // corner minimap tracks the player instead.
+    const focus = this.bigMap
+      ? { x: city.extent / 2, z: city.extent / 2 }
+      : subject;
 
     // The minimap rotates with the player unless it is the full-screen map.
     // Canvas rotate(t) maps (x,y) to (x cos t - y sin t, x sin t + y cos t);
@@ -284,7 +289,7 @@ export class Hud {
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(rot);
-    ctx.translate(-subject.x * scale, -subject.z * scale);
+    ctx.translate(-focus.x * scale, -focus.z * scale);
     ctx.scale(scale, scale);
 
     // Roads.

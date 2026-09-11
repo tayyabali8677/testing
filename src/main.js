@@ -58,7 +58,7 @@ class Game {
     });
 
     this.status("Building city...");
-    this.city = new City(this.assets, { size: 11, seed: 0xC17Y });
+    this.city = new City(this.assets, { size: 11, seed: 0xC17FE });
     const stats = this.city.generate();
     this.world.scene.add(this.city.group);
     console.log("city:", stats);

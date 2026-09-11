@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Liberty Grid 3D</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ctext y=%2714%27 font-size=%2714%27%3E%F0%9F%9A%97%3C/text%3E%3C/svg%3E">
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
@@ -54,11 +55,16 @@
   .hint { margin-top: 18px; font-size: 12px; color: #6c7787; }
 </style>
 
+<!--
+  three.js is vendored under vendor/three rather than loaded from a CDN, so
+  the game runs offline and behind restrictive networks. See
+  vendor/three/LICENSE and vendor/three/VERSION.txt.
+-->
 <script type="importmap">
 {
   "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+    "three": "./vendor/three/build/three.module.js",
+    "three/addons/": "./vendor/three/examples/jsm/"
   }
 }
 </script>
