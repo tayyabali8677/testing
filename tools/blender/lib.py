@@ -188,6 +188,60 @@ def sphere(name, radius, loc=(0, 0, 0), u=16, v=10, material=None,
     return _finish(name, bm, pivot, material, parent, 0.0, 1)
 
 
+def quads(name, faces, material=None, parent=None, pivot=(0, 0, 0)):
+    """One mesh from many flat quads.
+
+    `faces` is a list of 4 (x, y, z) corners, wound counter-clockwise. Used
+    for window grids: a quad is 2 triangles where a thin box would be 12, and
+    batching a whole facade into a single object keeps the draw call count
+    down as well.
+    """
+    bm = bmesh.new()
+    for corners in faces:
+        verts = [bm.verts.new(c) for c in corners]
+        try:
+            bm.faces.new(verts)
+        except ValueError:
+            pass  # duplicate face, skip it
+    bm.verts.ensure_lookup_table()
+    bm.normal_update()
+    return _finish(name, bm, pivot, material, parent, 0.0, 1)
+
+
+def window_grid(name, plane, u0, u1, v0, v1, offset, cols, rows,
+                w_frac=0.62, h_frac=0.58, material=None, parent=None):
+    """Lay a cols x rows grid of window quads onto one wall.
+
+    `plane` picks the wall: '+x', '-x', '+y', '-y'. u runs horizontally along
+    the wall, v runs vertically, and `offset` is the wall's position on its
+    own axis (pushed slightly proud so the windows never z-fight the wall).
+    """
+    faces = []
+    du = (u1 - u0) / cols
+    dv = (v1 - v0) / rows
+    for i in range(cols):
+        for j in range(rows):
+            cu = u0 + du * (i + 0.5)
+            cv = v0 + dv * (j + 0.5)
+            hw = du * w_frac * 0.5
+            hh = dv * h_frac * 0.5
+            a, b = cu - hw, cu + hw
+            c, d = cv - hh, cv + hh
+            if plane == '+x':
+                faces.append([(offset, a, c), (offset, b, c),
+                              (offset, b, d), (offset, a, d)])
+            elif plane == '-x':
+                faces.append([(offset, b, c), (offset, a, c),
+                              (offset, a, d), (offset, b, d)])
+            elif plane == '+y':
+                faces.append([(b, offset, c), (a, offset, c),
+                              (a, offset, d), (b, offset, d)])
+            else:  # '-y'
+                faces.append([(a, offset, c), (b, offset, c),
+                              (b, offset, d), (a, offset, d)])
+    return quads(name, faces, material=material, parent=parent)
+
+
 def empty(name, loc=(0, 0, 0), parent=None):
     """Marker node, e.g. a muzzle point. Exports as an empty glTF node."""
     obj = bpy.data.objects.new(name, None)
