@@ -388,13 +388,16 @@ class Game {
     const moveZ = fz * -axis.z + rz * axis.x;
 
     const aiming = input.rightDown;
-    if (this.player.alive && input.leftDown) this._tryShoot(aiming);
+    const firing = input.leftDown;
+    if (this.player.alive && firing) this._tryShoot(aiming);
 
     return {
       moveX, moveZ,
       run: input.down("ShiftLeft") || input.down("ShiftRight"),
       lookHeading: this.camera.lookHeading,
-      aiming,
+      // Firing raises the weapon too, not just holding right mouse.
+      aiming: aiming || firing,
+      aimPitch: this.camera.pitch,
     };
   }
 

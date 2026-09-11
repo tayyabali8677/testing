@@ -11,7 +11,7 @@
 // stride covers. That is what stops the feet skating.
 
 import * as THREE from "three";
-import { clamp, damp, dampAngle, headingTo, wrapAngle } from "./mathx.js";
+import { clamp, damp, dampAngle, headingTo, lerp, wrapAngle } from "./mathx.js";
 
 export const RADIUS = 0.36;
 export const HEIGHT = 1.8;
@@ -44,6 +44,8 @@ export class Character {
     this.root.rotation.order = "YXZ";
 
     this.handR = inst.nodes.get("Hand_R") || null;
+    this.armR = inst.nodes.get("Arm_R") || null;
+    this.foreR = inst.nodes.get("Forearm_R") || null;
     this.head = inst.nodes.get("Head") || null;
     this.spine = inst.nodes.get("Spine") || null;
 
@@ -64,6 +66,8 @@ export class Character {
     this.maxHp = this.hp;
     this.alive = true;
     this.aiming = false;
+    this.aimBlend = 0;
+    this.aimPitch = 0;
     this.hurtFlash = 0;
 
     // Level of detail: 0 full, 1 animate at a reduced rate, 2 hidden.
@@ -131,6 +135,7 @@ export class Character {
     const mz = intent.moveZ || 0;
     const mag = Math.min(Math.hypot(mx, mz), 1);
     this.aiming = !!intent.aiming;
+    this.aimPitch = intent.aimPitch || 0;
 
     const target = (intent.run && !this.aiming ? RUN_SPEED : WALK_SPEED) * mag;
 
@@ -177,7 +182,32 @@ export class Character {
     }
 
     this._updateAnimation(dt);
+    this._applyAimPose(dt);
     this.syncTransform();
+  }
+
+  /**
+   * Raise the weapon arm toward where the player is looking.
+   *
+   * The locomotion clips leave the arm swinging at the character's side, so
+   * without this the gun points at the pavement while the rounds fly level.
+   * It runs after the mixer and blends from whatever pose the mixer wrote,
+   * so walking and aiming compose instead of fighting.
+   */
+  _applyAimPose(dt) {
+    const want = this.aiming ? 1 : 0;
+    this.aimBlend = damp(this.aimBlend, want, 14, dt);
+    if (this.aimBlend < 0.01 || !this.armR) return;
+
+    const b = this.aimBlend;
+    // The arm hangs along -Y from the shoulder; a quarter turn about X swings
+    // it to -Z, which is forward.
+    const targetX = Math.PI / 2 - clamp(this.aimPitch, -0.9, 0.9);
+    this.armR.rotation.x = lerp(this.armR.rotation.x, targetX, b);
+    this.armR.rotation.z = lerp(this.armR.rotation.z, 0.14, b);
+    if (this.foreR) {
+      this.foreR.rotation.x = lerp(this.foreR.rotation.x, -0.18, b);
+    }
   }
 
   /** 0 full detail, 1 reduced animation rate, 2 hidden entirely. */
