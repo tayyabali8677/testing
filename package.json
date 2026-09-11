@@ -1,0 +1,16 @@
+{
+  "name": "liberty-grid",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Top-down and 3D open-city sandbox",
+  "scripts": {
+    "serve": "python3 -m http.server 8080",
+    "assets": "python3 tools/blender/build_all.py",
+    "validate": "python3 tools/validate_glb.py",
+    "test": "node tests/run.js"
+  },
+  "devDependencies": {
+    "three": "0.160.1"
+  }
+}
