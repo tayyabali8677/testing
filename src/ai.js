@@ -333,7 +333,27 @@ export class Population {
       }
     }
 
-    this._recycle(world.center || world.player);
+    const center = world.center || world.player;
+    this._updateLod(center);
+    this._recycle(center);
+  }
+
+  /** Detail falls off with distance: full nearby, cheap animation mid-range,
+   *  hidden beyond the point where a figure is a couple of pixels tall. */
+  _updateLod(center) {
+    if (!center) return;
+    const near = this.lodNear ?? 60;
+    const mid = this.lodMid ?? 150;
+
+    for (const c of this.pedestrians) {
+      const d = dist2D(c.x, c.z, center.x, center.z);
+      c.setLod(d < near ? 0 : d < mid ? 1 : 2);
+    }
+    for (const v of this.vehicles) {
+      if (v.driver) { v.setLod(0); continue; }
+      const d = dist2D(v.x, v.z, center.x, center.z);
+      v.setLod(d < near ? 0 : d < mid * 1.6 ? 1 : 2);
+    }
   }
 
   _recycle(center) {

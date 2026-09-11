@@ -66,6 +66,10 @@ export class Character {
     this.aiming = false;
     this.hurtFlash = 0;
 
+    // Level of detail: 0 full, 1 animate at a reduced rate, 2 hidden.
+    this.lod = 0;
+    this._animAccum = 0;
+
     this._initAnimation(inst);
     this.syncTransform();
   }
@@ -176,8 +180,26 @@ export class Character {
     this.syncTransform();
   }
 
+  /** 0 full detail, 1 reduced animation rate, 2 hidden entirely. */
+  setLod(level) {
+    if (this.lod === level) return;
+    this.lod = level;
+    this.root.visible = level < 2 && this.state !== State.DRIVING;
+  }
+
   _updateAnimation(dt) {
     if (!this.mixer) return;
+
+    // Skinning a crowd is the single biggest per-frame cost on foot, and a
+    // pedestrian two streets away does not need 60 Hz limbs.
+    if (this.lod >= 2) return;
+    if (this.lod === 1) {
+      this._animAccum += dt;
+      if (this._animAccum < 1 / 12) return;
+      dt = this._animAccum;
+      this._animAccum = 0;
+    }
+
     if (!this.hasAnimation) { this.mixer.update(dt); return; }
 
     const s = this.speed;

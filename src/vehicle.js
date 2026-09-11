@@ -79,6 +79,7 @@ export class Vehicle {
     this.driver = null;
     this.lastImpact = 0;
     this.lightsOn = false;
+    this.lod = 0;
 
     this._lightMeshes = [];
     for (const name of ["Headlight_L", "Headlight_R"]) {
@@ -337,6 +338,17 @@ export class Vehicle {
       // Wheels are modelled with their axle along X, so spin is about X.
       wheel.rotation.x = this.wheelSpin;
     }
+  }
+
+  /** 0 full detail, 1 no shadow casting, 2 hidden. */
+  setLod(level) {
+    if (this.lod === level) return;
+    this.lod = level;
+    this.root.visible = level < 2;
+    // Shadow casting costs a second pass over the geometry; distant cars
+    // contribute a few pixels of shadow at most.
+    const cast = level === 0;
+    this.root.traverse((o) => { if (o.isMesh) o.castShadow = cast; });
   }
 
   setLights(on) {

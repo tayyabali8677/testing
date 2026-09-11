@@ -127,6 +127,14 @@ await page.waitForTimeout(700);
 await page.mouse.up();
 await page.screenshot({ path: `${SHOTS}/06-shoot.png` });
 
+// Stats panel, so the check can report real draw-call and triangle counts.
+await page.keyboard.press("F3");
+await page.waitForTimeout(900);
+const stats = await page.evaluate(() => {
+  const el = document.querySelector(".stats");
+  return el ? el.textContent : null;
+});
+
 // Big map.
 await page.keyboard.press("Tab");
 await page.waitForTimeout(500);
@@ -173,6 +181,11 @@ console.log("hud / minimap   :", info.hud, "/", info.minimap);
 console.log("frame rate      :", perf.fps, "fps (software rasteriser)");
 console.log("frame size      :", shotKB.toFixed(0), "KB (a blank frame is <20)");
 if (cityStats) console.log("city            :", JSON.stringify(cityStats));
+if (stats) {
+  console.log("-".repeat(62));
+  console.log(stats.trim());
+  console.log("-".repeat(62));
+}
 console.log("screenshots     :", SHOTS);
 console.log("=".repeat(62));
 

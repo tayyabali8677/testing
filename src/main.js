@@ -251,6 +251,7 @@ class Game {
     if (delta.wheel) this.camera.zoomBy(delta.wheel);
 
     if (input.pressed("Tab")) this.hud.toggleBigMap();
+    if (input.pressed("F3")) this.hud.toggleStats();
     if (input.pressed("KeyM")) {
       this.audio.setMuted(!this.audio.muted);
       this.hud.toast(this.audio.muted ? "Muted" : "Sound on", "");
@@ -458,6 +459,33 @@ class Game {
     }
   }
 
+  _updateStats(dt) {
+    if (!this.hud.statsVisible) return;
+    this._fpsAccum = (this._fpsAccum || 0) + dt;
+    this._fpsFrames = (this._fpsFrames || 0) + 1;
+    if (this._fpsAccum < 0.5) return;
+
+    const fps = this._fpsFrames / this._fpsAccum;
+    this._fpsAccum = 0;
+    this._fpsFrames = 0;
+
+    const info = this.world.renderer.info;
+    const p = this.player;
+    this.hud.setStats(
+      `fps       ${fps.toFixed(0)}\n` +
+      `draws     ${info.render.calls}\n` +
+      `triangles ${info.render.triangles.toLocaleString()}\n` +
+      `geometries${String(info.memory.geometries).padStart(5)}\n` +
+      `textures  ${info.memory.textures}\n` +
+      `traffic   ${this.population.vehicles.length}\n` +
+      `peds      ${this.population.pedestrians.length}\n` +
+      `police    ${this.police.cars.length}c ${this.police.foot.length}f\n` +
+      `heat      ${this.police.heat.toFixed(0)} (${this.police.stars}*)\n` +
+      `pos       ${p.x.toFixed(0)}, ${p.z.toFixed(0)}\n` +
+      `time      ${(this.world.timeOfDay * 24).toFixed(1)}h`
+    );
+  }
+
   render(dt) {
     const driving = this.player.state === State.DRIVING;
     const vehicle = driving ? this.player.vehicle : null;
@@ -498,6 +526,7 @@ class Game {
     });
 
     this.world.render();
+    this._updateStats(dt);
     this.input.endFrame();
   }
 }

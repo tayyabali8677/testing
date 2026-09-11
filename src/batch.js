@@ -1,20 +1,27 @@
 // Static geometry batching.
 //
 // A city places the same ten buildings and eleven props thousands of times.
-// Adding each as its own Object3D would mean thousands of draw calls; instead
-// every (geometry, material) pair inside an asset becomes one InstancedMesh,
-// so the cost scales with how many *kinds* of thing exist, not how many.
+// Two separate costs have to be controlled:
 //
-// The catch is that a mesh sits somewhere inside its asset's node hierarchy,
-// so its instance matrix has to be the placement matrix composed with the
-// mesh's own transform relative to the asset root.
+//   Draw calls. An asset arrives as a node hierarchy with a mesh per part: a
+//   bench is nine meshes for two materials. Parts of a static asset that share
+//   a material are merged into a single geometry first, with each part's own
+//   transform baked in, so the bench costs two draws rather than nine.
+//
+//   Submitted geometry. One InstancedMesh spanning the whole map must disable
+//   frustum culling, because its bounds always contain the camera, so every
+//   building in the city is submitted every frame including the ones behind
+//   you. Instances are therefore grouped into spatial chunks that can be
+//   culled individually.
 
 import * as THREE from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 
 export class Batcher {
   constructor(assets) {
     this.assets = assets;
     this.pending = new Map();   // assetKey -> Matrix4[]
+    this._merged = new Map();   // assetKey -> [{ geometry, material, castShadow }]
   }
 
   /** Queue one placement of `key` at the given transform. */
@@ -36,14 +43,94 @@ export class Batcher {
   count(key) { return (this.pending.get(key) || []).length; }
 
   /**
+   * Flatten an asset to one geometry per material, with every part's local
+   * transform baked in. Cached, since an asset is placed many times.
+   */
+  _flatten(key) {
+    if (this._merged.has(key)) return this._merged.get(key);
+
+    const template = this.assets.instantiate(key);
+    template.root.updateWorldMatrix(true, true);
+    const rootInverse = new THREE.Matrix4()
+      .copy(template.root.matrixWorld).invert();
+
+    const groups = new Map();   // material uuid -> { material, geometries, cast, receive }
+    const local = new THREE.Matrix4();
+
+    template.root.traverse((o) => {
+      if (!o.isMesh || !o.geometry) return;
+      // Multi-material meshes would need geometry groups preserved; the
+      // generated assets never produce them, so one material per mesh holds.
+      const material = Array.isArray(o.material) ? o.material[0] : o.material;
+      if (!material) return;
+
+      local.copy(rootInverse).multiply(o.matrixWorld);
+      const geo = o.geometry.clone();
+      geo.applyMatrix4(local);
+      // Merging requires identical attribute sets; drop anything exotic.
+      for (const name of Object.keys(geo.attributes)) {
+        if (!["position", "normal", "uv"].includes(name)) {
+          geo.deleteAttribute(name);
+        }
+      }
+      if (!geo.attributes.uv) {
+        const count = geo.attributes.position.count;
+        geo.setAttribute("uv",
+          new THREE.BufferAttribute(new Float32Array(count * 2), 2));
+      }
+      if (!geo.index) {
+        // mergeGeometries needs all inputs indexed or all non-indexed.
+        const count = geo.attributes.position.count;
+        const idx = new Uint32Array(count);
+        for (let i = 0; i < count; i++) idx[i] = i;
+        geo.setIndex(new THREE.BufferAttribute(idx, 1));
+      }
+
+      let g = groups.get(material.uuid);
+      if (!g) {
+        g = { material, geometries: [], cast: false, receive: false };
+        groups.set(material.uuid, g);
+      }
+      g.geometries.push(geo);
+      g.cast = g.cast || o.castShadow;
+      g.receive = g.receive || o.receiveShadow;
+    });
+
+    const parts = [];
+    for (const g of groups.values()) {
+      let geometry = g.geometries[0];
+      if (g.geometries.length > 1) {
+        const merged = mergeGeometries(g.geometries, false);
+        if (merged) {
+          geometry = merged;
+          for (const old of g.geometries) old.dispose();
+        } else {
+          // Attribute mismatch: keep the parts separate rather than fail.
+          console.warn(`batcher: could not merge parts of "${key}"`);
+          for (const geo of g.geometries) {
+            parts.push({ geometry: geo, material: g.material,
+                         cast: g.cast, receive: g.receive });
+          }
+          continue;
+        }
+      }
+      parts.push({ geometry, material: g.material,
+                   cast: g.cast, receive: g.receive });
+    }
+
+    this._merged.set(key, parts);
+    return parts;
+  }
+
+  /**
    * Realise everything queued into InstancedMeshes under `parent`.
    * Returns stats so the caller can report draw-call counts.
    */
-  build(parent) {
+  build(parent, chunkSize = 200) {
     let instancedMeshes = 0;
     let instances = 0;
-    const local = new THREE.Matrix4();
-    const out = new THREE.Matrix4();
+    let chunks = 0;
+    const pos = new THREE.Vector3();
 
     for (const [key, matrices] of this.pending) {
       if (!matrices.length) continue;
@@ -52,42 +139,41 @@ export class Batcher {
         continue;
       }
 
-      const template = this.assets.instantiate(key);
-      template.root.updateWorldMatrix(true, true);
-      const rootInverse = new THREE.Matrix4()
-        .copy(template.root.matrixWorld).invert();
+      const parts = this._flatten(key);
+      if (!parts.length) continue;
 
-      const meshes = [];
-      template.root.traverse((o) => { if (o.isMesh) meshes.push(o); });
+      // Bucket placements into chunks so each can be culled on its own.
+      const buckets = new Map();
+      for (const m of matrices) {
+        pos.setFromMatrixPosition(m);
+        const id = `${Math.floor(pos.x / chunkSize)},${Math.floor(pos.z / chunkSize)}`;
+        let list = buckets.get(id);
+        if (!list) { list = []; buckets.set(id, list); }
+        list.push(m);
+      }
+      chunks += buckets.size;
 
-      for (const mesh of meshes) {
-        // Mesh transform relative to the asset root.
-        local.copy(rootInverse).multiply(mesh.matrixWorld);
+      for (const part of parts) {
+        for (const [id, list] of buckets) {
+          const inst = new THREE.InstancedMesh(
+            part.geometry, part.material, list.length
+          );
+          inst.name = `${key}@${id}`;
+          inst.castShadow = part.cast;
+          inst.receiveShadow = part.receive;
 
-        const inst = new THREE.InstancedMesh(
-          mesh.geometry, mesh.material, matrices.length
-        );
-        inst.name = `${key}:${mesh.name}`;
-        inst.castShadow = mesh.castShadow;
-        inst.receiveShadow = mesh.receiveShadow;
-        // Instances span the whole map, so per-object culling only ever
-        // produces false negatives here.
-        inst.frustumCulled = false;
+          for (let i = 0; i < list.length; i++) inst.setMatrixAt(i, list[i]);
+          inst.instanceMatrix.needsUpdate = true;
+          inst.computeBoundingSphere();
 
-        for (let i = 0; i < matrices.length; i++) {
-          out.copy(matrices[i]).multiply(local);
-          inst.setMatrixAt(i, out);
+          parent.add(inst);
+          instancedMeshes++;
+          instances += list.length;
         }
-        inst.instanceMatrix.needsUpdate = true;
-        inst.computeBoundingSphere();
-
-        parent.add(inst);
-        instancedMeshes++;
-        instances += matrices.length;
       }
     }
 
     this.pending.clear();
-    return { instancedMeshes, instances };
+    return { instancedMeshes, instances, chunks };
   }
 }

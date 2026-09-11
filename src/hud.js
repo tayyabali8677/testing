@@ -73,6 +73,12 @@ const CSS = `
 .minimap.big { border-radius: 10px; right: 50%; bottom: 50%;
   transform: translate(50%, 50%); }
 
+.stats { position: absolute; left: 20px; top: 18px; font: 500 12px/1.5
+  ui-monospace, "SF Mono", Menlo, Consolas, monospace; color: #9fb4c8;
+  background: rgba(8,10,14,.55); border-radius: 6px; padding: 7px 11px;
+  display: none; white-space: pre; }
+.stats.show { display: block; }
+
 .flash { position: fixed; inset: 0; pointer-events: none; z-index: 6;
   background: #ff2020; opacity: 0; transition: opacity .18s; }
 
@@ -113,6 +119,7 @@ export class Hud {
       <div class="hud-br">
         <div class="weapon" data-weapon></div>
       </div>
+      <div class="stats" data-stats></div>
       <div class="toast" data-toast></div>
       <div class="prompt" data-prompt></div>
       <div class="crosshair" data-crosshair></div>
@@ -139,6 +146,7 @@ export class Hud {
       weapon: this.root.querySelector("[data-weapon]"),
       speed: this.root.querySelector("[data-speed]"),
       objective: this.root.querySelector("[data-objective]"),
+      stats: this.root.querySelector("[data-stats]"),
       toast: this.root.querySelector("[data-toast]"),
       prompt: this.root.querySelector("[data-prompt]"),
       crosshair: this.root.querySelector("[data-crosshair]"),
@@ -178,6 +186,17 @@ export class Hud {
     this.mapCtx = this.map.getContext("2d");
     this.mapCtx.scale(dpr, dpr);
     this.map.classList.toggle("big", this.bigMap);
+  }
+
+  toggleStats() {
+    this.el.stats.classList.toggle("show");
+    return this.el.stats.classList.contains("show");
+  }
+
+  get statsVisible() { return this.el.stats.classList.contains("show"); }
+
+  setStats(text) {
+    if (this.statsVisible) this.el.stats.textContent = text;
   }
 
   toast(text, sub = "") {

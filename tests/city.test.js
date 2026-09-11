@@ -10,9 +10,11 @@ suite("city generator", () => {
   test("produces batched geometry", () => {
     assert(stats.instances > 500, `only ${stats.instances} instances`);
     assert(stats.instancedMeshes > 0, "no instanced meshes");
-    // The whole point of batching: draw calls track asset variety, not count.
-    assert(stats.instancedMeshes < 200,
-      `${stats.instancedMeshes} draw calls is too many`);
+    // Batches are per (asset material, spatial chunk), so the count tracks
+    // asset variety and map area, never the number of things placed.
+    assert(stats.instancedMeshes < stats.instances / 3,
+      `${stats.instancedMeshes} batches for ${stats.instances} instances`);
+    assert(stats.chunks > 1, "instances were not chunked for culling");
   });
 
   test("road graph covers every intersection", () => {
