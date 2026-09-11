@@ -15,12 +15,19 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const MODEL_DIR = "assets/models/";
 
+// Window glow and street lamps: lit at night, dark by day.
+const NIGHT_MATERIALS = new Set(["BGlassLit", "LampGlow"]);
+
 export class Assets {
   constructor() {
     this.loader = new GLTFLoader();
     this.manifest = null;
     this.templates = new Map();   // key -> { scene, clips, meta }
     this.grid = null;
+    // Emissive materials that should only glow after dark. Collected by name
+    // because the Blender build controls the naming, and they are shared
+    // across every instance, so one write lights the whole city.
+    this.nightMaterials = new Map();
   }
 
   async loadManifest() {
@@ -111,9 +118,26 @@ export class Assets {
         o.castShadow = false;
       }
       if (m) m.shadowSide = THREE.FrontSide;
+
+      if (m && NIGHT_MATERIALS.has(m.name) && !this.nightMaterials.has(m.name)) {
+        this.nightMaterials.set(m.name, {
+          material: m,
+          full: m.emissiveIntensity ?? 1,
+        });
+      }
     });
 
     this.templates.set(key, { scene, clips: gltf.animations || [], meta });
+  }
+
+  /** @param night 0 by day, 1 at full dark. */
+  setNightLights(night) {
+    for (const entry of this.nightMaterials.values()) {
+      const want = entry.full * night;
+      if (Math.abs(entry.material.emissiveIntensity - want) > 0.01) {
+        entry.material.emissiveIntensity = want;
+      }
+    }
   }
 
   has(key) { return this.templates.has(key); }

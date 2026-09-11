@@ -37,7 +37,7 @@ const SKY_FRAG = /* glsl */`
 // Key points in the daily cycle. `t` is 0..1 across 24 hours, 0.5 is noon.
 const SKY_KEYS = [
   { t: 0.00, top: 0x05070f, mid: 0x0a1020, bot: 0x11172a, sun: 0x223055,
-    amb: 0x1a2340, ambI: 0.28, sunI: 0.06, fog: 0x0a0f1c, night: 1.0 },
+    amb: 0x2c3860, ambI: 0.48, sunI: 0.10, fog: 0x0d1524, night: 1.0 },
   { t: 0.22, top: 0x2b3f63, mid: 0x6b5570, bot: 0xc07a54, sun: 0xffb066,
     amb: 0x50506f, ambI: 0.55, sunI: 0.75, fog: 0x8a6a66, night: 0.45 },
   { t: 0.30, top: 0x3f74b8, mid: 0x8fb2d6, bot: 0xd6c4a8, sun: 0xffd9a0,
@@ -49,7 +49,7 @@ const SKY_KEYS = [
   { t: 0.80, top: 0x22304e, mid: 0x5d4a66, bot: 0xb06848, sun: 0xff9a55,
     amb: 0x43486a, ambI: 0.5, sunI: 0.5, fog: 0x6e5a60, night: 0.6 },
   { t: 1.00, top: 0x05070f, mid: 0x0a1020, bot: 0x11172a, sun: 0x223055,
-    amb: 0x1a2340, ambI: 0.28, sunI: 0.06, fog: 0x0a0f1c, night: 1.0 },
+    amb: 0x2c3860, ambI: 0.48, sunI: 0.10, fog: 0x0d1524, night: 1.0 },
 ];
 
 function sampleKeys(t) {

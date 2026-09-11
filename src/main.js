@@ -61,6 +61,7 @@ class Game {
     this.city = new City(this.assets, { size: 11, seed: 0xC17FE });
     const stats = this.city.generate();
     this.world.scene.add(this.city.group);
+    window.__cityStats = stats;
     console.log("city:", stats);
 
     this.effects = new Effects(this.world.scene);
@@ -99,6 +100,7 @@ class Game {
       onEvent: (type, data) => this._onMissionEvent(type, data),
     });
 
+    this._initStreetLights();
     this.hud = new Hud(this.city);
     this.input = new Input(this.canvas);
     this.camera = new CameraRig(this.world.camera, this.city);
@@ -108,6 +110,60 @@ class Game {
     this.running = true;
     this.last = performance.now();
     requestAnimationFrame((t) => this.frame(t));
+  }
+
+  /**
+   * A handful of point lights that hop between whichever street lamps are
+   * nearest the player. Lighting every lamp in the city is impossible; moving
+   * a small pool is indistinguishable from it at street level.
+   */
+  _initStreetLights(count = 8) {
+    this.lampLights = [];
+    for (let i = 0; i < count; i++) {
+      const light = new THREE.PointLight(0xffe7bd, 0, 34, 2);
+      light.castShadow = false;
+      light.visible = false;
+      this.world.scene.add(light);
+      this.lampLights.push(light);
+    }
+    this._lampTimer = 0;
+  }
+
+  _updateStreetLights(dt, subject) {
+    if (!this.lampLights) return;
+    const night = this.world.night;
+
+    if (night < 0.08) {
+      for (const l of this.lampLights) l.visible = false;
+      return;
+    }
+
+    // Re-pick targets a few times a second; sorting every frame is wasteful
+    // and the player cannot move far enough between picks to notice.
+    this._lampTimer -= dt;
+    if (this._lampTimer <= 0) {
+      this._lampTimer = 0.25;
+      const lamps = this.city.lampPositions;
+      const near = [];
+      for (let i = 0; i < lamps.length; i++) {
+        const l = lamps[i];
+        const d = dist2D(l.x, l.z, subject.x, subject.z);
+        if (d < 70) near.push({ l, d });
+      }
+      near.sort((a, b) => a.d - b.d);
+
+      for (let i = 0; i < this.lampLights.length; i++) {
+        const light = this.lampLights[i];
+        const pick = near[i];
+        if (!pick) { light.visible = false; continue; }
+        light.position.set(pick.l.x, pick.l.y, pick.l.z);
+        light.visible = true;
+      }
+    }
+
+    for (const l of this.lampLights) {
+      if (l.visible) l.intensity = 26 * night;
+    }
   }
 
   // ---- event handlers --------------------------------------------------
@@ -185,6 +241,13 @@ class Game {
 
     const elapsed = clamp((now - this.last) / 1000, 0, 0.25);
     this.last = now;
+
+    // Edge-triggered input is sampled once per rendered frame. Doing it
+    // inside the fixed-step loop below fires a single key press once per
+    // physics step, so one tap of F would enter and leave a car several
+    // times in a row.
+    this._pollInput(elapsed);
+
     this.accumulator += elapsed;
 
     let steps = 0;
@@ -197,15 +260,16 @@ class Game {
     if (steps === MAX_STEPS) this.accumulator = 0;
 
     this.render(elapsed);
+    this.input.endFrame();
   }
 
   update(dt) {
     this.time += dt;
 
+    // Re-read the state each step: entering or leaving a car during input
+    // polling must not leave this loop holding a stale flag.
     const driving = this.player.state === State.DRIVING;
     const vehicle = driving ? this.player.vehicle : null;
-
-    this._handleInput(dt, driving, vehicle);
 
     this.loadout.update(dt);
     this.player.update(dt, this._playerIntent(dt, driving));
@@ -243,8 +307,10 @@ class Game {
     this._updateAudio(dt, vehicle);
   }
 
-  _handleInput(dt, driving, vehicle) {
+  /** Once-per-frame input: camera look and every edge-triggered action. */
+  _pollInput(dt) {
     const input = this.input;
+    const driving = this.player.state === State.DRIVING;
 
     const delta = input.takeMouseDelta();
     if (input.locked) this.camera.look(delta.dx, delta.dy);
@@ -286,9 +352,9 @@ class Game {
 
   _playerIntent(dt, driving) {
     const input = this.input;
+    const vehicle = this.player.vehicle;
 
-    if (driving) {
-      const vehicle = this.player.vehicle;
+    if (driving && vehicle) {
       let throttle = 0, steer = 0;
       if (input.down("KeyW") || input.down("ArrowUp")) throttle += 1;
       if (input.down("KeyS") || input.down("ArrowDown")) throttle -= 1;
@@ -503,6 +569,9 @@ class Game {
     });
 
     this.world.update(dt);
+    // Windows and street lamps only glow once it is actually dark.
+    this.assets.setNightLights(this.world.night);
+    this._updateStreetLights(dt, subject);
     this.world.focusShadows(subject.x, 0, subject.z);
     this.effects.update(dt);
     this.effects.faceCamera(this.world.camera);
@@ -527,7 +596,6 @@ class Game {
 
     this.world.render();
     this._updateStats(dt);
-    this.input.endFrame();
   }
 }
 
@@ -549,6 +617,9 @@ async function boot() {
   }
 
   const game = new Game(canvas, statusEl);
+  // Exposed deliberately: the browser check and the console both need a way
+  // to inspect and poke a running world.
+  window.game = game;
 
   try {
     await game.init();

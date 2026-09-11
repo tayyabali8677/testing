@@ -149,9 +149,15 @@ node tests/browser.mjs --shots /tmp/shots
 ```
 
 It fails on any console error, verifies the game reaches a running state, and
-writes screenshots. Frame rate from this check is meaningless — it is a
-software rasteriser — but `F3` in a real browser shows live draw calls and
-triangle counts.
+writes screenshots. Two narrower checks use the same setup:
+
+```sh
+node tests/drive.mjs    /tmp/shots   # get in a car, drive, raise the heat, get out
+node tests/daynight.mjs /tmp/shots   # window and lamp glow across the day
+```
+
+Frame rate reported by these is meaningless — it is a software rasteriser —
+but `F3` in a real browser shows live draw calls and triangle counts.
 
 ---
 
