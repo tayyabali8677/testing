@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liberty Grid</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0c10; }
+  body { font: 14px/1.4 "Segoe UI", system-ui, sans-serif; color: #e8ecf2; }
+  #game { display: block; width: 100vw; height: 100vh; cursor: crosshair; }
+
+  #overlay {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at center, rgba(18,22,30,.82), rgba(5,6,9,.96));
+    backdrop-filter: blur(3px); text-align: center; z-index: 10;
+  }
+  #overlay.hidden { display: none; }
+  .panel { max-width: 560px; padding: 28px 34px; }
+  .panel h1 {
+    margin: 0 0 4px; font-size: 46px; letter-spacing: 6px; text-transform: uppercase;
+    color: #ffd34d; text-shadow: 0 3px 0 #6b4f00, 0 0 30px rgba(255,211,77,.35);
+  }
+  .panel .sub { margin: 0 0 22px; letter-spacing: 3px; font-size: 12px; color: #8b97a8; text-transform: uppercase; }
+  .keys { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; text-align: left; margin: 0 auto 24px; width: max-content; }
+  .keys b { color: #ffd34d; font-weight: 600; white-space: nowrap; }
+  .keys span { color: #b9c3d0; }
+  .start { font-size: 13px; letter-spacing: 2px; color: #7fe08a; text-transform: uppercase; animation: blink 1.4s infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div id="overlay">
+  <div class="panel">
+    <h1>Liberty Grid</h1>
+    <p class="sub">an open city, a fast car, bad decisions</p>
+    <div class="keys">
+      <b>W A S D</b><span>walk / drive</span>
+      <b>Mouse</b><span>aim</span>
+      <b>Click / Space</b><span>shoot</span>
+      <b>F</b><span>enter or exit a car</span>
+      <b>Shift</b><span>sprint / handbrake</span>
+      <b>Tab</b><span>big map</span>
+    </div>
+    <p class="start">click to start</p>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
