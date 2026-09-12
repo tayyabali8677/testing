@@ -59,6 +59,12 @@ export class Vehicle {
     this.wheelRadius = this._measureWheel();
     this.seat = inst.nodes.get("Seat") || null;
 
+    // Which way a wheel must turn depends on where its local X axis ends up.
+    // A third-party model turned 180 degrees to face our forward has its X
+    // axis mirrored, so its wheels turn the opposite way from ours.
+    const rotY = Math.abs(Math.round(((meta && meta.rotateY) || 0) / 180));
+    this.wheelAxisSign = rotY % 2 === 1 ? -1 : 1;
+
     this.x = opts.x || 0;
     this.z = opts.z || 0;
     this.y = city ? city.groundHeight(this.x, this.z) : 0;
@@ -331,12 +337,16 @@ export class Vehicle {
     }
 
     const steerAngle = this.steerVisual * 0.5;
+    // Driving forward carries the wheel's contact patch backwards, which is a
+    // negative rotation about its own X axis. Getting this sign wrong is easy
+    // to miss in a still frame and obvious the moment the car moves.
+    const spin = -this.wheelSpin * this.wheelAxisSign;
     for (const [tag, wheel] of Object.entries(this.wheels)) {
       if (!wheel) continue;
       wheel.rotation.set(0, 0, 0);
       if (tag === "FL" || tag === "FR") wheel.rotation.y = steerAngle;
       // Wheels are modelled with their axle along X, so spin is about X.
-      wheel.rotation.x = this.wheelSpin;
+      wheel.rotation.x = spin;
     }
   }
 

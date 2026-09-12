@@ -11,6 +11,12 @@ live here:
 Nothing is downloaded at runtime. three.js is vendored, the models are in the
 repo, and the audio is synthesised in the browser.
 
+Models come from two places: a Blender pipeline in `tools/blender/` that
+generates everything from code, and a set of public-domain (CC0) packs from
+[Kenney](https://kenney.nl) staged into `assets/models/custom/`. The Kenney
+models override the generated ones by key, so deleting that folder falls back
+to the generated set and the game still runs.
+
 ---
 
 ## Running it
@@ -84,7 +90,19 @@ blender --background --python tools/blender/build_all.py
 
 Build one family at a time by naming it: `python3 tools/blender/build_all.py vehicles`.
 
-Current library: 50 assets, ~44k triangles, 2.7 MB total.
+Current generated library: 50 assets, ~44k triangles, 2.7 MB total.
+
+### Third-party assets
+
+```sh
+python3 tools/fetch_kenney.py     # downloads and stages 46 CC0 models
+```
+
+This pulls Kenney's Car Kit, Blocky Characters and both City Kits, all
+Creative Commons Zero, and writes `assets/models/custom/index.json`. The
+script refuses to stage a pack whose page no longer states CC0, so a licence
+change upstream fails loudly instead of passing silently. Credits are in
+`assets/models/custom/ATTRIBUTION.md`.
 
 ### Asset contracts
 
@@ -106,23 +124,34 @@ Every system uses a heading `θ` whose forward vector is `(-sin θ, 0, -cos θ)`
 
 ## Using models from elsewhere
 
-The pipeline is glTF, so anything that exports `.glb` drops straight in —
-including AI model generators like Meshy, which are far better than procedural
-code at organic shapes (faces, bodies, clothing) even though code wins on
-hard-surface things like vehicles and buildings.
+Anything that exports glTF 2.0 drops in, including AI generators like Meshy,
+which beat procedural code at organic shapes (faces, bodies, clothing) even
+though code wins on hard-surface things like vehicles and buildings.
 
-Put the file in `assets/models/custom/` and list it in
-`assets/models/custom/index.json`:
+Downloaded models never share this project's conventions, so the loader adapts
+them instead of demanding they be re-exported. Per entry you can declare a
+rotation (most kits face +Z, this faces -Z), a target size on any axis, and a
+mapping from their node and clip names onto the ones the engine expects:
 
 ```json
-[
-  { "file": "my_character.glb", "key": "char_player", "category": "characters" }
-]
+{
+  "key": "char_player",
+  "file": "kenney/blocky-characters/character-a.glb",
+  "category": "characters",
+  "rotateY": 180,
+  "fit": { "axis": "y", "size": 1.8 },
+  "nodes": { "Head": "head", "Arm_R": "arm-right" },
+  "clips": { "Idle": "idle", "Walk": "walk", "Run": "sprint" }
+}
 ```
 
 Reusing a generated key replaces that asset everywhere; a new key adds an
-extra option. For a character to animate it needs the node names and clips
-from the table above — see `assets/models/custom/README.md`.
+extra option. Full field reference in `assets/models/custom/README.md`.
+
+One limitation worth knowing: these rigs are node hierarchies, not skinned
+meshes. A skinned character (most Mixamo exports) loads but will not clone
+correctly, because that needs `SkeletonUtils.clone()`. Node-hierarchy rigs
+like Kenney's work today.
 
 ---
 
@@ -187,6 +216,12 @@ frame, including the ones behind you.
 **Traffic uses pure pursuit along the lane line.** Steering at the next
 junction makes cars cut the corner onto the pavement, and at a fraction of
 their top speed they reach a 60 m junction far too fast to turn at all.
+
+**Clips from different authors are harmonised on load.** Authors leave tracks
+out of clips that do not need them, and Kenney's `idle` animates the arms but
+not the legs. Through an AnimationMixer that is a bug: with no action driving
+a node it keeps whatever the last clip left there, so a character that stops
+walking freezes mid-stride from the waist down.
 
 **Combat is hitscan, resolved walls-first.** The nearest wall is found before
 any entity is tested, so nothing can be shot through a building, and buildings

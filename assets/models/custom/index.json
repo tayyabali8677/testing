@@ -1,1 +1,862 @@
-[]
+[
+  {
+    "key": "veh_sedan",
+    "file": "kenney/car-kit/sedan.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.4
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_sports",
+    "file": "kenney/car-kit/sedan-sports.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.3
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_muscle",
+    "file": "kenney/car-kit/hatchback-sports.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.4
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_police",
+    "file": "kenney/car-kit/police.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.6
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_taxi",
+    "file": "kenney/car-kit/taxi.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.5
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_van",
+    "file": "kenney/car-kit/van.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.9
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_truck",
+    "file": "kenney/car-kit/truck.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 6.2
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_suv",
+    "file": "kenney/car-kit/suv.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.7
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_suv_luxury",
+    "file": "kenney/car-kit/suv-luxury.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.9
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_delivery",
+    "file": "kenney/car-kit/delivery.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 5.2
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_ambulance",
+    "file": "kenney/car-kit/ambulance.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 5.4
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_firetruck",
+    "file": "kenney/car-kit/firetruck.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 6.6
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_garbage",
+    "file": "kenney/car-kit/garbage-truck.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 6.4
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "veh_race",
+    "file": "kenney/car-kit/race.glb",
+    "category": "vehicles",
+    "rotateY": 180,
+    "fit": {
+      "axis": "z",
+      "size": 4.2
+    },
+    "nodes": {
+      "Wheel_FL": "wheel-front-left",
+      "Wheel_FR": "wheel-front-right",
+      "Wheel_RL": "wheel-back-left",
+      "Wheel_RR": "wheel-back-right",
+      "Body": "body"
+    },
+    "credit": "Kenney Car Kit (CC0)"
+  },
+  {
+    "key": "char_player",
+    "file": "kenney/blocky-characters/character-a.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_cop",
+    "file": "kenney/blocky-characters/character-b.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_male",
+    "file": "kenney/blocky-characters/character-c.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_female",
+    "file": "kenney/blocky-characters/character-d.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_worker",
+    "file": "kenney/blocky-characters/character-e.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_business",
+    "file": "kenney/blocky-characters/character-f.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_g",
+    "file": "kenney/blocky-characters/character-g.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_h",
+    "file": "kenney/blocky-characters/character-h.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_i",
+    "file": "kenney/blocky-characters/character-i.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_j",
+    "file": "kenney/blocky-characters/character-j.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_k",
+    "file": "kenney/blocky-characters/character-k.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_l",
+    "file": "kenney/blocky-characters/character-l.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_m",
+    "file": "kenney/blocky-characters/character-m.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_n",
+    "file": "kenney/blocky-characters/character-n.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_o",
+    "file": "kenney/blocky-characters/character-o.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "char_p",
+    "file": "kenney/blocky-characters/character-p.glb",
+    "category": "characters",
+    "rotateY": 180,
+    "fit": {
+      "axis": "y",
+      "size": 1.8
+    },
+    "nodes": {
+      "Hips": "root",
+      "Spine": "torso",
+      "Head": "head",
+      "Arm_L": "arm-left",
+      "Arm_R": "arm-right",
+      "Leg_L": "leg-left",
+      "Leg_R": "leg-right",
+      "Hand_R": "arm-right",
+      "Forearm_R": "arm-right"
+    },
+    "clips": {
+      "Idle": "idle",
+      "Walk": "walk",
+      "Run": "sprint"
+    },
+    "credit": "Kenney Blocky Characters (CC0)"
+  },
+  {
+    "key": "bld_k_tower_a",
+    "file": "kenney/city-kit-commercial/building-skyscraper-a.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 16.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_tower_b",
+    "file": "kenney/city-kit-commercial/building-skyscraper-b.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 15.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_tower_c",
+    "file": "kenney/city-kit-commercial/building-skyscraper-c.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 17.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_tower_d",
+    "file": "kenney/city-kit-commercial/building-skyscraper-d.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 15.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_shop_a",
+    "file": "kenney/city-kit-commercial/building-a.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 13.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_shop_b",
+    "file": "kenney/city-kit-commercial/building-c.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 13.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_shop_c",
+    "file": "kenney/city-kit-commercial/building-f.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 14.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_shop_d",
+    "file": "kenney/city-kit-commercial/building-j.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 14.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_house_a",
+    "file": "kenney/city-kit-suburban/building-type-a.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 11.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_house_b",
+    "file": "kenney/city-kit-suburban/building-type-e.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 11.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_house_c",
+    "file": "kenney/city-kit-suburban/building-type-j.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 12.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "bld_k_house_d",
+    "file": "kenney/city-kit-suburban/building-type-n.glb",
+    "category": "buildings",
+    "fit": {
+      "axis": "x",
+      "size": 12.0
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "prop_k_tree_large",
+    "file": "kenney/city-kit-suburban/tree-large.glb",
+    "category": "props",
+    "fit": {
+      "axis": "y",
+      "size": 6.5
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "prop_k_tree_small",
+    "file": "kenney/city-kit-suburban/tree-small.glb",
+    "category": "props",
+    "fit": {
+      "axis": "y",
+      "size": 4.2
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "prop_k_planter",
+    "file": "kenney/city-kit-suburban/planter.glb",
+    "category": "props",
+    "fit": {
+      "axis": "y",
+      "size": 1.6
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  },
+  {
+    "key": "prop_k_fence",
+    "file": "kenney/city-kit-suburban/fence.glb",
+    "category": "props",
+    "fit": {
+      "axis": "y",
+      "size": 2.4
+    },
+    "center": true,
+    "credit": "Kenney City Kit (CC0)"
+  }
+]

@@ -102,8 +102,152 @@ export class Assets {
     return this.templates;
   }
 
+  /**
+   * Make a third-party model usable.
+   *
+   * Downloaded assets never share our conventions: they arrive at their own
+   * scale, facing their own direction, with their own node and clip names.
+   * Rather than requiring every model be re-exported by hand, the custom
+   * index describes the differences and this adapts the model at load:
+   *
+   *   rotateY  degrees to turn the model so it faces -Z like ours do
+   *   fit      { axis, size } scales uniformly until that axis measures size
+   *   ground   drop the model so its lowest point sits at y = 0
+   *   nodes    { ourName: theirName } aliases, so engine lookups resolve
+   *   clips    { Idle: "idle", ... } renames animations to what we expect
+   *
+   * The original hierarchy is left intact inside a wrapper, so animation
+   * tracks still bind by their own names.
+   */
+  _adapt(gltf, entry) {
+    const inner = gltf.scene;
+    const root = new THREE.Group();
+    root.name = "Root";
+    root.add(inner);
+
+    if (entry.rotateY) {
+      inner.rotation.y = entry.rotateY * Math.PI / 180;
+    }
+
+    if (entry.fit && entry.fit.size > 0) {
+      inner.updateMatrixWorld(true);
+      const size = new THREE.Box3().setFromObject(inner).getSize(new THREE.Vector3());
+      const axis = entry.fit.axis || "y";
+      const current = size[axis];
+      if (current > 1e-6) inner.scale.setScalar(entry.fit.size / current);
+    }
+
+    if (entry.ground !== false) {
+      inner.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(inner);
+      inner.position.y -= box.min.y;
+      if (entry.center) {
+        const c = box.getCenter(new THREE.Vector3());
+        inner.position.x -= c.x;
+        inner.position.z -= c.z;
+      }
+    }
+
+    // Rename animations to the names the engine asks for.
+    const clips = gltf.animations || [];
+    if (entry.clips) {
+      for (const [ours, theirs] of Object.entries(entry.clips)) {
+        const clip = clips.find((c) => c.name === theirs);
+        if (clip) clip.name = ours;
+        else console.warn(`custom asset ${entry.file}: no clip named "${theirs}"`);
+      }
+    }
+
+    if (entry.clips) this._harmoniseClips(root, clips, Object.keys(entry.clips));
+
+    // Aliases are resolved per instance, since each clone has its own nodes.
+    const aliases = entry.nodes ? { ...entry.nodes } : null;
+    if (aliases) {
+      const present = new Set();
+      inner.traverse((o) => { if (o.name) present.add(o.name); });
+      for (const [ours, theirs] of Object.entries(aliases)) {
+        if (!present.has(theirs)) {
+          console.warn(`custom asset ${entry.file}: no node "${theirs}" for ${ours}`);
+        }
+      }
+    }
+
+    root.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(root);
+    const size = box.getSize(new THREE.Vector3());
+    const bbox = {
+      min: [box.min.x, box.min.y, box.min.z],
+      max: [box.max.x, box.max.y, box.max.z],
+      size: [size.x, size.y, size.z],
+    };
+
+    return { root, clips, aliases, bbox };
+  }
+
+  /**
+   * Give a set of clips the same track coverage.
+   *
+   * Authors routinely leave tracks out of a clip that does not need them:
+   * Kenney's `idle` animates the arms but not the legs. Blended through an
+   * AnimationMixer that is a bug, because with no action driving a node it
+   * simply keeps whatever the previous clip left there, so a character that
+   * stops walking freezes mid-stride from the waist down.
+   *
+   * Any track present in one clip but missing from another is added to the
+   * other as a constant at the node's rest pose.
+   */
+  _harmoniseClips(root, clips, wanted) {
+    const set = wanted
+      .map((name) => clips.find((c) => c.name === name))
+      .filter(Boolean);
+    if (set.length < 2) return;
+
+    const union = new Set();
+    for (const clip of set) {
+      for (const track of clip.tracks) union.add(track.name);
+    }
+
+    for (const clip of set) {
+      const have = new Set(clip.tracks.map((t) => t.name));
+      for (const trackName of union) {
+        if (have.has(trackName)) continue;
+
+        const dot = trackName.lastIndexOf(".");
+        if (dot < 0) continue;
+        const nodeName = trackName.slice(0, dot);
+        const prop = trackName.slice(dot + 1);
+
+        const node = root.getObjectByName(nodeName);
+        if (!node || !node[prop] || typeof node[prop].toArray !== "function") {
+          continue;
+        }
+
+        const rest = node[prop].toArray();
+        const duration = clip.duration > 0 ? clip.duration : 1;
+        const times = new Float32Array([0, duration]);
+        const values = new Float32Array([...rest, ...rest]);
+        const Track = prop === "quaternion"
+          ? THREE.QuaternionKeyframeTrack
+          : THREE.VectorKeyframeTrack;
+
+        clip.tracks.push(new Track(trackName, times, values));
+      }
+    }
+  }
+
   _register(key, gltf, meta) {
-    const scene = gltf.scene;
+    if (meta && meta.custom) {
+      const adapted = this._adapt(gltf, meta);
+      adapted.root.name = key;
+      this._install(key, adapted.root, adapted.clips, {
+        ...meta, bbox: adapted.bbox,
+      }, adapted.aliases);
+      return;
+    }
+    this._install(key, gltf.scene, gltf.animations || [], meta, null);
+  }
+
+  _install(key, scene, clips, meta, aliases) {
     scene.name = key;
 
     scene.traverse((o) => {
@@ -127,7 +271,7 @@ export class Assets {
       }
     });
 
-    this.templates.set(key, { scene, clips: gltf.animations || [], meta });
+    this.templates.set(key, { scene, clips, meta, aliases });
   }
 
   /** @param night 0 by day, 1 at full dark. */
@@ -171,6 +315,15 @@ export class Assets {
     const root = t.scene.clone(true);
     const nodes = new Map();
     root.traverse((o) => { if (o.name) nodes.set(o.name, o); });
+
+    // Aliases let a third-party rig answer to our node names without
+    // renaming anything, which would break its own animation bindings.
+    if (t.aliases) {
+      for (const [ours, theirs] of Object.entries(t.aliases)) {
+        const node = nodes.get(theirs);
+        if (node && !nodes.has(ours)) nodes.set(ours, node);
+      }
+    }
 
     return { key, root, nodes, clips: t.clips, meta: t.meta };
   }

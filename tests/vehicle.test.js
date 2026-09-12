@@ -3,6 +3,7 @@ import { MockAssets } from "./mock-assets.js";
 import { City } from "../src/city.js";
 import { Vehicle } from "../src/vehicle.js";
 import { makeRng, forwardX, forwardZ } from "../src/mathx.js";
+import * as THREE from "three";
 
 const DT = 1 / 60;
 
@@ -164,6 +165,62 @@ suite("vehicle physics", () => {
     Vehicle.collidePair(car, truck);
     assert(Math.abs(car.x - cx) > Math.abs(truck.x - tx),
       "the truck was shoved further than the sports car");
+  });
+
+  test("wheels roll the right way for the direction of travel", () => {
+    // Track a marker on the wheel rim. Driving forward must carry the point
+    // at the bottom of the wheel backwards relative to the car, the way a
+    // real contact patch moves. The sign is invisible in a still frame and
+    // unmistakable in motion, so assert it rather than eyeball it.
+    const v = new Vehicle(assets, null, "veh_sedan", {});
+    v.setPosition(0, 0, 0);
+
+    const wheel = v.wheels.FL;
+    const marker = new THREE.Object3D();
+    marker.position.set(0, -v.wheelRadius, 0);   // bottom of the wheel
+    wheel.add(marker);
+
+    drive(v, { throttle: 1 }, 2);
+    assert(v.speed > 3, "car did not get moving");
+
+    // Measure in the car's own frame. In world space the car's translation
+    // swamps the wheel's rotation and tells you nothing.
+    const local = new THREE.Vector3();
+    const sample = () => {
+      v.root.updateWorldMatrix(true, true);
+      marker.getWorldPosition(local);
+      v.root.worldToLocal(local);
+      return local.z;
+    };
+
+    const before = sample();
+    const spun = v.wheelSpin;
+    for (let i = 0; i < 3; i++) v.update(DT, { throttle: 1 });
+    assert(v.wheelSpin > spun, "wheel did not advance");
+    const after = sample();
+
+    // The car drives along its own -Z, so the contact patch must travel
+    // backwards, along +Z in car space.
+    assert(after > before + 1e-6,
+      `contact patch moved ${(after - before).toFixed(4)} on the car's Z; ` +
+      `it should move backwards (+Z) while driving forwards (-Z)`);
+  });
+
+  test("a model rotated to face our forward still rolls correctly", () => {
+    // Third-party assets are turned 180 degrees to match our facing, which
+    // mirrors the wheel's local X axis; the spin sign has to follow.
+    const normal = new Vehicle(assets, null, "veh_sedan", {});
+    const flipped = new Vehicle(assets, null, "veh_sedan", {});
+    flipped.wheelAxisSign = -1;
+    normal.setPosition(0, 0, 0);
+    flipped.setPosition(0, 0, 0);
+    drive(normal, { throttle: 1 }, 1);
+    drive(flipped, { throttle: 1 }, 1);
+    assert(
+      Math.sign(normal.wheels.FL.rotation.x) ===
+      -Math.sign(flipped.wheels.FL.rotation.x),
+      "a mirrored model should spin its wheels the opposite way"
+    );
   });
 
   test("wheels spin in proportion to speed", () => {
