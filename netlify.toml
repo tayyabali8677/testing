@@ -1,0 +1,40 @@
+# Static site, no build step: the game is plain ES modules and vendored
+# three.js, so Netlify just needs to serve the repo as-is.
+
+[build]
+  publish = "."
+  # Nothing to compile. If you ever add a real build step, put it here and
+  # change `publish` to its output directory.
+  command = ""
+
+[[headers]]
+  # .glb is a binary format GLTFLoader parses from an ArrayBuffer; the byte
+  # content is correct regardless of Content-Type, but naming it explicitly
+  # avoids some CDNs guessing text/plain and mangling the response.
+  for = "/assets/models/**/*.glb"
+  [headers.values]
+    Content-Type = "model/gltf-binary"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/vendor/three/**"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  # Must never be cached long-term or a stale worker can outlive a deploy
+  # and keep serving old cached responses indefinitely.
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"

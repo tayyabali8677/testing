@@ -2,53 +2,86 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Liberty Grid</title>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0c10">
+<meta name="apple-mobile-web-app-title" content="Liberty Grid">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ctext y=%2714%27 font-size=%2714%27%3E%F0%9F%9A%97%3C/text%3E%3C/svg%3E">
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0c10; }
-  body { font: 14px/1.4 "Segoe UI", system-ui, sans-serif; color: #e8ecf2; }
-  #game { display: block; width: 100vw; height: 100vh; cursor: crosshair; }
+  html, body {
+    margin: 0; min-height: 100%; background: #0a0c10; color: #e8ecf2;
+    font: 14px/1.5 "Segoe UI", system-ui, sans-serif;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100dvh; padding: 24px;
+    background: radial-gradient(ellipse at top, #131722, #05060a 70%);
+  }
+  .wrap { max-width: 480px; width: 100%; text-align: center; }
+  h1 {
+    margin: 0 0 4px; font-size: 42px; letter-spacing: 6px; text-transform: uppercase;
+    color: #ffd34d; text-shadow: 0 3px 0 #6b4f00, 0 0 30px rgba(255,211,77,.3);
+  }
+  .sub { margin: 0 0 32px; letter-spacing: 2px; font-size: 11px; color: #8b97a8;
+    text-transform: uppercase; }
 
-  #overlay {
-    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at center, rgba(18,22,30,.82), rgba(5,6,9,.96));
-    backdrop-filter: blur(3px); text-align: center; z-index: 10;
+  .cards { display: flex; flex-direction: column; gap: 14px; }
+  a.card {
+    display: block; text-decoration: none; color: inherit;
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 14px; padding: 20px 22px; text-align: left;
+    transition: background .15s, border-color .15s, transform .1s;
   }
-  #overlay.hidden { display: none; }
-  .panel { max-width: 560px; padding: 28px 34px; }
-  .panel h1 {
-    margin: 0 0 4px; font-size: 46px; letter-spacing: 6px; text-transform: uppercase;
-    color: #ffd34d; text-shadow: 0 3px 0 #6b4f00, 0 0 30px rgba(255,211,77,.35);
+  a.card:hover { background: rgba(255,255,255,.07); border-color: rgba(255,211,77,.4); }
+  a.card:active { transform: scale(0.98); }
+  .card .tag {
+    display: inline-block; font-size: 10px; letter-spacing: 1.5px; font-weight: 700;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 5px; margin-bottom: 10px;
   }
-  .panel .sub { margin: 0 0 22px; letter-spacing: 3px; font-size: 12px; color: #8b97a8; text-transform: uppercase; }
-  .keys { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; text-align: left; margin: 0 auto 24px; width: max-content; }
-  .keys b { color: #ffd34d; font-weight: 600; white-space: nowrap; }
-  .keys span { color: #b9c3d0; }
-  .start { font-size: 13px; letter-spacing: 2px; color: #7fe08a; text-transform: uppercase; animation: blink 1.4s infinite; }
-  @keyframes blink { 50% { opacity: .25; } }
+  .card.primary .tag { background: #ffd34d; color: #1a1400; }
+  .card.secondary .tag { background: rgba(255,255,255,.12); color: #cfd6e2; }
+  .card h2 { margin: 0 0 4px; font-size: 19px; }
+  .card p { margin: 0; font-size: 13px; color: #9aa5b4; }
+
+  footer { margin-top: 28px; font-size: 12px; color: #5c6674; }
+  footer a { color: #8b97a8; }
 </style>
 </head>
 <body>
-<canvas id="game"></canvas>
-
-<div id="overlay">
-  <div class="panel">
+  <div class="wrap">
     <h1>Liberty Grid</h1>
     <p class="sub">an open city, a fast car, bad decisions</p>
-    <div class="keys">
-      <b>W A S D</b><span>walk / drive</span>
-      <b>Mouse</b><span>aim</span>
-      <b>Click / Space</b><span>shoot</span>
-      <b>F</b><span>enter or exit a car</span>
-      <b>Shift</b><span>sprint / handbrake</span>
-      <b>Tab</b><span>big map</span>
-    </div>
-    <p class="start">click to start</p>
-  </div>
-</div>
 
-<script src="game.js"></script>
+    <div class="cards">
+      <a class="card primary" href="play.html">
+        <span class="tag">3D &middot; recommended</span>
+        <h2>Play Liberty Grid 3D</h2>
+        <p>Full open city, driving, shooting, police. Works on phone or desktop &mdash; touch controls appear automatically.</p>
+      </a>
+
+      <a class="card secondary" href="classic2d.html">
+        <span class="tag">2D &middot; original prototype</span>
+        <h2>Play the classic top-down version</h2>
+        <p>The original single-file prototype. Desktop with mouse and keyboard.</p>
+      </a>
+    </div>
+
+    <footer>No install required — or add it to your home screen, your call.</footer>
+  </div>
+
+<script>
+  if ("serviceWorker" in navigator) {
+    addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    });
+  }
+</script>
 </body>
 </html>

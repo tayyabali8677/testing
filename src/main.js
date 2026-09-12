@@ -6,6 +6,7 @@ import { World } from "./renderer.js";
 import { Assets } from "./assets.js";
 import { City } from "./city.js";
 import { Input } from "./input.js";
+import { TouchControls, hasTouchSupport } from "./touch.js";
 import { CameraRig } from "./camera.js";
 import { Character, State, HEIGHT as CHAR_HEIGHT } from "./character.js";
 import { Vehicle } from "./vehicle.js";
@@ -101,8 +102,18 @@ class Game {
     });
 
     this._initStreetLights();
-    this.hud = new Hud(this.city);
+    // A touch layout claims the bottom-right quadrant for the joystick and
+    // buttons, so the minimap runs smaller and moves out of that corner (see
+    // the body.touch-controls rules in src/hud.js).
+    this.hud = new Hud(this.city, {
+      minimapSize: hasTouchSupport() ? 108 : 176,
+    });
     this.input = new Input(this.canvas);
+    this.touch = new TouchControls(this.canvas, this.input, {
+      onWeaponCycle: () => {
+        if (this.loadout.cycle(1)) this.weaponRig.show(this.loadout.current);
+      },
+    });
     this.camera = new CameraRig(this.world.camera, this.city);
     this.camera.snapBehind(this.player);
 
@@ -313,7 +324,10 @@ class Game {
     const driving = this.player.state === State.DRIVING;
 
     const delta = input.takeMouseDelta();
-    if (input.locked) this.camera.look(delta.dx, delta.dy);
+    // Touch drives look through the same delta, since mobile browsers do
+    // not grant pointer lock; touchActive is set the first time a look-drag
+    // happens and simply stays true afterwards.
+    if (input.locked || input.touchActive) this.camera.look(delta.dx, delta.dy);
     if (delta.wheel) this.camera.zoomBy(delta.wheel);
 
     if (input.pressed("Tab")) this.hud.toggleBigMap();
@@ -584,6 +598,7 @@ class Game {
       !driving && car ? "<b>F</b> to get in" :
       driving ? "<b>F</b> to get out" : null
     );
+    this.touch.setDriving(driving);
 
     this.hud.update(dt, {
       player: this.player,
@@ -604,7 +619,34 @@ class Game {
 
 // --------------------------------------------------------------------------
 
+/**
+ * Best-effort landscape lock for phones.
+ *
+ * The Screen Orientation API only grants a lock inside fullscreen on most
+ * mobile browsers (and not at all on iOS Safari, which has no arbitrary
+ * fullscreen API either), so this tries fullscreen first and treats the
+ * whole thing as optional. The CSS rotate-hint in play.html is what actually
+ * carries devices this can't reach; this is a nicety for the ones it can.
+ */
+function _tryLockLandscape() {
+  if (!hasTouchSupport()) return;
+  const el = document.documentElement;
+  const request = el.requestFullscreen || el.webkitRequestFullscreen;
+  if (!request) return;
+
+  Promise.resolve(request.call(el))
+    .then(() => screen.orientation && screen.orientation.lock &&
+      screen.orientation.lock("landscape"))
+    .catch(() => {});
+}
+
 async function boot() {
+  // Set this before anything else, not inside Game.init(), so the correct
+  // control legend and the rotate-hint media query both see the right
+  // device type from the very first paint — otherwise a touch device shows
+  // desktop key hints for however long asset loading takes.
+  if (hasTouchSupport()) document.body.classList.add("touch-controls");
+
   const canvas = document.getElementById("game");
   const statusEl = document.getElementById("status");
   const overlay = document.getElementById("overlay");
@@ -634,14 +676,18 @@ async function boot() {
   }
 
   startBtn.disabled = false;
-  startBtn.textContent = "Click to play";
+  startBtn.textContent = hasTouchSupport() ? "Tap to play" : "Click to play";
   startBtn.addEventListener("click", () => {
     overlay.classList.add("hidden");
     game.audio.init();
+    // No-ops harmlessly on touch devices, which do not grant pointer lock;
+    // TouchControls supplies look input through the same path instead.
     game.input.requestLock();
+    _tryLockLandscape();
   });
 
-  // Re-lock the pointer after the player presses escape.
+  // Re-lock the pointer after the player presses escape. Touch devices never
+  // lock in the first place, so this is a no-op for them.
   canvas.addEventListener("click", () => {
     if (!overlay.classList.contains("hidden")) return;
     game.input.requestLock();

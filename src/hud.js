@@ -73,6 +73,17 @@ const CSS = `
 .minimap.big { border-radius: 10px; right: 50%; bottom: 50%;
   transform: translate(50%, 50%); }
 
+/* touch.js claims the whole bottom-right quadrant for the joystick and
+   action buttons, so on touch the minimap and ammo readout both move out
+   of that corner. touch.js adds "touch-controls" to <body>; hud.js does not
+   otherwise know touch controls exist, and doesn't need to. */
+body.touch-controls .minimap:not(.big) {
+  right: auto; left: 14px; bottom: auto; top: 64px;
+}
+body.touch-controls .hud-br {
+  right: auto; left: 14px; bottom: auto; top: 186px; text-align: left;
+}
+
 .stats { position: absolute; left: 20px; top: 18px; font: 500 12px/1.5
   ui-monospace, "SF Mono", Menlo, Consolas, monospace; color: #9fb4c8;
   background: rgba(8,10,14,.55); border-radius: 6px; padding: 7px 11px;

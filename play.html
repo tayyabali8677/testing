@@ -2,15 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0c10">
+<meta name="apple-mobile-web-app-title" content="Liberty Grid">
 <title>Liberty Grid 3D</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ctext y=%2714%27 font-size=%2714%27%3E%F0%9F%9A%97%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/icon-180.png">
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0c10; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0c10;
+    overscroll-behavior: none; touch-action: none; }
   body { font: 14px/1.5 "Segoe UI", system-ui, sans-serif; color: #e8ecf2; }
-  #game { display: block; width: 100vw; height: 100vh; }
+  #game { display: block; width: 100vw; height: 100vh; height: 100dvh; }
 
   #overlay {
     position: fixed; inset: 0; z-index: 20; display: flex;
@@ -53,6 +61,48 @@
   }
 
   .hint { margin-top: 18px; font-size: 12px; color: #6c7787; }
+
+  /* touch-controls is added to <body> by src/touch.js once it detects a
+     touchscreen, before the overlay is ever shown. */
+  .keys-touch { display: none; }
+  body.touch-controls .keys-desktop { display: none; }
+  body.touch-controls .keys-touch { display: grid; }
+
+  /*
+   * This is a driving game: it plays far better with a wide, short frame
+   * than a tall, narrow one, so a phone held upright is nudged to rotate.
+   * Nudged, not forced — dismissible, and it never reappears once dismissed
+   * this session, because a genuine portrait preference is still valid.
+   */
+  #rotate-hint {
+    display: none;   /* shown only by the media query below, unless dismissed */
+    position: fixed; inset: 0; z-index: 30;
+    align-items: center; justify-content: center; flex-direction: column;
+    gap: 18px; text-align: center; padding: 32px;
+    background: #05060a; color: #e8ecf2;
+    font: 14px/1.5 "Segoe UI", system-ui, sans-serif;
+  }
+  #rotate-hint .icon {
+    width: 54px; height: 34px; border: 3px solid #ffd34d; border-radius: 6px;
+    animation: rotate-nudge 1.6s ease-in-out infinite;
+  }
+  #rotate-hint p { margin: 0; max-width: 280px; color: #aab4c2; font-size: 13px; }
+  #rotate-hint button {
+    font: 600 12px "Segoe UI", system-ui, sans-serif; letter-spacing: 1px;
+    text-transform: uppercase; color: #8b97a8; background: none;
+    border: 1px solid rgba(255,255,255,.2); border-radius: 7px;
+    padding: 9px 18px; cursor: pointer;
+  }
+  @keyframes rotate-nudge {
+    0%, 15% { transform: rotate(0deg); }
+    45%, 100% { transform: rotate(90deg); }
+  }
+  /* Only on a phone-shaped touch screen held upright — a portrait tablet or
+     a rotated desktop monitor is not what this is guarding against — and
+     never once the player has dismissed it (JS adds .dismissed). */
+  @media (orientation: portrait) and (pointer: coarse) and (max-width: 699px) {
+    #rotate-hint:not(.dismissed) { display: flex; }
+  }
 </style>
 
 <!--
@@ -72,12 +122,21 @@
 <body>
 <canvas id="game"></canvas>
 
+<div id="rotate-hint">
+  <div class="icon"></div>
+  <div>
+    <strong>Turn your phone sideways</strong>
+    <p>Liberty Grid plays much better in landscape — wider view, room for the controls.</p>
+  </div>
+  <button id="rotate-dismiss">Play in portrait anyway</button>
+</div>
+
 <div id="overlay">
   <div class="panel">
     <h1>Liberty Grid</h1>
     <p class="sub">an open city, a fast car, bad decisions</p>
 
-    <div class="keys">
+    <div class="keys keys-desktop">
       <b>W A S D</b><span>move / drive</span>
       <b>Mouse</b><span>look</span>
       <b>Shift</b><span>sprint</span>
@@ -92,6 +151,17 @@
       <b>M</b><span>mute</span>
     </div>
 
+    <div class="keys keys-touch">
+      <b>Left thumb</b><span>drag to move / steer</span>
+      <b>Push further</b><span>sprint</span>
+      <b>Right side</b><span>drag to look around</span>
+      <b>FIRE</b><span>shoot</span>
+      <b>AIM</b><span>aim down sights / handbrake</span>
+      <b>ENTER</b><span>get in or out of a car</span>
+      <b>WPN</b><span>switch weapon</span>
+      <b>MAP</b><span>toggle full map</span>
+    </div>
+
     <button id="start" disabled>Loading</button>
     <div id="status">Starting...</div>
     <p class="hint">
@@ -101,6 +171,22 @@
   </div>
 </div>
 
+<script>
+  // Dismissing the rotate nudge just adds a class the CSS media query
+  // already checks for — see the #rotate-hint rule above. Per session only;
+  // reload and a genuinely portrait player sees it again, which is fine.
+  document.getElementById("rotate-dismiss").addEventListener("click", () => {
+    document.getElementById("rotate-hint").classList.add("dismissed");
+  });
+
+  // Installable + offline via the service worker. Safe to skip silently
+  // where unsupported (Safari's PWA story differs, older browsers, etc).
+  if ("serviceWorker" in navigator) {
+    addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    });
+  }
+</script>
 <script type="module" src="src/main.js"></script>
 </body>
 </html>

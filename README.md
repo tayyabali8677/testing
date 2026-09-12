@@ -1,15 +1,17 @@
 # Liberty Grid
 
-An open-city driving and shooting sandbox that runs in a browser. Two versions
-live here:
+An open-city driving and shooting sandbox that runs in a browser, on a phone
+or a desktop, installed or not. Three pages live here:
 
 | | |
 |---|---|
-| `play.html` | **3D.** Procedural city, drivable traffic, pedestrians, police, missions. Models generated from Blender scripts. |
-| `index.html` | **2D.** The original top-down prototype. Single file, no build step, no server. |
+| `index.html` | Landing page — pick a version. |
+| `play.html` | **3D.** Procedural city, drivable traffic, pedestrians, police, missions. Touch controls appear automatically on a phone. |
+| `classic2d.html` | **2D.** The original top-down prototype. Single file, no build step, no server, desktop only. |
 
 Nothing is downloaded at runtime. three.js is vendored, the models are in the
-repo, and the audio is synthesised in the browser.
+repo, and the audio is synthesised in the browser. It's also installable as a
+PWA, and works offline once installed.
 
 Models come from two places: a Blender pipeline in `tools/blender/` that
 generates everything from code, and a set of public-domain (CC0) packs from
@@ -29,7 +31,30 @@ python3 -m http.server 8080
 # then open http://localhost:8080/play.html
 ```
 
-The 2D version is a plain file — open `index.html` directly.
+The 2D version is a plain file — open `classic2d.html` directly, no server
+needed.
+
+---
+
+## Deploying it
+
+It's a static site — no build step, nothing to compile. Push the repo to
+Netlify (or Vercel, GitHub Pages, Cloudflare Pages, S3, anything that serves
+files) and it works. `netlify.toml` is already set up: publish directory is
+the repo root, no build command, and it sets the right headers for the
+`.glb` models and the service worker.
+
+**Netlify, from the CLI:**
+```sh
+npx netlify-cli deploy --prod
+```
+**Netlify, from the dashboard:** connect the repo, leave the build command
+blank, set the publish directory to `.` (or the repo root), deploy.
+
+Every asset path in the codebase is relative (`assets/models/...`, never
+`/assets/models/...`), so it also works fine from a subpath — a project
+site at `you.github.io/liberty-grid/`, a Netlify deploy preview URL,
+whatever.
 
 ### Controls
 
@@ -56,6 +81,48 @@ means breaking line of sight rather than waiting out a timer.
 
 ---
 
+## Playing on a phone
+
+Open `play.html` on a touchscreen and the on-screen controls appear on their
+own — nothing to toggle. A dynamic joystick appears wherever the left thumb
+lands (move on foot, steer while driving; push it past ~75% of its travel to
+sprint instead of needing a separate button); dragging anywhere else on
+screen looks around; a button cluster in the bottom-right handles fire, aim
+(doubles as the handbrake while driving), reload, weapon switch, and getting
+in or out of a car.
+
+It's a driving game, so it wants **landscape** — wider view, and room for the
+controls without them crowding the HUD. Holding it upright shows a one-time
+nudge to rotate, with a "play in portrait anyway" way out for anyone who'd
+rather not. On Android Chrome, tapping "Tap to play" also tries to go
+fullscreen and lock the screen to landscape; that only works inside
+fullscreen on most mobile browsers and not at all on iOS Safari (no arbitrary
+fullscreen API there), so the CSS nudge is what actually covers every device.
+
+Every touch control works by feeding the exact same input a keyboard and
+mouse would — `setKey("KeyW", true)`, a look-delta, a mouse-button flag —
+through the one `Input` class both paths share. Nothing downstream (vehicle
+physics, aiming, the HUD prompt) knows or cares that a finger was involved;
+see the top of `src/touch.js` for how that's wired.
+
+### Installing it
+
+`play.html` and `index.html` both carry a web app manifest and a service
+worker, so a phone (or desktop Chrome/Edge) can install it like a real app —
+"Add to Home Screen" on iOS Safari, the install icon in Chrome's address bar
+on Android and desktop. Installed, it opens without browser chrome, launches
+in landscape where the platform honours that, and keeps working offline
+after the first load (`sw.js` caches everything: three.js, the game code, the
+models, the icons).
+
+Regenerate the icons (pure Python, no image libraries — see the file for why)
+with:
+```sh
+python3 tools/make_icons.py
+```
+
+---
+
 ## How it fits together
 
 ```
@@ -63,11 +130,17 @@ tools/blender/     asset generation (Python, runs in Blender)
   lib.py             bmesh primitives, materials, rigging, glTF export
   build_*.py         one script per asset family
   build_all.py       runs everything, writes manifest.json
+tools/make_icons.py  PWA icon set, pure Python (no image libraries here)
+tools/fetch_kenney.py CC0 asset packs, staged into assets/models/custom/
 assets/models/     generated .glb files + manifest.json
   custom/            drop-in folder for externally made models
+  icons/             PWA icons (192/512/maskable/apple-touch)
 src/               the game (ES modules, no build step)
-tests/             headless test suite + browser check
+  touch.js           on-screen controls; synthesizes input.js's own API
+tests/             headless test suite + browser checks
 vendor/three/      pinned three.js, so the game works offline
+manifest.webmanifest, sw.js   PWA: installable, offline after first load
+netlify.toml       static-site config: publish dir, headers, no build step
 ```
 
 The engine reads **only** `assets/models/manifest.json`. Nothing in `src/`
@@ -159,7 +232,7 @@ like Kenney's work today.
 
 ```sh
 npm install          # three.js and playwright, for the tests only
-npm test             # 80 headless tests, no browser needed
+npm test             # 82 headless tests, no browser needed
 ```
 
 The suite substitutes box meshes for the real GLBs, so it covers generation,
@@ -181,9 +254,19 @@ It fails on any console error, verifies the game reaches a running state, and
 writes screenshots. Two narrower checks use the same setup:
 
 ```sh
-node tests/drive.mjs    /tmp/shots   # get in a car, drive, raise the heat, get out
-node tests/daynight.mjs /tmp/shots   # window and lamp glow across the day
+node tests/drive.mjs       /tmp/shots   # get in a car, drive, raise the heat, get out
+node tests/daynight.mjs    /tmp/shots   # window and lamp glow across the day
+node tests/touch.mjs       /tmp/shots   # on-screen controls actually drive the game
+node tests/mobile-full.mjs /tmp/shots   # portrait rotate-hint, landscape layout, PWA
 ```
+
+`mobile-full.mjs` is the one that would have caught the button-collision bug
+this project shipped once already: fixed-pixel button offsets that looked
+fine on a tall portrait phone silently overlapped the moment the same screen
+turned 90 degrees and its height dropped to a third of its width. It checks
+every touch control's bounding box against every other, in both orientations,
+and at a deliberately small landscape height (320px) to catch it happening
+again on some phone shorter than whatever this was tested on.
 
 Frame rate reported by these is meaningless — it is a software rasteriser —
 but `F3` in a real browser shows live draw calls and triangle counts.
@@ -226,6 +309,25 @@ walking freezes mid-stride from the waist down.
 **Combat is hitscan, resolved walls-first.** The nearest wall is found before
 any entity is tested, so nothing can be shot through a building, and buildings
 carry their height so a round can pass over a bungalow but not a tower.
+
+**Touch controls synthesize keyboard and mouse input, not a parallel API.**
+`touch.js` calls the same `setKey()` / mouse-button flags / look-delta that a
+real keyboard and mouse produce on `Input`, so vehicle physics, aiming and
+shooting need no idea a finger was involved. The one thing this couldn't
+sidestep: analog joystick position becomes 8-way digital WASD with a
+run-by-pushing-further threshold, since the desktop control scheme it feeds
+into was already digital (a keyboard has no analog axis either), so this is
+no less precise than the input path it reuses.
+
+**The touch button cluster is sized in `vmin`, not fixed pixels.** A first
+version used per-button pixel offsets that looked right on a tall portrait
+phone and silently overlapped the moment the same phone turned to landscape
+— its own height dropped to under half its portrait value, and fixed offsets
+tuned against the taller dimension don't know to shrink. `vmin` tracks
+whichever dimension is currently smaller, so the whole cluster scales
+together in both orientations. `tests/mobile-full.mjs` checks every button's
+bounding box against every other's, specifically to catch this class of bug
+returning.
 
 ---
 

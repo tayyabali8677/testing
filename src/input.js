@@ -2,6 +2,12 @@
 //
 // Exposes edge-triggered `pressed()` alongside level-triggered `down()` so
 // callers never have to track previous-frame state themselves.
+//
+// Touch input (src/touch.js) drives this same class rather than a parallel
+// one: it calls setKey()/setMouseButton()/addLookDelta() to synthesize the
+// same keys Set and mouse deltas a keyboard and mouse would produce, so every
+// system downstream (vehicle controls, aiming, shooting) needs no knowledge
+// that a touch happened at all.
 
 export class Input {
   constructor(canvas) {
@@ -12,6 +18,9 @@ export class Input {
     this.prevMouse = { left: false, right: false };
     this.locked = false;
     this.enabled = true;
+    // True while touch is supplying look deltas, so main.js can apply them
+    // without requiring pointer lock (which mobile browsers do not grant).
+    this.touchActive = false;
 
     this._onKeyDown = (e) => {
       if (!this.enabled) return;
@@ -61,6 +70,25 @@ export class Input {
     if (!this.locked && this.canvas.requestPointerLock) {
       this.canvas.requestPointerLock();
     }
+  }
+
+  // ---- synthetic input (touch) -----------------------------------------
+
+  /** Press or release a virtual key, exactly as a real keydown/up would. */
+  setKey(code, isDown) {
+    if (isDown) this.keys.add(code);
+    else this.keys.delete(code);
+  }
+
+  setMouseButton(which, isDown) {
+    if (which === "left") this.mouse.left = isDown;
+    else if (which === "right") this.mouse.right = isDown;
+  }
+
+  /** Feed a touch-drag delta in as if it were mouse movementX/Y. */
+  addLookDelta(dx, dy) {
+    this.mouse.dx += dx;
+    this.mouse.dy += dy;
   }
 
   down(code) { return this.keys.has(code); }
