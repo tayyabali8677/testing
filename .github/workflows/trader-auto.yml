@@ -1,0 +1,27 @@
+name: trader-auto
+on:
+  schedule:
+    - cron: "17 14 * * 1"
+  workflow_dispatch:
+    inputs:
+      execute:
+        description: "Send orders to the Alpaca paper account"
+        type: boolean
+        default: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: git clone --depth 1 https://github.com/Jakeschincariol/trader-skill
+      - name: Config
+        run: |
+          mkdir -p trader-auto/trader
+          jq --arg ua "$SEC_USER_AGENT" '.sec_user_agent=$ua' trader-auto/config.example.json > trader-auto/trader/config.json
+        env:
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+      - name: Run
+        run: python3 trader-auto/run.py ${{ (github.event_name == 'schedule' || inputs.execute) && '--execute' || '' }}
+        env:
+          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+          ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
