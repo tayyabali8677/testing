@@ -5,6 +5,7 @@
   python run.py play --backend api  --days 10            # real models via ANTHROPIC_API_KEY
   python run.py play --backend cli --days 3 --agents 10 --split opus=1,sonnet=4,haiku=5
   python run.py play --assign Mara=opus,Silas=opus       # pin specific characters to a model
+  python run.py play --season 2 --backend cli --assign Mara=haiku,...  # the harder 20-character season
   python run.py recap runs/<id> --day 3                  # omniscient story of one day, for episode scripts
 """
 import argparse
@@ -19,6 +20,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 
 from world import PHASES, PLACES, World
+from world2 import World2
 
 ALIAS = {"opus": "opus", "sonnet": "sonnet", "haiku": "haiku"}
 API_IDS = {"opus": "claude-opus-5-5", "sonnet": "claude-sonnet-5-5", "haiku": "claude-haiku-5-5"}
@@ -82,6 +84,8 @@ def ask_mock(w, a):
         acts.update(arrest=3, release=1)
     if a["job"] == "doctor":
         acts["heal"] = 6
+    if getattr(w, "season", 1) == 2:
+        acts.update(buy_food=14, give_food=3, snoop=3, blackmail=2, expose=2, nominate=3 if w.tribute else 0, loot=2, report=1 if a["name"] == "Wren" else 0)
     act = rng.choices(list(acts), list(acts.values()))[0]
     pool = here if act in ("steal", "attack", "kill", "gamble", "romance", "marry", "heal", "arrest") and here else others
     tgt = rng.choice(pool) if pool else None
@@ -95,6 +99,11 @@ def ask_mock(w, a):
         d["target"] = str(rng.choice(w.proposals)["id"])
     if act == "investigate" and w.incidents:
         d["target"] = str(rng.choice(w.incidents)["id"])
+    if act == "loot":
+        dead = [x["name"] for x in w.agents.values() if not x["alive"] and x["status"] == "dead"]
+        d["target"] = rng.choice(dead) if dead else None
+    if act == "blackmail" or act == "expose":
+        d["target"] = rng.choice(list(a.get("knows", {}) or others))
     if act == "decide_tribute":
         d["target"] = rng.choice(["pay", "refuse"] + others[:2])
     if act == "judge":
@@ -120,9 +129,11 @@ def save(w, out):
 def play(a):
     out = a.out or os.path.join("runs", time.strftime("%Y%m%d-%H%M%S") + "-" + a.backend)
     os.makedirs(out, exist_ok=True)
-    split = {k: int(v) for k, v in (kv.split("=") for kv in a.split.split(","))}
+    s2 = a.season == 2
+    n = a.agents or (20 if s2 else 16)
+    split = {k: int(v) for k, v in (kv.split("=") for kv in (a.split or ("opus=2,sonnet=9,haiku=9" if s2 else "opus=2,sonnet=7,haiku=7")).split(","))}
     assign = dict(kv.split("=") for kv in a.assign.split(",")) if a.assign else {}
-    w = World(seed=a.seed, days=a.days, split=split, assign=assign, n=a.agents)
+    w = (World2 if s2 else World)(seed=a.seed, days=a.days, split=split, assign=assign, n=n)
     ask = BACKENDS[a.backend]
     print("cast:", ", ".join(f"{x['name']}({x['model']})" for x in w.agents.values()))
     with ThreadPoolExecutor(a.workers) as pool:
@@ -166,11 +177,12 @@ if __name__ == "__main__":
     p = sub.add_parser("play")
     p.add_argument("--backend", choices=list(BACKENDS), default="mock")
     p.add_argument("--days", type=int, default=10)
-    p.add_argument("--agents", type=int, default=16)
-    p.add_argument("--split", default="opus=2,sonnet=7,haiku=7")
+    p.add_argument("--agents", type=int, default=0)
+    p.add_argument("--season", type=int, choices=[1, 2], default=1)
+    p.add_argument("--split", default="")
     p.add_argument("--assign", default="")
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--workers", type=int, default=6)
+    p.add_argument("--workers", type=int, default=8)
     p.add_argument("--out", default="")
     r = sub.add_parser("recap")
     r.add_argument("run")

@@ -60,6 +60,7 @@ def pick_models(names, split, assign, rng):
 
 class World:
     def __init__(self, seed=0, days=10, split=None, assign=None, n=16):
+        self.season = 1
         self.rng = random.Random(seed)
         self.days, self.day, self.phase, self.done = days, 1, 0, False
         cast = CAST[:n]
@@ -192,9 +193,9 @@ class World:
             elif a["name"] == y:
                 bonds.append(f"Your spouse is {x}.")
         for p, c in PUBLIC_BONDS["parent"]:
-            if a["name"] == p:
+            if a["name"] == p and c in self.agents:
                 bonds.append(f"{c} is your child.")
-            elif a["name"] == c:
+            elif a["name"] == c and p in self.agents:
                 bonds.append(f"{p} is your parent.")
         for x, y, kind in PRIVATE_BONDS:
             if a["name"] == x and y in self.agents:

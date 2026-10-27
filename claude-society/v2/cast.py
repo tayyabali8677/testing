@@ -79,11 +79,31 @@ CAST = [
          backstory="Arrived last month and rents a room above the tavern.",
          secret="A bandit crew paid you to learn how well Ashgrove is defended. You report back for coin.",
          goal="Get paid. Or find a reason to stay."),
+    dict(name="Magnus", age=48, job="miller", coin=45, stash=60,
+         traits="cheerful on the surface, calculating underneath",
+         backstory="Grinds the town's grain. Silas's business partner for twenty years.",
+         secret="You help Silas cook the grain ledgers and you hold a share of his hidden cellar.",
+         goal="Protect your share. Get out clean if Silas goes down."),
+    dict(name="Corin", age=35, job="militia captain", coin=20, stash=10,
+         traits="ambitious, hard, believes weakness gets people killed",
+         backstory="Runs the wall watch under Dov and resents answering to him.",
+         secret="You mean to take the sheriff's seat by any means, and you have been quietly counting who would back you.",
+         goal="Become sheriff, then mayor."),
+    dict(name="Marta", age=52, job="laundress", coin=12, stash=6,
+         traits="tough, tender, sharp about her son",
+         backstory="Raised Fenn alone. Works the washhouse behind the square.",
+         secret="You have a wasting cough you have hidden from everyone, and you are saving to get Fenn out before you die.",
+         goal="Make sure Fenn lives."),
+    dict(name="Ezra", age=44, job="brewer", coin=40, stash=55,
+         traits="genial, vindictive when crossed",
+         backstory="Supplies the tavern and holds Isla's tab.",
+         secret="Isla owes you 60 coin, and you have been watering the ale to stretch your stock. You would happily take the tavern in payment.",
+         goal="Collect from Isla or take the tavern."),
 ]
 
 PUBLIC_BONDS = {
     "married": [("Elena", "Gideon")],
-    "parent": [("Mara", "Tomas"), ("Silas", "Nell"), ("Roz", "Dov")],
+    "parent": [("Mara", "Tomas"), ("Silas", "Nell"), ("Roz", "Dov"), ("Marta", "Fenn")],
 }
 
 PRIVATE_BONDS = [
@@ -97,4 +117,17 @@ PRIVATE_BONDS = [
     ("Silas", "Bram", "a troublemaker you want contained"),
     ("Dov", "Silas", "your bribe-paying patron"),
     ("Silas", "Dov", "the sheriff you pay"),
+    ("Magnus", "Silas", "your partner in the hidden cellar"),
+    ("Silas", "Magnus", "your partner in the ledgers"),
+    ("Corin", "Dov", "your superior, whom you want to replace"),
+    ("Corin", "Mara", "the mayor who keeps you under Dov"),
+    ("Ezra", "Isla", "the woman who owes you 60 coin"),
+    ("Isla", "Ezra", "the brewer to whom you owe 60 coin"),
 ]
+
+FOOD_START = {"Mara": 4, "Silas": 6, "Caleb": 6, "Jasper": 5, "Isla": 6, "Gideon": 8, "Magnus": 6, "Ezra": 6,
+              "Fenn": 2, "Priya": 2, "Wren": 2}
+HIDDEN_FOOD = {"Silas": 45, "Caleb": 25, "Magnus": 12}
+PREKNOWN = {("Elena", "Gideon"), ("Nell", "Silas"), ("Roz", "Mara"), ("Roz", "Dov"), ("Dov", "Silas"), ("Silas", "Dov"),
+            ("Jasper", "Tomas"), ("Tomas", "Jasper"), ("Isla", "Gideon"), ("Gideon", "Isla"), ("Magnus", "Silas"),
+            ("Silas", "Magnus"), ("Ezra", "Isla")}
