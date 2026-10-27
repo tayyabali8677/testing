@@ -16,8 +16,8 @@ MODELS = {
 }
 NAMES = ["Ada", "Bram", "Chen", "Dara", "Emil", "Farah", "Gus", "Hana", "Ivo", "Jun"]
 JOBS = ["farmer", "baker", "builder", "doctor", "teacher", "trader", "guard", "writer", "mechanic", "cook"]
-START_CREDITS = 30
-DAILY_COST = 8
+START_CREDITS = 15
+DAILY_COST = 14
 WORK_PAY = 5
 TICKS_PER_DAY = 3
 ACTIONS = "work | rest | give | steal | attack | say | propose_law | vote | note"
