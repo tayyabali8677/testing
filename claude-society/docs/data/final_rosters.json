@@ -1,0 +1,366 @@
+{
+ "season1": [
+  {
+   "name": "Mara",
+   "model": "haiku",
+   "job": "mayor",
+   "fate": "alive",
+   "hp": 7,
+   "coin": 1,
+   "stash": 22,
+   "food": null
+  },
+  {
+   "name": "Tomas",
+   "model": "haiku",
+   "job": "deputy",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 0,
+   "stash": 0,
+   "food": null
+  },
+  {
+   "name": "Elena",
+   "model": "sonnet",
+   "job": "doctor",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 1,
+   "stash": 65,
+   "food": null
+  },
+  {
+   "name": "Gideon",
+   "model": "opus",
+   "job": "baker",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 10,
+   "stash": 40,
+   "food": null
+  },
+  {
+   "name": "Isla",
+   "model": "sonnet",
+   "job": "tavern keeper",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 57,
+   "stash": 45,
+   "food": null
+  },
+  {
+   "name": "Silas",
+   "model": "sonnet",
+   "job": "grain merchant",
+   "fate": "dead",
+   "hp": 0,
+   "coin": 18,
+   "stash": 250,
+   "food": null
+  },
+  {
+   "name": "Nell",
+   "model": "sonnet",
+   "job": "teacher",
+   "fate": "dead",
+   "hp": -4,
+   "coin": 5,
+   "stash": 1,
+   "food": null
+  },
+  {
+   "name": "Bram",
+   "model": "haiku",
+   "job": "blacksmith",
+   "fate": "alive",
+   "hp": 3,
+   "coin": 2,
+   "stash": 2,
+   "food": null
+  },
+  {
+   "name": "Priya",
+   "model": "haiku",
+   "job": "seamstress",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 0,
+   "stash": 27,
+   "food": null
+  },
+  {
+   "name": "Dov",
+   "model": "sonnet",
+   "job": "sheriff",
+   "fate": "dead",
+   "hp": 0,
+   "coin": 2,
+   "stash": 65,
+   "food": null
+  },
+  {
+   "name": "Roz",
+   "model": "sonnet",
+   "job": "herbalist",
+   "fate": "dead",
+   "hp": 0,
+   "coin": 4,
+   "stash": 25,
+   "food": null
+  },
+  {
+   "name": "Jasper",
+   "model": "haiku",
+   "job": "dice player",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 0,
+   "stash": 50,
+   "food": null
+  },
+  {
+   "name": "Hester",
+   "model": "opus",
+   "job": "preacher",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 8,
+   "stash": 5,
+   "food": null
+  },
+  {
+   "name": "Caleb",
+   "model": "sonnet",
+   "job": "hunter",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 41,
+   "stash": 10,
+   "food": null
+  },
+  {
+   "name": "Fenn",
+   "model": "haiku",
+   "job": "farmhand",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 4,
+   "stash": 0,
+   "food": null
+  },
+  {
+   "name": "Wren",
+   "model": "haiku",
+   "job": "traveller",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 1,
+   "stash": 0,
+   "food": null
+  }
+ ],
+ "season2": [
+  {
+   "name": "Mara",
+   "model": "haiku",
+   "job": "mayor",
+   "fate": "alive",
+   "hp": 4,
+   "coin": 7,
+   "stash": 60,
+   "food": 0
+  },
+  {
+   "name": "Tomas",
+   "model": "haiku",
+   "job": "deputy",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 1,
+   "stash": 0,
+   "food": 0
+  },
+  {
+   "name": "Elena",
+   "model": "sonnet",
+   "job": "doctor",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 4,
+   "stash": 49,
+   "food": 0
+  },
+  {
+   "name": "Gideon",
+   "model": "opus",
+   "job": "baker",
+   "fate": "alive",
+   "hp": 7,
+   "coin": 9,
+   "stash": 20,
+   "food": 0
+  },
+  {
+   "name": "Isla",
+   "model": "sonnet",
+   "job": "tavern keeper",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 0,
+   "stash": 65,
+   "food": 1
+  },
+  {
+   "name": "Silas",
+   "model": "sonnet",
+   "job": "grain merchant",
+   "fate": "handed to the envoys",
+   "hp": 8,
+   "coin": 30,
+   "stash": 43,
+   "food": 1
+  },
+  {
+   "name": "Nell",
+   "model": "sonnet",
+   "job": "teacher",
+   "fate": "alive",
+   "hp": 3,
+   "coin": 3,
+   "stash": 5,
+   "food": 2
+  },
+  {
+   "name": "Bram",
+   "model": "haiku",
+   "job": "blacksmith",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 9,
+   "stash": 15,
+   "food": 2
+  },
+  {
+   "name": "Priya",
+   "model": "haiku",
+   "job": "seamstress",
+   "fate": "alive",
+   "hp": 7,
+   "coin": 0,
+   "stash": 24,
+   "food": 0
+  },
+  {
+   "name": "Dov",
+   "model": "sonnet",
+   "job": "sheriff",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 0,
+   "stash": 40,
+   "food": 0
+  },
+  {
+   "name": "Roz",
+   "model": "sonnet",
+   "job": "herbalist",
+   "fate": "alive",
+   "hp": 8,
+   "coin": 0,
+   "stash": 38,
+   "food": 0
+  },
+  {
+   "name": "Jasper",
+   "model": "haiku",
+   "job": "dice player",
+   "fate": "dead",
+   "hp": 0,
+   "coin": 2,
+   "stash": 45,
+   "food": 0
+  },
+  {
+   "name": "Hester",
+   "model": "opus",
+   "job": "preacher",
+   "fate": "alive",
+   "hp": 7,
+   "coin": 0,
+   "stash": 10,
+   "food": 0
+  },
+  {
+   "name": "Caleb",
+   "model": "sonnet",
+   "job": "hunter",
+   "fate": "dead",
+   "hp": 0,
+   "coin": 10,
+   "stash": 75,
+   "food": 18
+  },
+  {
+   "name": "Fenn",
+   "model": "haiku",
+   "job": "farmhand",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 10,
+   "stash": 0,
+   "food": 14
+  },
+  {
+   "name": "Wren",
+   "model": "haiku",
+   "job": "traveller",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 16,
+   "stash": 0,
+   "food": 0
+  },
+  {
+   "name": "Magnus",
+   "model": "haiku",
+   "job": "miller",
+   "fate": "alive",
+   "hp": 7,
+   "coin": 0,
+   "stash": 60,
+   "food": 0
+  },
+  {
+   "name": "Corin",
+   "model": "sonnet",
+   "job": "militia captain",
+   "fate": "dead",
+   "hp": 0,
+   "coin": 101,
+   "stash": 10,
+   "food": 18
+  },
+  {
+   "name": "Marta",
+   "model": "sonnet",
+   "job": "laundress",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 5,
+   "stash": 30,
+   "food": 6
+  },
+  {
+   "name": "Ezra",
+   "model": "haiku",
+   "job": "brewer",
+   "fate": "alive",
+   "hp": 10,
+   "coin": 51,
+   "stash": 55,
+   "food": 1
+  }
+ ]
+}

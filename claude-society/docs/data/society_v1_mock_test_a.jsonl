@@ -1,0 +1,147 @@
+{"day": 1, "tick": 0, "agent": "Farah", "model": "sonnet", "action": "give", "target": "Gus", "text": "hello town", "credits": 26}
+{"day": 1, "tick": 0, "agent": "Chen", "model": "opus", "action": "note", "target": "Jun", "text": "no", "credits": 30}
+{"day": 1, "tick": 0, "agent": "Ada", "model": "haiku", "action": "work", "target": "Emil", "text": "no", "credits": 35}
+{"day": 1, "tick": 0, "agent": "Hana", "model": "opus", "action": "say", "target": "Jun", "text": "yes", "credits": 30}
+{"day": 1, "tick": 0, "agent": "Emil", "model": "sonnet", "action": "steal", "target": "Dara", "text": "no sharing law", "credits": 30}
+{"day": 1, "tick": 0, "agent": "Gus", "model": "opus", "action": "propose_law", "target": "Farah", "text": "hello town", "credits": 34}
+{"day": 1, "tick": 0, "agent": "Jun", "model": "sonnet", "action": "rest", "target": "Ivo", "text": "yes", "credits": 30}
+{"day": 1, "tick": 0, "agent": "Ivo", "model": "haiku", "action": "attack", "target": "Gus", "text": "no sharing law", "credits": 30}
+{"day": 1, "tick": 0, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Bram", "text": "no sharing law", "credits": 35}
+{"day": 1, "tick": 0, "agent": "Bram", "model": "haiku", "action": "work", "target": "Chen", "text": "hello town", "credits": 35}
+{"day": 1, "tick": 1, "agent": "Gus", "model": "opus", "action": "work", "target": "Chen", "text": "yes", "credits": 34}
+{"day": 1, "tick": 1, "agent": "Ivo", "model": "haiku", "action": "give", "target": "Dara", "text": "no sharing law", "credits": 28}
+{"day": 1, "tick": 1, "agent": "Ada", "model": "haiku", "action": "vote", "target": "Ivo", "text": "hello town", "credits": 35}
+{"day": 1, "tick": 1, "agent": "Hana", "model": "opus", "action": "give", "target": "Ivo", "text": "hello town", "credits": 26}
+{"day": 1, "tick": 1, "agent": "Chen", "model": "opus", "action": "work", "target": "Emil", "text": "yes", "credits": 35}
+{"day": 1, "tick": 1, "agent": "Emil", "model": "sonnet", "action": "give", "target": "Bram", "text": "hello town", "credits": 25}
+{"day": 1, "tick": 1, "agent": "Dara", "model": "sonnet", "action": "rest", "target": "Hana", "text": "no", "credits": 37}
+{"day": 1, "tick": 1, "agent": "Jun", "model": "sonnet", "action": "propose_law", "target": "Ivo", "text": "hello town", "credits": 30}
+{"day": 1, "tick": 1, "agent": "Farah", "model": "sonnet", "action": "steal", "target": "Emil", "text": "yes", "credits": 26}
+{"day": 1, "tick": 1, "agent": "Bram", "model": "haiku", "action": "say", "target": "Jun", "text": "hello town", "credits": 40}
+{"day": 1, "tick": 2, "agent": "Hana", "model": "opus", "action": "steal", "target": "Emil", "text": "no", "credits": 26}
+{"day": 1, "tick": 2, "agent": "Ada", "model": "haiku", "action": "work", "target": "Emil", "text": "no", "credits": 40}
+{"day": 1, "tick": 2, "agent": "Emil", "model": "sonnet", "action": "steal", "target": "Dara", "text": "yes", "credits": 30}
+{"day": 1, "tick": 2, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Gus", "text": "yes", "credits": 37}
+{"day": 1, "tick": 2, "agent": "Farah", "model": "sonnet", "action": "work", "target": "Ada", "text": "no", "credits": 31}
+{"day": 1, "tick": 2, "agent": "Chen", "model": "opus", "action": "propose_law", "target": "Emil", "text": "yes", "credits": 35}
+{"day": 1, "tick": 2, "agent": "Ivo", "model": "haiku", "action": "rest", "target": "Ada", "text": "no sharing law", "credits": 32}
+{"day": 1, "tick": 2, "agent": "Gus", "model": "opus", "action": "work", "target": "Jun", "text": "yes", "credits": 39}
+{"day": 1, "tick": 2, "agent": "Bram", "model": "haiku", "action": "work", "target": "Emil", "text": "yes", "credits": 45}
+{"day": 1, "tick": 2, "agent": "Jun", "model": "sonnet", "action": "work", "target": "Emil", "text": "no sharing law", "credits": 35}
+{"day": 2, "tick": 0, "agent": "Chen", "model": "opus", "action": "give", "target": "Dara", "text": "no sharing law", "credits": 25}
+{"day": 2, "tick": 0, "agent": "Bram", "model": "haiku", "action": "steal", "target": "Ada", "text": "no sharing law", "credits": 37}
+{"day": 2, "tick": 0, "agent": "Ada", "model": "haiku", "action": "say", "target": "Dara", "text": "hello town", "credits": 32}
+{"day": 2, "tick": 0, "agent": "Gus", "model": "opus", "action": "give", "target": "Bram", "text": "no sharing law", "credits": 26}
+{"day": 2, "tick": 0, "agent": "Emil", "model": "sonnet", "action": "vote", "target": "Jun", "text": "hello town", "credits": 22}
+{"day": 2, "tick": 0, "agent": "Farah", "model": "sonnet", "action": "rest", "target": "Bram", "text": "yes", "credits": 23}
+{"day": 2, "tick": 0, "agent": "Ivo", "model": "haiku", "action": "attack", "target": "Gus", "text": "yes", "credits": 24}
+{"day": 2, "tick": 0, "agent": "Hana", "model": "opus", "action": "work", "target": "Dara", "text": "no", "credits": 23}
+{"day": 2, "tick": 0, "agent": "Jun", "model": "sonnet", "action": "work", "target": "Emil", "text": "no", "credits": 32}
+{"day": 2, "tick": 0, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Farah", "text": "yes", "credits": 36}
+{"day": 2, "tick": 1, "agent": "Jun", "model": "sonnet", "action": "propose_law", "target": "Gus", "text": "yes", "credits": 32}
+{"day": 2, "tick": 1, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Ivo", "text": "no sharing law", "credits": 41}
+{"day": 2, "tick": 1, "agent": "Ada", "model": "haiku", "action": "give", "target": "Bram", "text": "no sharing law", "credits": 30}
+{"day": 2, "tick": 1, "agent": "Farah", "model": "sonnet", "action": "rest", "target": "Hana", "text": "yes", "credits": 23}
+{"day": 2, "tick": 1, "agent": "Ivo", "model": "haiku", "action": "attack", "target": "Chen", "text": "no sharing law", "credits": 24}
+{"day": 2, "tick": 1, "agent": "Chen", "model": "opus", "action": "work", "target": "Bram", "text": "yes", "credits": 25}
+{"day": 2, "tick": 1, "agent": "Gus", "model": "opus", "action": "work", "target": "Ada", "text": "yes", "credits": 26}
+{"day": 2, "tick": 1, "agent": "Bram", "model": "haiku", "action": "vote", "target": "Ada", "text": "no sharing law", "credits": 44}
+{"day": 2, "tick": 1, "agent": "Hana", "model": "opus", "action": "work", "target": "Chen", "text": "no sharing law", "credits": 28}
+{"day": 2, "tick": 1, "agent": "Emil", "model": "sonnet", "action": "work", "target": "Dara", "text": "hello town", "credits": 27}
+{"day": 2, "tick": 2, "agent": "Ivo", "model": "haiku", "action": "work", "target": "Emil", "text": "hello town", "credits": 29}
+{"day": 2, "tick": 2, "agent": "Gus", "model": "opus", "action": "work", "target": "Ada", "text": "hello town", "credits": 31}
+{"day": 2, "tick": 2, "agent": "Farah", "model": "sonnet", "action": "work", "target": "Gus", "text": "yes", "credits": 28}
+{"day": 2, "tick": 2, "agent": "Jun", "model": "sonnet", "action": "note", "target": "Chen", "text": "yes", "credits": 32}
+{"day": 2, "tick": 2, "agent": "Emil", "model": "sonnet", "action": "give", "target": "Ada", "text": "no", "credits": 25}
+{"day": 2, "tick": 2, "agent": "Bram", "model": "haiku", "action": "vote", "target": "Ada", "text": "no sharing law", "credits": 44}
+{"day": 2, "tick": 2, "agent": "Chen", "model": "opus", "action": "attack", "target": "Ivo", "text": "hello town", "credits": 25}
+{"day": 2, "tick": 2, "agent": "Ada", "model": "haiku", "action": "work", "target": "Bram", "text": "yes", "credits": 37}
+{"day": 2, "tick": 2, "agent": "Dara", "model": "sonnet", "action": "vote", "target": "Chen", "text": "no sharing law", "credits": 41}
+{"day": 2, "tick": 2, "agent": "Hana", "model": "opus", "action": "work", "target": "Emil", "text": "no sharing law", "credits": 33}
+{"day": 3, "tick": 0, "agent": "Hana", "model": "opus", "action": "rest", "target": "Ivo", "text": "no", "credits": 25}
+{"day": 3, "tick": 0, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Chen", "text": "no sharing law", "credits": 38}
+{"day": 3, "tick": 0, "agent": "Farah", "model": "sonnet", "action": "say", "target": "Bram", "text": "yes", "credits": 20}
+{"day": 3, "tick": 0, "agent": "Emil", "model": "sonnet", "action": "work", "target": "Hana", "text": "hello town", "credits": 22}
+{"day": 3, "tick": 0, "agent": "Ada", "model": "haiku", "action": "propose_law", "target": "Farah", "text": "yes", "credits": 29}
+{"day": 3, "tick": 0, "agent": "Ivo", "model": "haiku", "action": "rest", "target": "Farah", "text": "hello town", "credits": 16}
+{"day": 3, "tick": 0, "agent": "Bram", "model": "haiku", "action": "propose_law", "target": "Gus", "text": "no sharing law", "credits": 36}
+{"day": 3, "tick": 0, "agent": "Gus", "model": "opus", "action": "work", "target": "Dara", "text": "no sharing law", "credits": 28}
+{"day": 3, "tick": 0, "agent": "Chen", "model": "opus", "action": "work", "target": "Ivo", "text": "yes", "credits": 22}
+{"day": 3, "tick": 0, "agent": "Jun", "model": "sonnet", "action": "work", "target": "Hana", "text": "hello town", "credits": 29}
+{"day": 3, "tick": 1, "agent": "Bram", "model": "haiku", "action": "steal", "target": "Emil", "text": "no", "credits": 41}
+{"day": 3, "tick": 1, "agent": "Chen", "model": "opus", "action": "note", "target": "Emil", "text": "no", "credits": 22}
+{"day": 3, "tick": 1, "agent": "Dara", "model": "sonnet", "action": "vote", "target": "Ivo", "text": "yes", "credits": 38}
+{"day": 3, "tick": 1, "agent": "Farah", "model": "sonnet", "action": "give", "target": "Emil", "text": "no", "credits": 15}
+{"day": 3, "tick": 1, "agent": "Ivo", "model": "haiku", "action": "work", "target": "Hana", "text": "hello town", "credits": 21}
+{"day": 3, "tick": 1, "agent": "Jun", "model": "sonnet", "action": "rest", "target": "Emil", "text": "yes", "credits": 29}
+{"day": 3, "tick": 1, "agent": "Ada", "model": "haiku", "action": "give", "target": "Dara", "text": "no sharing law", "credits": 28}
+{"day": 3, "tick": 1, "agent": "Hana", "model": "opus", "action": "work", "target": "Gus", "text": "no sharing law", "credits": 30}
+{"day": 3, "tick": 1, "agent": "Emil", "model": "sonnet", "action": "steal", "target": "Gus", "text": "no sharing law", "credits": 27}
+{"day": 3, "tick": 1, "agent": "Gus", "model": "opus", "action": "work", "target": "Farah", "text": "yes", "credits": 28}
+{"day": 3, "tick": 2, "agent": "Ivo", "model": "haiku", "action": "say", "target": "Dara", "text": "no sharing law", "credits": 21}
+{"day": 3, "tick": 2, "agent": "Gus", "model": "opus", "action": "vote", "target": "Jun", "text": "yes", "credits": 28}
+{"day": 3, "tick": 2, "agent": "Bram", "model": "haiku", "action": "steal", "target": "Jun", "text": "yes", "credits": 46}
+{"day": 3, "tick": 2, "agent": "Hana", "model": "opus", "action": "work", "target": "Emil", "text": "yes", "credits": 35}
+{"day": 3, "tick": 2, "agent": "Ada", "model": "haiku", "action": "propose_law", "target": "Ivo", "text": "no", "credits": 28}
+{"day": 3, "tick": 2, "agent": "Jun", "model": "sonnet", "action": "propose_law", "target": "Ada", "text": "no", "credits": 24}
+{"day": 3, "tick": 2, "agent": "Farah", "model": "sonnet", "action": "say", "target": "Ivo", "text": "no sharing law", "credits": 15}
+{"day": 3, "tick": 2, "agent": "Emil", "model": "sonnet", "action": "say", "target": "Ivo", "text": "no", "credits": 27}
+{"day": 3, "tick": 2, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Hana", "text": "no", "credits": 44}
+{"day": 3, "tick": 2, "agent": "Chen", "model": "opus", "action": "rest", "target": "Farah", "text": "no sharing law", "credits": 22}
+{"day": 4, "tick": 0, "agent": "Chen", "model": "opus", "action": "work", "target": "Ivo", "text": "yes", "credits": 19}
+{"day": 4, "tick": 0, "agent": "Bram", "model": "haiku", "action": "steal", "target": "Ivo", "text": "hello town", "credits": 43}
+{"day": 4, "tick": 0, "agent": "Jun", "model": "sonnet", "action": "say", "target": "Bram", "text": "no", "credits": 16}
+{"day": 4, "tick": 0, "agent": "Emil", "model": "sonnet", "action": "attack", "target": "Gus", "text": "no sharing law", "credits": 19}
+{"day": 4, "tick": 0, "agent": "Ada", "model": "haiku", "action": "say", "target": "Ivo", "text": "yes", "credits": 20}
+{"day": 4, "tick": 0, "agent": "Ivo", "model": "haiku", "action": "steal", "target": "Emil", "text": "no sharing law", "credits": 13}
+{"day": 4, "tick": 0, "agent": "Gus", "model": "opus", "action": "work", "target": "Chen", "text": "yes", "credits": 20}
+{"day": 4, "tick": 0, "agent": "Farah", "model": "sonnet", "action": "rest", "target": "Ivo", "text": "no sharing law", "credits": 7}
+{"day": 4, "tick": 0, "agent": "Hana", "model": "opus", "action": "work", "target": "Gus", "text": "hello town", "credits": 32}
+{"day": 4, "tick": 0, "agent": "Dara", "model": "sonnet", "action": "vote", "target": "Bram", "text": "hello town", "credits": 36}
+{"day": 4, "tick": 1, "agent": "Hana", "model": "opus", "action": "rest", "target": "Bram", "text": "no", "credits": 32}
+{"day": 4, "tick": 1, "agent": "Ivo", "model": "haiku", "action": "say", "target": "Ada", "text": "no sharing law", "credits": 13}
+{"day": 4, "tick": 1, "agent": "Farah", "model": "sonnet", "action": "give", "target": "Bram", "text": "no sharing law", "credits": 5}
+{"day": 4, "tick": 1, "agent": "Emil", "model": "sonnet", "action": "say", "target": "Jun", "text": "no sharing law", "credits": 14}
+{"day": 4, "tick": 1, "agent": "Gus", "model": "opus", "action": "vote", "target": "Hana", "text": "yes", "credits": 20}
+{"day": 4, "tick": 1, "agent": "Bram", "model": "haiku", "action": "say", "target": "Chen", "text": "yes", "credits": 45}
+{"day": 4, "tick": 1, "agent": "Ada", "model": "haiku", "action": "work", "target": "Bram", "text": "hello town", "credits": 25}
+{"day": 4, "tick": 1, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Emil", "text": "yes", "credits": 41}
+{"day": 4, "tick": 1, "agent": "Chen", "model": "opus", "action": "attack", "target": "Ada", "text": "hello town", "credits": 19}
+{"day": 4, "tick": 1, "agent": "Jun", "model": "sonnet", "action": "give", "target": "Dara", "text": "yes", "credits": 14}
+{"day": 4, "tick": 2, "agent": "Hana", "model": "opus", "action": "rest", "target": "Emil", "text": "hello town", "credits": 32}
+{"day": 4, "tick": 2, "agent": "Ivo", "model": "haiku", "action": "work", "target": "Gus", "text": "no", "credits": 18}
+{"day": 4, "tick": 2, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Bram", "text": "hello town", "credits": 48}
+{"day": 4, "tick": 2, "agent": "Bram", "model": "haiku", "action": "rest", "target": "Ivo", "text": "hello town", "credits": 45}
+{"day": 4, "tick": 2, "agent": "Ada", "model": "haiku", "action": "work", "target": "Emil", "text": "no", "credits": 25}
+{"day": 4, "tick": 2, "agent": "Jun", "model": "sonnet", "action": "steal", "target": "Gus", "text": "yes", "credits": 14}
+{"day": 4, "tick": 2, "agent": "Farah", "model": "sonnet", "action": "attack", "target": "Dara", "text": "no", "credits": 5}
+{"day": 4, "tick": 2, "agent": "Emil", "model": "sonnet", "action": "work", "target": "Dara", "text": "hello town", "credits": 19}
+{"day": 4, "tick": 2, "agent": "Gus", "model": "opus", "action": "work", "target": "Chen", "text": "no", "credits": 25}
+{"day": 4, "tick": 2, "agent": "Chen", "model": "opus", "action": "work", "target": "Farah", "text": "no sharing law", "credits": 24}
+{"day": 5, "tick": 0, "agent": "Gus", "model": "opus", "action": "work", "target": "Jun", "text": "no sharing law", "credits": 22}
+{"day": 5, "tick": 0, "agent": "Emil", "model": "sonnet", "action": "work", "target": "Bram", "text": "no", "credits": 16}
+{"day": 5, "tick": 0, "agent": "Ivo", "model": "haiku", "action": "say", "target": "Emil", "text": "no", "credits": 10}
+{"day": 5, "tick": 0, "agent": "Bram", "model": "haiku", "action": "say", "target": "Ivo", "text": "no", "credits": 37}
+{"day": 5, "tick": 0, "agent": "Hana", "model": "opus", "action": "vote", "target": "Gus", "text": "no", "credits": 24}
+{"day": 5, "tick": 0, "agent": "Jun", "model": "sonnet", "action": "work", "target": "Ivo", "text": "no", "credits": 11}
+{"day": 5, "tick": 0, "agent": "Chen", "model": "opus", "action": "rest", "target": "Hana", "text": "no", "credits": 16}
+{"day": 5, "tick": 0, "agent": "Dara", "model": "sonnet", "action": "give", "target": "Ivo", "text": "yes", "credits": 31}
+{"day": 5, "tick": 0, "agent": "Ada", "model": "haiku", "action": "say", "target": "Jun", "text": "no", "credits": 17}
+{"day": 5, "tick": 1, "agent": "Gus", "model": "opus", "action": "say", "target": "Hana", "text": "no", "credits": 22}
+{"day": 5, "tick": 1, "agent": "Bram", "model": "haiku", "action": "vote", "target": "Dara", "text": "no sharing law", "credits": 37}
+{"day": 5, "tick": 1, "agent": "Chen", "model": "opus", "action": "propose_law", "target": "Gus", "text": "no", "credits": 16}
+{"day": 5, "tick": 1, "agent": "Hana", "model": "opus", "action": "give", "target": "Ada", "text": "hello town", "credits": 23}
+{"day": 5, "tick": 1, "agent": "Ivo", "model": "haiku", "action": "work", "target": "Gus", "text": "no", "credits": 19}
+{"day": 5, "tick": 1, "agent": "Ada", "model": "haiku", "action": "work", "target": "Bram", "text": "hello town", "credits": 23}
+{"day": 5, "tick": 1, "agent": "Emil", "model": "sonnet", "action": "vote", "target": "Ada", "text": "hello town", "credits": 16}
+{"day": 5, "tick": 1, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Ivo", "text": "yes", "credits": 36}
+{"day": 5, "tick": 1, "agent": "Jun", "model": "sonnet", "action": "work", "target": "Ivo", "text": "no sharing law", "credits": 16}
+{"day": 5, "tick": 2, "agent": "Jun", "model": "sonnet", "action": "vote", "target": "Dara", "text": "hello town", "credits": 16}
+{"day": 5, "tick": 2, "agent": "Bram", "model": "haiku", "action": "rest", "target": "Dara", "text": "yes", "credits": 37}
+{"day": 5, "tick": 2, "agent": "Dara", "model": "sonnet", "action": "work", "target": "Hana", "text": "no", "credits": 41}
+{"day": 5, "tick": 2, "agent": "Chen", "model": "opus", "action": "work", "target": "Bram", "text": "no sharing law", "credits": 21}
+{"day": 5, "tick": 2, "agent": "Hana", "model": "opus", "action": "attack", "target": "Bram", "text": "yes", "credits": 23}
+{"day": 5, "tick": 2, "agent": "Emil", "model": "sonnet", "action": "rest", "target": "Ada", "text": "yes", "credits": 16}
+{"day": 5, "tick": 2, "agent": "Ivo", "model": "haiku", "action": "work", "target": "Jun", "text": "no", "credits": 24}
+{"day": 5, "tick": 2, "agent": "Ada", "model": "haiku", "action": "rest", "target": "Hana", "text": "yes", "credits": 23}
+{"day": 5, "tick": 2, "agent": "Gus", "model": "opus", "action": "give", "target": "Chen", "text": "hello town", "credits": 17}

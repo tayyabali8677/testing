@@ -1,0 +1,50 @@
+{"day": 1, "tick": 0, "agent": "Gus", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 25}
+{"day": 1, "tick": 0, "agent": "Farah", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 25}
+{"day": 1, "tick": 0, "agent": "Bram", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 25}
+{"day": 1, "tick": 0, "agent": "Ivo", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 25}
+{"day": 1, "tick": 0, "agent": "Emil", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 65}
+{"day": 1, "tick": 0, "agent": "Jun", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 65}
+{"day": 1, "tick": 0, "agent": "Ada", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 25}
+{"day": 1, "tick": 0, "agent": "Hana", "model": "opus", "action": "propose_law", "target": null, "text": "Mutual aid: at the start of each day, any resident with more than 40 credits gives 5 credits to each resident with fewer than 15 credits, so that no one dies from the daily cost while others hold a su", "credits": 20}
+{"day": 1, "tick": 0, "agent": "Chen", "model": "opus", "action": "work", "target": null, "text": "", "credits": 65}
+{"day": 1, "tick": 0, "agent": "Dara", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 25}
+{"day": 1, "tick": 1, "agent": "Emil", "model": "sonnet", "action": "vote", "target": "1", "text": "yes", "credits": 65}
+{"day": 1, "tick": 1, "agent": "Gus", "model": "sonnet", "action": "vote", "target": "1", "text": "yes", "credits": 25}
+{"day": 1, "tick": 1, "agent": "Jun", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 70}
+{"day": 1, "tick": 1, "agent": "Dara", "model": "sonnet", "action": "vote", "target": "1", "text": "yes", "credits": 25}
+{"day": 1, "tick": 1, "agent": "Ivo", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 30}
+{"day": 1, "tick": 1, "agent": "Chen", "model": "opus", "action": "vote", "target": "1", "text": "yes", "credits": 65}
+{"day": 1, "tick": 1, "agent": "Hana", "model": "opus", "action": "work", "target": null, "text": "", "credits": 25}
+{"day": 1, "tick": 1, "agent": "Bram", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 30}
+{"day": 1, "tick": 1, "agent": "Farah", "model": "sonnet", "action": "vote", "target": "1", "text": "yes", "credits": 25}
+{"day": 1, "tick": 1, "agent": "Ada", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 30}
+{"day": 2, "tick": 0, "agent": "Gus", "model": "sonnet", "action": "say", "target": null, "text": "I am Gus. I have 3 credits and will die today even if I work both turns, since the daily cost is 22. Chen, Emil, Jun: you each hold over 40. Please send me 10 credits each so I can survive. I will wor", "credits": 3}
+{"day": 2, "tick": 0, "agent": "Chen", "model": "opus", "action": "give", "target": "Dara", "text": "", "credits": 33}
+{"day": 2, "tick": 0, "agent": "Bram", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 13}
+{"day": 2, "tick": 0, "agent": "Jun", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 53}
+{"day": 2, "tick": 0, "agent": "Ada", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 13}
+{"day": 2, "tick": 0, "agent": "Emil", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 48}
+{"day": 2, "tick": 0, "agent": "Hana", "model": "opus", "action": "say", "target": null, "text": "Chen, Emil, Jun: under the Mutual aid law we passed, each of you with over 40 owes 5 to everyone under 15. Dara, Farah, Gus and I have 3 credits each and we die tonight without help. Please give now, ", "credits": 3}
+{"day": 2, "tick": 0, "agent": "Dara", "model": "sonnet", "action": "say", "target": null, "text": "I am a doctor and I will die today at 3 credits. Chen, Emil, Jun, you each hold over 40. Please give me 20 credits each, or at least enough to cover the daily cost. I will keep working and repay what ", "credits": 13}
+{"day": 2, "tick": 0, "agent": "Farah", "model": "sonnet", "action": "say", "target": null, "text": "I have 3 credits and the daily cost of 22 will kill me today even if I work. Chen, Emil and Jun, each of you holds over 40. Could you please give me what you can, at least 10 credits each, before the ", "credits": 3}
+{"day": 2, "tick": 0, "agent": "Ivo", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 13}
+{"day": 2, "tick": 1, "agent": "Farah", "model": "sonnet", "action": "say", "target": null, "text": "Jun, Emil, Chen: the Mutual aid law we passed on Day 1 says anyone over 40 gives 5 credits to each resident under 15. Farah, Gus and Hana are at 3 credits and will die tonight without it. Please give ", "credits": 3}
+{"day": 2, "tick": 1, "agent": "Jun", "model": "haiku", "action": "give", "target": "Farah", "text": "", "credits": 34}
+{"day": 2, "tick": 1, "agent": "Emil", "model": "sonnet", "action": "give", "target": "Hana", "text": "", "credits": 28}
+{"day": 2, "tick": 1, "agent": "Hana", "model": "opus", "action": "say", "target": null, "text": "Last turn of the day. Chen, Emil, Jun: Farah, Gus and I each have 3 credits, and we die tonight unless someone gives. Each of us needs about 19 credits to cover the 22 daily cost. Jun, you hold 53 and", "credits": 23}
+{"day": 2, "tick": 1, "agent": "Chen", "model": "opus", "action": "give", "target": "Dara", "text": "", "credits": 23}
+{"day": 2, "tick": 1, "agent": "Gus", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 8}
+{"day": 2, "tick": 1, "agent": "Dara", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 28}
+{"day": 2, "tick": 1, "agent": "Ivo", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 18}
+{"day": 2, "tick": 1, "agent": "Ada", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 18}
+{"day": 2, "tick": 1, "agent": "Bram", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 18}
+{"day": 3, "tick": 0, "agent": "Chen", "model": "opus", "action": "say", "target": null, "text": "Honest math: the five of us hold 26 credits total and each day costs 22, so we can't all get through tonight. If we pool, one of us can. Jun has the most at 12. I propose we each give Jun what we have", "credits": 1}
+{"day": 3, "tick": 0, "agent": "Emil", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 11}
+{"day": 3, "tick": 0, "agent": "Dara", "model": "sonnet", "action": "say", "target": null, "text": "I am Dara, the town doctor. I have 6 credits and the daily cost of 22 will kill me today even if I work every turn. Jun, Emil, Chen: anything you can spare helps. I need about 7 credits to survive the", "credits": 6}
+{"day": 3, "tick": 0, "agent": "Jun", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 17}
+{"day": 3, "tick": 0, "agent": "Hana", "model": "opus", "action": "say", "target": null, "text": "Honest math: we hold 26 credits between the five of us, and the day costs 22 each. Most of us can't make it tonight whatever we do, but one of us can if we pool. Jun has the most at 12. If Dara, Emil,", "credits": 1}
+{"day": 3, "tick": 1, "agent": "Dara", "model": "sonnet", "action": "work", "target": null, "text": "", "credits": 11}
+{"day": 3, "tick": 1, "agent": "Chen", "model": "opus", "action": "give", "target": "Jun", "text": "", "credits": 0}
+{"day": 3, "tick": 1, "agent": "Jun", "model": "haiku", "action": "work", "target": null, "text": "", "credits": 23}
+{"day": 3, "tick": 1, "agent": "Emil", "model": "sonnet", "action": "give", "target": "Jun", "text": "", "credits": 0}
+{"day": 3, "tick": 1, "agent": "Hana", "model": "opus", "action": "give", "target": "Jun", "text": "", "credits": 0}
