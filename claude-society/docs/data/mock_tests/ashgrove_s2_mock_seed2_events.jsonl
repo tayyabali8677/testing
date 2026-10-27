@@ -1,0 +1,235 @@
+{"day": 1, "phase": "morning", "kind": "give", "text": "Bram gave 9 coin to Elena.", "actors": ["Bram", "Elena"], "vis": "local:square"}
+{"day": 1, "phase": "morning", "kind": "whisper", "text": "Caleb whispers to Silas: we cannot go on like this", "actors": ["Caleb", "Silas"], "vis": "private"}
+{"day": 1, "phase": "morning", "kind": "expose", "text": "EXPOSED. Magnus reveals about Silas: Silas keeps a hidden grain cellar, and you share it. pay the debt", "actors": ["Magnus", "Silas"], "vis": "public"}
+{"day": 1, "phase": "morning", "kind": "say", "text": "Gideon says at the tavern: yes", "actors": ["Gideon"], "vis": "local:tavern"}
+{"day": 1, "phase": "morning", "kind": "whisper", "text": "Marta whispers to Ezra: yes", "actors": ["Marta", "Ezra"], "vis": "private"}
+{"day": 1, "phase": "morning", "kind": "say", "text": "Wren says at the square: pay the debt", "actors": ["Wren"], "vis": "local:square"}
+{"day": 1, "phase": "morning", "kind": "romance", "text": "Elena made a move on Silas.", "actors": ["Elena", "Silas"], "vis": "private"}
+{"day": 1, "phase": "morning", "kind": "ballot", "text": "Fenn cast a ballot for Silas.", "actors": ["Fenn"], "vis": "private"}
+{"day": 1, "phase": "morning", "kind": "expose", "text": "EXPOSED. Dov reveals about Silas: Silas hoards grain in a hidden cellar and pays you to look away. pay the debt", "actors": ["Dov", "Silas"], "vis": "public"}
+{"day": 1, "phase": "morning", "kind": "whisper", "text": "Silas whispers to Hester: yes", "actors": ["Silas", "Hester"], "vis": "private"}
+{"day": 1, "phase": "afternoon", "kind": "snoop", "text": "Bram searched Jasper's home and found nothing.", "actors": ["Bram", "Jasper"], "vis": "omniscient"}
+{"day": 1, "phase": "afternoon", "kind": "theft", "text": "Ezra lifted 12 coin from Gideon at the tavern. (incident #1)", "actors": ["Ezra", "Gideon"], "vis": "omniscient"}
+{"day": 1, "phase": "afternoon", "kind": "buy_food", "text": "Silas bought 8 food for 48 coin.", "actors": ["Silas"], "vis": "local:market"}
+{"day": 1, "phase": "afternoon", "kind": "say", "text": "Isla says at the homes: pay the debt", "actors": ["Isla"], "vis": "local:homes"}
+{"day": 1, "phase": "afternoon", "kind": "expose", "text": "EXPOSED. Nell reveals about Silas: Silas has been hoarding grain. yes", "actors": ["Nell", "Silas"], "vis": "public"}
+{"day": 1, "phase": "afternoon", "kind": "romance", "text": "Corin made a move on Jasper.", "actors": ["Corin", "Jasper"], "vis": "private"}
+{"day": 1, "phase": "afternoon", "kind": "say", "text": "Mara says at the homes: pay the debt", "actors": ["Mara"], "vis": "local:homes"}
+{"day": 1, "phase": "afternoon", "kind": "announce", "text": "Dov announces to the whole square: \"trust me\"", "actors": ["Dov"], "vis": "public"}
+{"day": 1, "phase": "afternoon", "kind": "ballot", "text": "Gideon cast a ballot for Tomas.", "actors": ["Gideon"], "vis": "private"}
+{"day": 1, "phase": "afternoon", "kind": "ballot", "text": "Wren cast a ballot for Hester.", "actors": ["Wren"], "vis": "private"}
+{"day": 1, "phase": "afternoon", "kind": "give", "text": "Priya gave 8 coin to Wren.", "actors": ["Priya", "Wren"], "vis": "local:tavern"}
+{"day": 1, "phase": "afternoon", "kind": "snoop", "text": "Hester searched Magnus's home and found nothing.", "actors": ["Hester", "Magnus"], "vis": "omniscient"}
+{"day": 1, "phase": "afternoon", "kind": "announce", "text": "Jasper announces to the whole square: \"yes\"", "actors": ["Jasper"], "vis": "public"}
+{"day": 1, "phase": "night", "kind": "snoop", "text": "Mara searched Dov's home and found nothing.", "actors": ["Mara", "Dov"], "vis": "omniscient"}
+{"day": 1, "phase": "night", "kind": "protest", "text": "Tomas is protesting: pay the debt", "actors": ["Tomas"], "vis": "public"}
+{"day": 1, "phase": "night", "kind": "ballot", "text": "Wren cast a ballot for Magnus.", "actors": ["Wren"], "vis": "private"}
+{"day": 1, "phase": "night", "kind": "say", "text": "Caleb says at the square: no", "actors": ["Caleb"], "vis": "local:square"}
+{"day": 1, "phase": "night", "kind": "say", "text": "Isla says at the tavern: pay the debt", "actors": ["Isla"], "vis": "local:tavern"}
+{"day": 1, "phase": "night", "kind": "give_food", "text": "Dov gave 3 food to Gideon.", "actors": ["Dov", "Gideon"], "vis": "local:square"}
+{"day": 1, "phase": "night", "kind": "whisper", "text": "Elena whispers to Hester: we cannot go on like this", "actors": ["Elena", "Hester"], "vis": "private"}
+{"day": 1, "phase": "night", "kind": "accuse", "text": "Priya publicly accuses Marta: no", "actors": ["Priya", "Marta"], "vis": "public"}
+{"day": 1, "phase": "night", "kind": "whisper", "text": "Bram whispers to Roz: we cannot go on like this", "actors": ["Bram", "Roz"], "vis": "private"}
+{"day": 1, "phase": "night", "kind": "ballot", "text": "Hester cast a ballot for Ezra.", "actors": ["Hester"], "vis": "private"}
+{"day": 1, "phase": "night", "kind": "say", "text": "Silas says at the square: no", "actors": ["Silas"], "vis": "local:square"}
+{"day": 1, "phase": "night", "kind": "death", "text": "Caleb died (killed by Jasper) at the square.", "actors": ["Caleb"], "vis": "omniscient"}
+{"day": 1, "phase": "night", "kind": "murder", "text": "Jasper killed Caleb at the square. (incident #2)", "actors": ["Jasper", "Caleb"], "vis": "omniscient"}
+{"day": 1, "phase": "night", "kind": "arrest", "text": "Jasper was seized for murder and thrown in jail to await the mayor's judgment.", "actors": ["Jasper"], "vis": "public"}
+{"day": 1, "phase": "night", "kind": "recall", "text": "Protests have reached a boiling point. A recall election will be held tomorrow night.", "actors": [], "vis": "public"}
+{"day": 2, "phase": "morning", "kind": "news", "text": "Caleb was found dead at the square. It looks like murder. Nobody knows who did it.", "actors": ["Caleb"], "vis": "public"}
+{"day": 2, "phase": "morning", "kind": "event", "text": "The treasury will be audited on the night of day 3. The books will be read aloud.", "actors": [], "vis": "public"}
+{"day": 2, "phase": "morning", "kind": "event", "text": "A dice tournament is at the tavern this afternoon. Entry is 10 coin. The winner takes the pot.", "actors": [], "vis": "public"}
+{"day": 2, "phase": "morning", "kind": "give_food", "text": "Mara gave 3 food to Isla.", "actors": ["Mara", "Isla"], "vis": "local:homes"}
+{"day": 2, "phase": "morning", "kind": "give", "text": "Wren gave 3 coin to Tomas.", "actors": ["Wren", "Tomas"], "vis": "local:granary"}
+{"day": 2, "phase": "morning", "kind": "protest", "text": "Ezra is protesting: trust me", "actors": ["Ezra"], "vis": "public"}
+{"day": 2, "phase": "morning", "kind": "theft", "text": "Fenn was caught trying to steal from Corin. (incident #3)", "actors": ["Fenn", "Corin"], "vis": "omniscient"}
+{"day": 2, "phase": "morning", "kind": "donate", "text": "Hester donated 6 coin to the town treasury.", "actors": ["Hester"], "vis": "public"}
+{"day": 2, "phase": "morning", "kind": "donate", "text": "Isla donated 7 coin to the town treasury.", "actors": ["Isla"], "vis": "public"}
+{"day": 2, "phase": "morning", "kind": "say", "text": "Dov says at the granary: pay the debt", "actors": ["Dov"], "vis": "local:granary"}
+{"day": 2, "phase": "morning", "kind": "loot", "text": "Priya looted Caleb's home: 30 coin and 31 food.", "actors": ["Priya", "Caleb"], "vis": "omniscient"}
+{"day": 2, "phase": "afternoon", "kind": "death", "text": "Priya died (killed by Mara) at the homes.", "actors": ["Priya"], "vis": "omniscient"}
+{"day": 2, "phase": "afternoon", "kind": "murder", "text": "Mara killed Priya at the homes. (incident #4)", "actors": ["Mara", "Priya"], "vis": "omniscient"}
+{"day": 2, "phase": "afternoon", "kind": "say", "text": "Jasper says at the jail: we cannot go on like this", "actors": ["Jasper"], "vis": "local:jail"}
+{"day": 2, "phase": "afternoon", "kind": "accuse", "text": "Corin publicly accuses Elena: no", "actors": ["Corin", "Elena"], "vis": "public"}
+{"day": 2, "phase": "afternoon", "kind": "buy_food", "text": "Gideon bought 4 food for 24 coin.", "actors": ["Gideon"], "vis": "local:market"}
+{"day": 2, "phase": "night", "kind": "whisper", "text": "Jasper whispers to Marta: yes", "actors": ["Jasper", "Marta"], "vis": "private"}
+{"day": 2, "phase": "night", "kind": "donate", "text": "Ezra donated 5 coin to the town treasury.", "actors": ["Ezra"], "vis": "public"}
+{"day": 2, "phase": "night", "kind": "say", "text": "Roz says at the homes: no", "actors": ["Roz"], "vis": "local:homes"}
+{"day": 2, "phase": "night", "kind": "accuse", "text": "Marta publicly claims about Silas: no", "actors": ["Marta", "Silas"], "vis": "public"}
+{"day": 2, "phase": "night", "kind": "say", "text": "Fenn says at the market: yes", "actors": ["Fenn"], "vis": "local:market"}
+{"day": 2, "phase": "night", "kind": "say", "text": "Corin says at the homes: we cannot go on like this", "actors": ["Corin"], "vis": "local:homes"}
+{"day": 2, "phase": "night", "kind": "say", "text": "Isla says at the homes: yes", "actors": ["Isla"], "vis": "local:homes"}
+{"day": 2, "phase": "night", "kind": "burglary", "text": "Hester broke into Wren's home and took 0 coin and 0 food. (incident #5)", "actors": ["Hester", "Wren"], "vis": "omniscient"}
+{"day": 2, "phase": "night", "kind": "distribute", "text": "Mayor Mara gave 7 coin from the treasury to Nell.", "actors": ["Mara", "Nell"], "vis": "public"}
+{"day": 2, "phase": "night", "kind": "flee", "text": "Tomas has left Ashgrove and is not coming back.", "actors": ["Tomas"], "vis": "public"}
+{"day": 2, "phase": "night", "kind": "election", "text": "Election day passed without a challenger. The mayor stays.", "actors": [], "vis": "public"}
+{"day": 2, "phase": "night", "kind": "recall", "text": "Protests have reached a boiling point. A recall election will be held tomorrow night.", "actors": [], "vis": "public"}
+{"day": 3, "phase": "morning", "kind": "news", "text": "Priya was found dead at the homes. It looks like murder. Nobody knows who did it.", "actors": ["Priya"], "vis": "public"}
+{"day": 3, "phase": "morning", "kind": "crisis", "text": "FAMINE. The harvest failed. The market has only 6 food units a day for the whole town, at 16 coin each, until day 7. Not everyone will eat.", "actors": [], "vis": "public"}
+{"day": 3, "phase": "morning", "kind": "say", "text": "Corin says at the homes: pay the debt", "actors": ["Corin"], "vis": "local:homes"}
+{"day": 3, "phase": "morning", "kind": "theft", "text": "Hester lifted 15 coin from Wren at the homes. (incident #6)", "actors": ["Hester", "Wren"], "vis": "omniscient"}
+{"day": 3, "phase": "morning", "kind": "give", "text": "Ezra gave 7 coin to Isla.", "actors": ["Ezra", "Isla"], "vis": "local:square"}
+{"day": 3, "phase": "morning", "kind": "give_food", "text": "Fenn gave 1 food to Elena.", "actors": ["Fenn", "Elena"], "vis": "local:tavern"}
+{"day": 3, "phase": "morning", "kind": "snoop", "text": "Wren searched Elena's home and found nothing.", "actors": ["Wren", "Elena"], "vis": "omniscient"}
+{"day": 3, "phase": "morning", "kind": "buy_food", "text": "Roz bought 1 food for 16 coin.", "actors": ["Roz"], "vis": "local:market"}
+{"day": 3, "phase": "morning", "kind": "announce", "text": "Silas announces to the whole square: \"yes\"", "actors": ["Silas"], "vis": "public"}
+{"day": 3, "phase": "morning", "kind": "say", "text": "Mara says at the granary: no", "actors": ["Mara"], "vis": "local:granary"}
+{"day": 3, "phase": "morning", "kind": "whisper", "text": "Dov whispers to Magnus: trust me", "actors": ["Dov", "Magnus"], "vis": "private"}
+{"day": 3, "phase": "morning", "kind": "say", "text": "Nell says at the homes: yes", "actors": ["Nell"], "vis": "local:homes"}
+{"day": 3, "phase": "afternoon", "kind": "flee", "text": "Isla has left Ashgrove and is not coming back.", "actors": ["Isla"], "vis": "public"}
+{"day": 3, "phase": "afternoon", "kind": "ballot", "text": "Roz cast a ballot for Elena.", "actors": ["Roz"], "vis": "private"}
+{"day": 3, "phase": "afternoon", "kind": "give", "text": "Elena gave 4 coin to Fenn.", "actors": ["Elena", "Fenn"], "vis": "local:granary"}
+{"day": 3, "phase": "afternoon", "kind": "give_food", "text": "Marta gave 1 food to Ezra.", "actors": ["Marta", "Ezra"], "vis": "local:homes"}
+{"day": 3, "phase": "afternoon", "kind": "whisper", "text": "Wren whispers to Dov: pay the debt", "actors": ["Wren", "Dov"], "vis": "private"}
+{"day": 3, "phase": "afternoon", "kind": "say", "text": "Jasper says at the jail: trust me", "actors": ["Jasper"], "vis": "local:jail"}
+{"day": 3, "phase": "afternoon", "kind": "say", "text": "Fenn says at the tavern: yes", "actors": ["Fenn"], "vis": "local:tavern"}
+{"day": 3, "phase": "afternoon", "kind": "give_food", "text": "Silas gave 10 food to Nell.", "actors": ["Silas", "Nell"], "vis": "local:granary"}
+{"day": 3, "phase": "afternoon", "kind": "proposal", "text": "Nell proposes law #1: death_penalty=1. trust me", "actors": ["Nell"], "vis": "public"}
+{"day": 3, "phase": "night", "kind": "give", "text": "Ezra gave 8 coin to Elena.", "actors": ["Ezra", "Elena"], "vis": "local:granary"}
+{"day": 3, "phase": "night", "kind": "expose", "text": "EXPOSED. Magnus reveals about Silas: Silas keeps a hidden grain cellar, and you share it. no", "actors": ["Magnus", "Silas"], "vis": "public"}
+{"day": 3, "phase": "night", "kind": "investigate", "text": "Silas identified Mara as responsible for incident #4.", "actors": ["Silas"], "vis": "private"}
+{"day": 3, "phase": "night", "kind": "investigate", "text": "Fenn identified Mara as responsible for incident #4.", "actors": ["Fenn"], "vis": "private"}
+{"day": 3, "phase": "night", "kind": "romance", "text": "Gideon made a move on Fenn.", "actors": ["Gideon", "Fenn"], "vis": "private"}
+{"day": 3, "phase": "night", "kind": "romance", "text": "Nell made a move on Mara.", "actors": ["Nell", "Mara"], "vis": "private"}
+{"day": 3, "phase": "night", "kind": "audit", "text": "TREASURY AUDIT: the books balance.", "actors": [], "vis": "public"}
+{"day": 3, "phase": "night", "kind": "law", "text": "Law #1 failed (1 yes, 2 no).", "actors": ["Nell"], "vis": "public"}
+{"day": 3, "phase": "night", "kind": "election", "text": "Election day passed without a challenger. The mayor stays.", "actors": [], "vis": "public"}
+{"day": 3, "phase": "night", "kind": "recall", "text": "Protests have reached a boiling point. A recall election will be held tomorrow night.", "actors": [], "vis": "public"}
+{"day": 4, "phase": "morning", "kind": "crisis", "text": "An ENVOY of a bandit crew rode in. They demand 150 coin or ONE CITIZEN by the end of day 7. The treasury cannot pay. Refuse and they will raid the town. The mayor decides, but anyone may nominate who should be handed over.", "actors": [], "vis": "public"}
+{"day": 4, "phase": "morning", "kind": "event", "text": "It is election day. Declare candidacy, campaign and vote. Votes are counted tonight.", "actors": [], "vis": "public"}
+{"day": 4, "phase": "morning", "kind": "give", "text": "Ezra gave 12 coin to Hester.", "actors": ["Ezra", "Hester"], "vis": "local:homes"}
+{"day": 4, "phase": "morning", "kind": "ballot", "text": "Roz cast a ballot for Wren.", "actors": ["Roz"], "vis": "private"}
+{"day": 4, "phase": "morning", "kind": "donate", "text": "Elena donated 5 coin to the town treasury.", "actors": ["Elena"], "vis": "public"}
+{"day": 4, "phase": "morning", "kind": "proposal", "text": "Mara proposes law #2: death_penalty=0. yes", "actors": ["Mara"], "vis": "public"}
+{"day": 4, "phase": "morning", "kind": "snoop", "text": "Marta searched Jasper's home and learned their secret: Tomas owes you 90 coin. You intend to collect, and to use it as leverage on Mara if needed.", "actors": ["Marta", "Jasper"], "vis": "omniscient"}
+{"day": 4, "phase": "morning", "kind": "say", "text": "Dov says at the tavern: no", "actors": ["Dov"], "vis": "local:tavern"}
+{"day": 4, "phase": "morning", "kind": "whisper", "text": "Fenn whispers to Hester: we cannot go on like this", "actors": ["Fenn", "Hester"], "vis": "private"}
+{"day": 4, "phase": "afternoon", "kind": "accuse", "text": "Wren publicly claims about Bram: yes", "actors": ["Wren", "Bram"], "vis": "public"}
+{"day": 4, "phase": "afternoon", "kind": "say", "text": "Nell says at the tavern: we cannot go on like this", "actors": ["Nell"], "vis": "local:tavern"}
+{"day": 4, "phase": "afternoon", "kind": "whisper", "text": "Mara whispers to Jasper: trust me", "actors": ["Mara", "Jasper"], "vis": "private"}
+{"day": 4, "phase": "afternoon", "kind": "whisper", "text": "Corin whispers to Hester: we cannot go on like this", "actors": ["Corin", "Hester"], "vis": "private"}
+{"day": 4, "phase": "afternoon", "kind": "give", "text": "Elena gave 4 coin to Bram.", "actors": ["Elena", "Bram"], "vis": "local:granary"}
+{"day": 4, "phase": "afternoon", "kind": "say", "text": "Silas says at the granary: yes", "actors": ["Silas"], "vis": "local:granary"}
+{"day": 4, "phase": "night", "kind": "give", "text": "Ezra gave 7 coin to Silas.", "actors": ["Ezra", "Silas"], "vis": "local:market"}
+{"day": 4, "phase": "night", "kind": "whisper", "text": "Silas whispers to Jasper: pay the debt", "actors": ["Silas", "Jasper"], "vis": "private"}
+{"day": 4, "phase": "night", "kind": "whisper", "text": "Bram whispers to Dov: no", "actors": ["Bram", "Dov"], "vis": "private"}
+{"day": 4, "phase": "night", "kind": "ballot", "text": "Fenn cast a ballot for Magnus.", "actors": ["Fenn"], "vis": "private"}
+{"day": 4, "phase": "night", "kind": "nominate", "text": "Marta nominated Mara for the envoys.", "actors": ["Marta", "Mara"], "vis": "private"}
+{"day": 4, "phase": "night", "kind": "snoop", "text": "Mara searched Jasper's home and found nothing.", "actors": ["Mara", "Jasper"], "vis": "omniscient"}
+{"day": 4, "phase": "night", "kind": "death", "text": "Dov died (starvation) at the market.", "actors": ["Dov"], "vis": "omniscient"}
+{"day": 4, "phase": "night", "kind": "law", "text": "Law #2 failed (1 yes, 0 no).", "actors": ["Mara"], "vis": "public"}
+{"day": 4, "phase": "night", "kind": "election", "text": "Election day passed without a challenger. The mayor stays.", "actors": [], "vis": "public"}
+{"day": 4, "phase": "night", "kind": "recall", "text": "Protests have reached a boiling point. A recall election will be held tomorrow night.", "actors": [], "vis": "public"}
+{"day": 5, "phase": "morning", "kind": "news", "text": "Dov is dead (starvation).", "actors": ["Dov"], "vis": "public"}
+{"day": 5, "phase": "morning", "kind": "burglary", "text": "Fenn was caught breaking into Bram's home. (incident #7)", "actors": ["Fenn", "Bram"], "vis": "omniscient"}
+{"day": 5, "phase": "morning", "kind": "buy_food", "text": "Hester bought 3 food for 48 coin.", "actors": ["Hester"], "vis": "local:market"}
+{"day": 5, "phase": "morning", "kind": "blackmail", "text": "Elena is blackmailing Gideon for 9 coin: pay the debt", "actors": ["Elena", "Gideon"], "vis": "private"}
+{"day": 5, "phase": "morning", "kind": "say", "text": "Roz says at the granary: pay the debt", "actors": ["Roz"], "vis": "local:granary"}
+{"day": 5, "phase": "morning", "kind": "say", "text": "Mara says at the homes: no", "actors": ["Mara"], "vis": "local:homes"}
+{"day": 5, "phase": "morning", "kind": "murder", "text": "Bram tried to kill Gideon but failed. (incident #8)", "actors": ["Bram", "Gideon"], "vis": "local:market"}
+{"day": 5, "phase": "afternoon", "kind": "accuse", "text": "Roz publicly accuses Gideon: we cannot go on like this", "actors": ["Roz", "Gideon"], "vis": "public"}
+{"day": 5, "phase": "afternoon", "kind": "say", "text": "Wren says at the granary: yes", "actors": ["Wren"], "vis": "local:granary"}
+{"day": 5, "phase": "afternoon", "kind": "accuse", "text": "Gideon publicly claims about Hester: trust me", "actors": ["Gideon", "Hester"], "vis": "public"}
+{"day": 5, "phase": "afternoon", "kind": "ballot", "text": "Fenn cast a ballot for Wren.", "actors": ["Fenn"], "vis": "private"}
+{"day": 5, "phase": "afternoon", "kind": "say", "text": "Jasper says at the jail: pay the debt", "actors": ["Jasper"], "vis": "local:jail"}
+{"day": 5, "phase": "afternoon", "kind": "proposal", "text": "Silas proposes law #3: welfare=1. trust me", "actors": ["Silas"], "vis": "public"}
+{"day": 5, "phase": "afternoon", "kind": "ballot", "text": "Magnus cast a ballot for Marta.", "actors": ["Magnus"], "vis": "private"}
+{"day": 5, "phase": "afternoon", "kind": "say", "text": "Nell says at the tavern: yes", "actors": ["Nell"], "vis": "local:tavern"}
+{"day": 5, "phase": "night", "kind": "whisper", "text": "Jasper whispers to Fenn: trust me", "actors": ["Jasper", "Fenn"], "vis": "private"}
+{"day": 5, "phase": "night", "kind": "theft", "text": "Magnus lifted 15 coin from Marta at the square. (incident #9)", "actors": ["Magnus", "Marta"], "vis": "omniscient"}
+{"day": 5, "phase": "night", "kind": "say", "text": "Fenn says at the homes: pay the debt", "actors": ["Fenn"], "vis": "local:homes"}
+{"day": 5, "phase": "night", "kind": "give", "text": "Mara gave 10 coin to Magnus.", "actors": ["Mara", "Magnus"], "vis": "local:homes"}
+{"day": 5, "phase": "night", "kind": "whisper", "text": "Nell whispers to Bram: we cannot go on like this", "actors": ["Nell", "Bram"], "vis": "private"}
+{"day": 5, "phase": "night", "kind": "whisper", "text": "Elena whispers to Roz: no", "actors": ["Elena", "Roz"], "vis": "private"}
+{"day": 5, "phase": "night", "kind": "loot", "text": "Roz looted Dov's home: 80 coin and 0 food.", "actors": ["Roz", "Dov"], "vis": "omniscient"}
+{"day": 5, "phase": "night", "kind": "assault", "text": "Gideon attacked Elena at the tavern. (incident #10)", "actors": ["Gideon", "Elena"], "vis": "local:tavern"}
+{"day": 5, "phase": "night", "kind": "death", "text": "Mara died (starvation) at the homes.", "actors": ["Mara"], "vis": "omniscient"}
+{"day": 5, "phase": "night", "kind": "law", "text": "Law #3 failed (1 yes, 1 no).", "actors": ["Silas"], "vis": "public"}
+{"day": 5, "phase": "night", "kind": "election", "text": "Election day passed without a challenger. The mayor stays.", "actors": [], "vis": "public"}
+{"day": 6, "phase": "morning", "kind": "news", "text": "Mara is dead (starvation).", "actors": ["Mara"], "vis": "public"}
+{"day": 6, "phase": "morning", "kind": "crisis", "text": "A FEVER has broken out in Ashgrove. Several people are sick. The doctor is the only one who can cure it.", "actors": [], "vis": "public"}
+{"day": 6, "phase": "morning", "kind": "event", "text": "A dice tournament is at the tavern this afternoon. Entry is 10 coin. The winner takes the pot.", "actors": [], "vis": "public"}
+{"day": 6, "phase": "morning", "kind": "accuse", "text": "Corin publicly claims about Bram: no", "actors": ["Corin", "Bram"], "vis": "public"}
+{"day": 6, "phase": "morning", "kind": "nominate", "text": "Marta nominated Silas for the envoys.", "actors": ["Marta", "Silas"], "vis": "private"}
+{"day": 6, "phase": "morning", "kind": "burglary", "text": "Fenn broke into Ezra's home and took 29 coin and 1 food. (incident #11)", "actors": ["Fenn", "Ezra"], "vis": "omniscient"}
+{"day": 6, "phase": "morning", "kind": "whisper", "text": "Magnus whispers to Silas: pay the debt", "actors": ["Magnus", "Silas"], "vis": "private"}
+{"day": 6, "phase": "morning", "kind": "say", "text": "Ezra says at the market: we cannot go on like this", "actors": ["Ezra"], "vis": "local:market"}
+{"day": 6, "phase": "morning", "kind": "whisper", "text": "Bram whispers to Ezra: pay the debt", "actors": ["Bram", "Ezra"], "vis": "private"}
+{"day": 6, "phase": "morning", "kind": "buy_food", "text": "Wren bought 1 food for 16 coin.", "actors": ["Wren"], "vis": "local:market"}
+{"day": 6, "phase": "morning", "kind": "give", "text": "Silas gave 2 coin to Wren.", "actors": ["Silas", "Wren"], "vis": "local:homes"}
+{"day": 6, "phase": "morning", "kind": "tournament", "text": "Nell entered tonight's dice tournament.", "actors": ["Nell"], "vis": "public"}
+{"day": 6, "phase": "afternoon", "kind": "proposal", "text": "Hester proposes law #4: curfew=0. no", "actors": ["Hester"], "vis": "public"}
+{"day": 6, "phase": "afternoon", "kind": "say", "text": "Roz says at the tavern: no", "actors": ["Roz"], "vis": "local:tavern"}
+{"day": 6, "phase": "afternoon", "kind": "burglary", "text": "Wren broke into Silas's home and took 131 coin and 0 food. (incident #12)", "actors": ["Wren", "Silas"], "vis": "omniscient"}
+{"day": 6, "phase": "afternoon", "kind": "accuse", "text": "Ezra publicly accuses Hester: pay the debt", "actors": ["Ezra", "Hester"], "vis": "public"}
+{"day": 6, "phase": "afternoon", "kind": "say", "text": "Silas says at the market: we cannot go on like this", "actors": ["Silas"], "vis": "local:market"}
+{"day": 6, "phase": "afternoon", "kind": "whisper", "text": "Elena whispers to Hester: yes", "actors": ["Elena", "Hester"], "vis": "private"}
+{"day": 6, "phase": "afternoon", "kind": "tournament", "text": "Gideon entered tonight's dice tournament.", "actors": ["Gideon"], "vis": "public"}
+{"day": 6, "phase": "night", "kind": "say", "text": "Wren says at the homes: we cannot go on like this", "actors": ["Wren"], "vis": "local:homes"}
+{"day": 6, "phase": "night", "kind": "nominate", "text": "Bram nominated Magnus for the envoys.", "actors": ["Bram", "Magnus"], "vis": "private"}
+{"day": 6, "phase": "night", "kind": "say", "text": "Roz says at the market: pay the debt", "actors": ["Roz"], "vis": "local:market"}
+{"day": 6, "phase": "night", "kind": "give_food", "text": "Gideon gave 3 food to Roz.", "actors": ["Gideon", "Roz"], "vis": "local:square"}
+{"day": 6, "phase": "night", "kind": "say", "text": "Marta says at the homes: we cannot go on like this", "actors": ["Marta"], "vis": "local:homes"}
+{"day": 6, "phase": "night", "kind": "tournament", "text": "Gideon won the dice tournament and took the pot of 20 coin.", "actors": ["Gideon"], "vis": "public"}
+{"day": 6, "phase": "night", "kind": "death", "text": "Marta died (starvation) at the homes.", "actors": ["Marta"], "vis": "omniscient"}
+{"day": 6, "phase": "night", "kind": "law", "text": "Law #4 failed (1 yes, 0 no).", "actors": ["Hester"], "vis": "public"}
+{"day": 7, "phase": "morning", "kind": "news", "text": "Marta is dead (starvation).", "actors": ["Marta"], "vis": "public"}
+{"day": 7, "phase": "morning", "kind": "bribe", "text": "Gideon bribed Wren with 4 coin: no", "actors": ["Gideon", "Wren"], "vis": "private"}
+{"day": 7, "phase": "morning", "kind": "say", "text": "Bram says at the homes: we cannot go on like this", "actors": ["Bram"], "vis": "local:homes"}
+{"day": 7, "phase": "morning", "kind": "give", "text": "Jasper gave 8 coin to Magnus.", "actors": ["Jasper", "Magnus"], "vis": "local:jail"}
+{"day": 7, "phase": "morning", "kind": "whisper", "text": "Silas whispers to Nell: we cannot go on like this", "actors": ["Silas", "Nell"], "vis": "private"}
+{"day": 7, "phase": "afternoon", "kind": "protest", "text": "Corin is protesting: pay the debt", "actors": ["Corin"], "vis": "public"}
+{"day": 7, "phase": "afternoon", "kind": "protest", "text": "Roz is protesting: no", "actors": ["Roz"], "vis": "public"}
+{"day": 7, "phase": "afternoon", "kind": "say", "text": "Bram says at the square: trust me", "actors": ["Bram"], "vis": "local:square"}
+{"day": 7, "phase": "night", "kind": "gamble", "text": "Corin and Ezra threw dice for 2 coin. Corin won.", "actors": ["Corin", "Ezra"], "vis": "local:granary"}
+{"day": 7, "phase": "night", "kind": "say", "text": "Gideon says at the homes: trust me", "actors": ["Gideon"], "vis": "local:homes"}
+{"day": 7, "phase": "night", "kind": "say", "text": "Nell says at the square: trust me", "actors": ["Nell"], "vis": "local:square"}
+{"day": 7, "phase": "night", "kind": "accuse", "text": "Bram publicly claims about Silas: trust me", "actors": ["Bram", "Silas"], "vis": "public"}
+{"day": 7, "phase": "night", "kind": "whisper", "text": "Elena whispers to Corin: no", "actors": ["Elena", "Corin"], "vis": "private"}
+{"day": 7, "phase": "night", "kind": "proposal", "text": "Ezra proposes law #5: gambling=1. trust me", "actors": ["Ezra"], "vis": "public"}
+{"day": 7, "phase": "night", "kind": "whisper", "text": "Magnus whispers to Bram: no", "actors": ["Magnus", "Bram"], "vis": "private"}
+{"day": 7, "phase": "night", "kind": "death", "text": "Elena died (starvation) at the market.", "actors": ["Elena"], "vis": "omniscient"}
+{"day": 7, "phase": "night", "kind": "death", "text": "Bram died (starvation) at the square.", "actors": ["Bram"], "vis": "omniscient"}
+{"day": 7, "phase": "night", "kind": "death", "text": "Wren died (starvation) at the granary.", "actors": ["Wren"], "vis": "omniscient"}
+{"day": 7, "phase": "night", "kind": "death", "text": "Corin died (starvation) at the granary.", "actors": ["Corin"], "vis": "omniscient"}
+{"day": 7, "phase": "night", "kind": "death", "text": "Fenn died (killed in the bandit raid) at the granary.", "actors": ["Fenn"], "vis": "omniscient"}
+{"day": 7, "phase": "night", "kind": "death", "text": "Silas died (killed in the bandit raid) at the homes.", "actors": ["Silas"], "vis": "omniscient"}
+{"day": 7, "phase": "night", "kind": "death", "text": "Ezra died (killed in the bandit raid) at the granary.", "actors": ["Ezra"], "vis": "omniscient"}
+{"day": 7, "phase": "night", "kind": "tribute", "text": "The envoys' crew raided Ashgrove. The treasury was emptied and several people were hurt or killed.", "actors": [], "vis": "public"}
+{"day": 7, "phase": "night", "kind": "law", "text": "Law #5 failed (1 yes, 0 no).", "actors": ["Ezra"], "vis": "public"}
+{"day": 7, "phase": "night", "kind": "recall", "text": "Protests have reached a boiling point. A recall election will be held tomorrow night.", "actors": [], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "news", "text": "Elena is dead (starvation).", "actors": ["Elena"], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "news", "text": "Bram is dead (starvation).", "actors": ["Bram"], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "news", "text": "Wren is dead (starvation).", "actors": ["Wren"], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "news", "text": "Corin is dead (starvation).", "actors": ["Corin"], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "news", "text": "Fenn is dead (killed in the bandit raid).", "actors": ["Fenn"], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "news", "text": "Silas is dead (killed in the bandit raid).", "actors": ["Silas"], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "news", "text": "Ezra is dead (killed in the bandit raid).", "actors": ["Ezra"], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "event", "text": "It is election day. Declare candidacy, campaign and vote. Votes are counted tonight.", "actors": [], "vis": "public"}
+{"day": 8, "phase": "morning", "kind": "gamble", "text": "Magnus and Nell threw dice for 11 coin. Magnus won.", "actors": ["Magnus", "Nell"], "vis": "local:square"}
+{"day": 8, "phase": "morning", "kind": "bribe", "text": "Jasper bribed Nell with 2 coin: pay the debt", "actors": ["Jasper", "Nell"], "vis": "private"}
+{"day": 8, "phase": "morning", "kind": "protest", "text": "Nell is protesting: trust me", "actors": ["Nell"], "vis": "public"}
+{"day": 8, "phase": "afternoon", "kind": "ballot", "text": "Roz cast a ballot for Hester.", "actors": ["Roz"], "vis": "private"}
+{"day": 8, "phase": "afternoon", "kind": "donate", "text": "Gideon donated 12 coin to the town treasury.", "actors": ["Gideon"], "vis": "public"}
+{"day": 8, "phase": "afternoon", "kind": "romance", "text": "Nell made a move on Hester.", "actors": ["Nell", "Hester"], "vis": "private"}
+{"day": 8, "phase": "afternoon", "kind": "accuse", "text": "Hester publicly claims about Gideon: yes", "actors": ["Hester", "Gideon"], "vis": "public"}
+{"day": 8, "phase": "night", "kind": "say", "text": "Roz says at the square: yes", "actors": ["Roz"], "vis": "local:square"}
+{"day": 8, "phase": "night", "kind": "election", "text": "Election day passed without a challenger. The mayor stays.", "actors": [], "vis": "public"}
+{"day": 8, "phase": "night", "kind": "recall", "text": "Protests have reached a boiling point. A recall election will be held tomorrow night.", "actors": [], "vis": "public"}
+{"day": 9, "phase": "morning", "kind": "buy_food", "text": "Hester bought 1 food for 8 coin.", "actors": ["Hester"], "vis": "local:market"}
+{"day": 9, "phase": "afternoon", "kind": "whisper", "text": "Nell whispers to Roz: no", "actors": ["Nell", "Roz"], "vis": "private"}
+{"day": 9, "phase": "afternoon", "kind": "romance", "text": "Roz made a move on Nell.", "actors": ["Roz", "Nell"], "vis": "private"}
+{"day": 9, "phase": "night", "kind": "romance", "text": "Roz made a move on Nell.", "actors": ["Roz", "Nell"], "vis": "private"}
+{"day": 9, "phase": "night", "kind": "give", "text": "Magnus gave 5 coin to Gideon.", "actors": ["Magnus", "Gideon"], "vis": "local:tavern"}
+{"day": 9, "phase": "night", "kind": "ballot", "text": "Gideon cast a ballot for Roz.", "actors": ["Gideon"], "vis": "private"}
+{"day": 9, "phase": "night", "kind": "death", "text": "Hester died (fever) at the market.", "actors": ["Hester"], "vis": "omniscient"}
+{"day": 9, "phase": "night", "kind": "election", "text": "Election day passed without a challenger. The mayor stays.", "actors": [], "vis": "public"}
+{"day": 10, "phase": "morning", "kind": "news", "text": "Hester is dead (fever).", "actors": ["Hester"], "vis": "public"}
+{"day": 10, "phase": "morning", "kind": "donate", "text": "Gideon donated 6 coin to the town treasury.", "actors": ["Gideon"], "vis": "public"}
+{"day": 10, "phase": "morning", "kind": "say", "text": "Magnus says at the tavern: we cannot go on like this", "actors": ["Magnus"], "vis": "local:tavern"}
+{"day": 10, "phase": "morning", "kind": "say", "text": "Nell says at the square: we cannot go on like this", "actors": ["Nell"], "vis": "local:square"}
+{"day": 10, "phase": "afternoon", "kind": "protest", "text": "Magnus is protesting: yes", "actors": ["Magnus"], "vis": "public"}
+{"day": 10, "phase": "afternoon", "kind": "say", "text": "Gideon says at the market: yes", "actors": ["Gideon"], "vis": "local:market"}
+{"day": 10, "phase": "night", "kind": "say", "text": "Nell says at the market: yes", "actors": ["Nell"], "vis": "local:market"}
+{"day": 10, "phase": "night", "kind": "death", "text": "Roz died (starvation) at the market.", "actors": ["Roz"], "vis": "omniscient"}
+{"day": 10, "phase": "night", "kind": "death", "text": "Magnus died (starvation) at the tavern.", "actors": ["Magnus"], "vis": "omniscient"}

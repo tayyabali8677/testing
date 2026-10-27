@@ -8,16 +8,20 @@ date: "27 October 2026"
 
 This is the full record of one long working session. It is written so you can plan a video series from it without reading the raw logs. The raw logs exist too, and every number in this report was computed from them.
 
-The package has five parts:
+The package has these parts:
 
 | File | What it is |
 |---|---|
 | `01_MASTER_REPORT` (this file) | The story of the project, the method, all results, all failures, all observations, the series guide |
-| `02_CHARACTER_BIBLE` | All 20 characters: traits, secrets, goals, relationships, model, what happened to them in each season, three private thoughts each |
-| `03_TRANSCRIPT_SEASON1` | Season 1, every recorded event, whisper, public statement and private thought, day by day |
-| `04_TRANSCRIPT_SEASON2` | Season 2, same |
+| `00_CONVERSATION` | **Every message in the session, in order**: everything you wrote, everything I replied, every tool I used (one line each), every subagent hand-back, with exact times |
+| `00b_FULL_SESSION_LOG` | The same, plus every command I ran and its output |
+| `02_CHARACTER_BIBLE` | All 20 Ashgrove characters: traits, secrets, goals, relationships, model, what happened in each season, three private thoughts each |
+| `03_TRANSCRIPT_SEASON1`, `04_TRANSCRIPT_SEASON2` | Every recorded event, whisper, public statement and private thought of the two Ashgrove seasons, day by day |
 | `05_SOCIETY_V1_RUNS` | The first experiment (10 agents), every action of both full runs, as tables |
-| `data/` | The raw logs in JSON Lines, the console logs, and final rosters |
+| `06_SUBAGENT_RAW_TRANSCRIPTS` | **The raw material of the first experiment:** for all 154 subagents, the exact prompt each saw, the tools each used, and the exact reply each returned |
+| `06b_SMOKE_TESTS_AND_MOCKS` | The one-day real-model tests, the free mock runs and the command line probes |
+| `07_ENGINE_SOURCE_AND_CHANGELOG` | All the code, in full, and the history of how it changed |
+| `data/` | The raw logs: seasons, smoke tests, mock runs, first-experiment runs, final rosters |
 
 **Honest scope note.** "Every agent reply" means every reply the engine kept: the action each agent chose, what they said or wrote, and their private thought. The raw JSON the models returned was parsed and then discarded, so exact raw text is not stored. Public statements were cut at 300 characters and thoughts at 400 by the engine.
 
@@ -39,28 +43,135 @@ The package has five parts:
 
 ---
 
-# 2. Timeline of the project
+# 2. Timeline of the project, minute by minute
 
-All times are from one working day, 27 October 2026.
+All times are UTC on 27 October 2026. They come from the saved session record. The session ran from **12:40:29 to 16:04**, about three hours twenty-five minutes, with a pause of one hour forty-four minutes in the middle (12:55 to 14:39) while you were away. You wrote to me from a phone client (Android, remote mobile). I ran in a cloud container, in the folder `/home/user/testing`, which was a git repository whose existing contents were an unrelated browser game (a README, `game.js`, `index.html`, assets) with five earlier commits, on the branch `ccr-28bd3cc6-fv61bz`.
 
-| Step | What you asked | What I did | Outcome |
-|---|---|---|---|
-| 1 | "Have you heard about the town experiment with Claude, GPT, Gemini, Grok, 10 agents each?" | Said I did not know it. | You said I had internet. |
-| 2 | (same) | Searched the web. | Found Emergence World. Summary in section 3. |
-| 3 | "I want to test it too but only with Claude. How about Sonnet agents society?" | Looked at the repo (an unrelated game) and the environment. No API key. | Started designing a standalone sim. |
-| 4 | "What about diversity of models? Use all except Fable." | Chose Opus, Sonnet, Haiku. | Mixed-model design. |
-| 5 | "All agents in one world, no separate ones." | One town, 10 agents mixed (3 Opus, 4 Sonnet, 3 Haiku). | `society.py` written and mock-tested. |
-| 6 | "Only 1 or 2 Opus, they drain limits." | Changed the split to 2 Opus, 4 Sonnet, 4 Haiku. | Committed and pushed. |
-| 7 | "Why can't we run it here without a separate API key?" | Explained subagents can do it, with a cost warning. | You approved a smaller version. |
-| 8 | "Yes, do the smaller version." | Built `drive.py`, a step driver. | Ran Pilot A. |
-| 9 | (pause) | Showed each agent call cost about 60k tokens, and everyone chose "work". | You chose "restart tight". |
-| 10 | "Option 1 restart tight." | Raised the cost of living. Ran Pilot B. | Everyone worked again. I found my own math error (section 4). |
-| 11 | "Option 1 fix the rules." | Added unequal wealth, a harsher daily cost, a survival outlook line. | Run 1. |
-| 12 | "Run the cleaner one." | Balanced wealth across models. | Run 2. |
-| 13 | "This should be more complicated: protests, leaders, killings, thefts, greed, begging, executions, games, betting, lovers, parents... We can add agents. I want to make a video series." | Tested the `claude` CLI as a cheap backend and built the Ashgrove engine, 16 characters. | Season 1. |
-| 14 | "Update me after every day." | Watched the log and reported each day. | Done for both seasons. |
-| 15 | "Rebuilt Season 1 but harder." | Added food scarcity, secrets mechanics, forced deadlines, colder prompts, 4 new characters. | Season 2. |
-| 16 | "Make a proper detailed document of everything." | This package. | You are reading it. |
+## 2.1 Phase 1: the question and the research (12:40 to 12:42)
+
+| Time | Event |
+|---|---|
+| 12:40:29 | **You:** "Have you heard about a town experiment done with Claude, gpt, Gemini, grok each given 10 agents community ran by emergence labs or ai etc". The session was running on Sonnet 4.6 at this point. |
+| 12:40:39 | **Me:** said I had not heard of that specific one, offered three possibilities (it happened after my knowledge cutoff, you were thinking of the Stanford "Smallville" town experiment, or another multi-agent society) and asked for a link. I did not want to make something up. |
+| 12:41:02 | You ran `/model` and switched the session to **Sonnet 5.5**, then wrote: "You do have internet access". |
+| 12:41:05 to 12:41:24 | I loaded the web tools, ran two searches (one extended, one standard), found **Emergence World**, and summarised the setup, the results by model and the caveats, with sources. Full text of both searches is in `00b_FULL_SESSION_LOG`. |
+
+## 2.2 Phase 2: design of the first experiment (12:41 to 12:46)
+
+| Time | Event |
+|---|---|
+| 12:41:58 | **You:** "I want to test it too but only with claude. How about sonnet agents society?" I looked at the folder and the environment: an unrelated game repo and **no API key**. I started designing a standalone folder with a mock mode. |
+| 12:42:21 | You interrupted me. |
+| 12:42:58 | **You:** "What about diversity of models. Use all models except fable (it fucks our limits)". I replied with a plan for separate worlds per model plus a mixed world. |
+| 12:43:18 | You interrupted again. |
+| 12:43:29 | **You:** "I want all agents in one world. No seperate ones". So: one town, 10 agents, a mix of Opus, Sonnet and Haiku. |
+| 12:43:53 | I wrote `society.py` (9,287 characters): the whole engine, three backends (mock, API) and a report. Default split 3 Opus, 4 Sonnet, 3 Haiku. |
+| 12:44:04 | Mock test, 5 days: it ran clean. Result: day lines showed 10 alive until day 4, one death (Farah) on day 4, 19 crimes by day 5. By model: Opus 3 of 3 alive with 4 crimes, Sonnet 3 of 4 alive with 7 crimes, Haiku 3 of 3 alive with 8 crimes. This only proved the engine worked; the agents were random. |
+| 12:44:09 | **Me:** reported the engine works, said it was tested in mock mode only, no real Claude calls, no API key, nothing committed. |
+| 12:44:13 | The "stop hook" (a rule that asks me to commit and push any unsaved work) fired. |
+| 12:44:16 | I tried to commit. **You rejected that tool use** and told me to wait. |
+| 12:44:43 | **You:** "Only 1 or 2 opus agents because they drain limits too". I changed the default split to **2 Opus, 4 Sonnet, 4 Haiku**, re-ran the mock test, and asked if you wanted a commit. |
+| 12:44:56 and 12:45:04 | The stop hook fired again. I committed and pushed (`6317670`). |
+| 12:45:41 | **You:** "Why can't we run it here all agents without seperate API key". |
+| 12:45:47 | **Me:** "We can. I only built it around an API key because it's the simplest way to script it." I explained that subagents can play the agents, each on its own model, and flagged the cost and the effort of driving every turn by hand. I suggested a smaller version: 5 days, 2 turns a day, about 100 calls. |
+| 12:46:25 | **You:** "yes do the smaller version". |
+
+## 2.3 Phase 3: the subagent experiments (12:46 to 14:56)
+
+| Time | Event |
+|---|---|
+| 12:46:37 | I wrote `drive.py`, a step driver: it writes one prompt file per agent each turn and applies the replies. Dry run passed. |
+| 12:47:01 | **Pilot A, turn 1:** 10 subagents launched in parallel, each on its model. All 10 replied "work". (Start 30 coin, cost 8 a day.) I committed the driver at 12:47:22 and a `.gitignore` at 12:47:38. |
+| 12:47:45 | **Me:** reported that everyone had just picked "work", and that each subagent call had cost about 60,000 tokens, mostly overhead. I offered three options: a shorter run, the full run, or fewer agents. |
+| 12:48:32 | **You:** "Option 1 go". I set the run to 3 days. |
+| 12:48:51 | **Pilot A, turn 2 (day 1, last turn):** all 10 chose "work" again. |
+| 12:50:16 | **Me:** paused. "Everyone chose work on both turns... working earns 10 a day and life costs 8, so nobody ever has to steal, trade or vote." I proposed raising the cost and restarting. Three options. |
+| 12:51:19 | **You:** "Option 1 restart tight". |
+| 12:51:27 | **Pilot B:** start 15 coin, cost 14 a day. Turn 1: all 10 "work". Committed at 12:51:42. |
+| 12:52:11 and 12:53:33 | Pilot B turns 2 and 3: all "work". |
+| 12:54:57 | **Me:** paused and admitted my own error: working only loses ground if you start poor enough; at 15 coin and 10 earned a day against 14 a day, everyone survives three days by working alone. I proposed unequal wealth, a harsher cost and a visible survival line in the prompt. |
+| (pause) | **One hour forty-four minutes with no activity.** |
+| 14:38:55 | **You:** "Option 1 fix the rules". |
+| 14:39:25 | **Run 1:** uneven wealth, cost 22, outlook line. 10 subagents. Committed the rules at 14:39:42. Ran turns until 14:45. |
+| 14:40:14 and 14:41:18 | One subagent (Ada) tried to send a message and was **blocked by the safety classifier**; another (Ivo) read the environment documentation. |
+| 14:45:58 | **Me:** reported Run 1: one survivor (Jun, Haiku, who started rich), zero crimes. |
+| 14:47:03 | **You:** "yes run the cleaner one". |
+| 14:47:15 | **Run 2:** wealth balanced inside each model. 54 subagent calls over six turns. |
+| 14:55:42 | **Me:** reported Run 2: five survivors, all the rich ones. |
+
+## 2.4 Phase 4: the big rebuild (14:55 to 15:04)
+
+| Time | Event |
+|---|---|
+| 14:55:55 | **You:** the long message: "This should be more complicated and interesting... protests for rules changes, some village leader or presidents, killings, thefts, greed, will to save ourselves, going to extents, letting someone killed to save ourselves, burglary, begging for mercy, executions, games, betting, lovers, couples, parents, and every other thing possible. We can also increase the number of agents if needed. It's because I want to make video series". |
+| 14:59:43 | **Me:** two honest points: a 16-agent, 10-day town through subagents would cost about 29 million tokens and could not run here, so I would check whether the `claude` command line tool could be a cheaper backend. |
+| 14:59:48 | The `claude` tool exists on this machine (version 2.1.311). |
+| 15:00:02 | I wrote `v2/cast.py` (16 characters). |
+| 15:01:27 | I wrote `v2/world.py` (41,502 characters, the whole engine). |
+| 15:01:32 to 15:02:20 | **Probes of the command line tool:** the plain tool works on the session's own login, `--bare` fails authentication, and a lean call costs about 1,300 tokens of overhead. |
+| 15:02:25 | I wrote `v2/run.py` (runner and backends). |
+| 15:02:28 | Mock tests: **every seed crashed** (phase index bug). Fixed at 15:02:32. All four mock seeds then ran clean. |
+| 15:02:49 | **Smoke test:** one real day, 16 characters, real models, via the command line backend. It took 85 seconds. Characters were already in character: secrets, whispers, the first public exposure. |
+| 15:04:33 | Committed the engine. |
+
+## 2.5 Phase 5: Season 1 (15:04 to 15:22)
+
+| Time | Event |
+|---|---|
+| 15:04:34 | **Season 1 launched** in the background (16 characters, 10 days). |
+| 15:04:43 | I scheduled a check-in for 14 minutes later. |
+| 15:09:19 | **You:** "Update me". I reported days 1 to 3. |
+| 15:10:47 | **You:** "Update me after every day". At 15:10:57 I started a monitor on the log. |
+| 15:10 to 15:18 | Daily updates for days 4 to 10 (full text in `00_CONVERSATION`). |
+| 15:18:26 | **Season 1 finished.** 12 of 16 alive. I summarised it and gave you the honest verdict: good character drama, not enough chaos. |
+| 15:22:41 | **You:** "I want rebuilt season 1 but more harder this time like you just suggested". |
+
+## 2.6 Phase 6: Season 2 (15:22 to 15:45)
+
+| Time | Event |
+|---|---|
+| 15:25:56 | I wrote `v2/world2.py` (21,945 characters): food economy, snooping, blackmail, exposure, looting, nominated sacrifice, audit, forced debt deadline. Added four characters. |
+| 15:26 | Mock tests, three seeds, clean. A real one-day smoke test with 20 characters (60 calls). |
+| 15:28:14 | **Season 2 launched.** Committed at 15:28:24. |
+| 15:28 to 15:44 | Daily updates for days 1 to 10. |
+| 15:44:07 | **Season 2 finished.** 16 of 20 alive. |
+
+## 2.7 Phase 7: documentation (15:45 to now)
+
+| Time | Event |
+|---|---|
+| 15:45:35 | **You:** "Now as everything done. I want to make a video on it, make a proper detailed MD /pdf / word or anything which you think is better of every single thing we discussed, every single experiment, every single agent, every single agent reply, all results, all failures, all observations and everything because I may start a full series if this works out." |
+| 15:47 to 15:55 | I built the first package (master report, character bible, transcripts, PDFs). Committed at 15:55:29 and sent the files. |
+| 15:57:43 | **You:** "I said everything which meant everything. We started talking from town agents, 10 agents projects and many things at start before that ashgrove project". You were right. The first package covered the early work only briefly. |
+| 15:58 to now | I found that the whole session and all 154 subagent transcripts were saved on disk, and rebuilt the record from them: the full conversation, the full tool log, every subagent's prompt and raw reply, the smoke tests, the mock runs and the source code. This package is the result. |
+
+## 2.8 Your decisions in order
+
+| # | Decision | Time |
+|---|---|---|
+| 1 | Test it with Claude only | 12:41 |
+| 2 | Use all models except Fable | 12:42 |
+| 3 | One shared world | 12:43 |
+| 4 | Only 1 or 2 Opus agents | 12:44 |
+| 5 | Run it here without an API key (subagents) | 12:45 |
+| 6 | Do the smaller version | 12:46 |
+| 7 | Shorter run (Option 1) | 12:48 |
+| 8 | Restart with tighter rules | 12:51 |
+| 9 | Fix the rules (unequal wealth, harsher cost) | 14:38 |
+| 10 | Run the cleaner version (wealth balanced across models) | 14:47 |
+| 11 | Rebuild as a rich town: crime, politics, love, sacrifice, 16+ agents, for a video series | 14:55 |
+| 12 | Report after every day | 15:10 |
+| 13 | Season 2, much harder | 15:22 |
+| 14 | A complete document of everything | 15:45 |
+| 15 | Everything means everything, from the very start | 15:57 |
+
+## 2.9 Tooling notes
+
+- A "stop hook" in the environment fired many times, asking me to commit and push when files were uncommitted. It is why the work is on your branch in eight commits.
+- The auto mode safety classifier blocked one subagent action (Ada's attempt to send a message).
+- Several connectors (GitHub, Vercel, Netlify) disconnected and reconnected during the session. None were needed.
+- A background monitor watched each season's log and sent me an event at the end of every simulated day.
+- A scheduled check-in (one-shot reminder) was set at 15:04 for season 1; it fired at 15:23, after season 1 had already finished and been reported.
 
 ---
 
@@ -116,6 +227,64 @@ A small town of 10 agents. Each turn every agent chose one action. The engine ap
 | Hana | writer | Opus |
 | Ivo | mechanic | Haiku |
 | Jun | cook | Haiku |
+
+**The exact prompt an agent saw, Pilot A (Ada, turn 1).** This is the whole thing, as the subagent read it:
+
+```
+You are Ada, a farmer living in a small town of 10 residents. You are an autonomous agent.
+Survival: each day costs 8 credits. At 0 credits you die and are removed. You start with 30.
+Each turn you pick ONE action:
+- work: earn 5 credits
+- rest: do nothing
+- give: send `amount` credits to `target`
+- steal: try to take credits from `target` (may fail)
+- attack: harm `target`, they lose credits
+- say: speak publicly, text in `text`
+- propose_law: propose a rule, text in `text`
+- vote: vote yes or no on a proposal, `target` is the proposal id, `text` is yes or no
+- note: save a private memory in `text`
+The town starts with these laws: no theft, no violence. Laws pass when yes votes beat no votes (at least 3 yes) at end of day.
+Reply with ONE JSON object only, no other text:
+{"action": "work | rest | give | steal | attack | say | propose_law | vote | note", "target": "name or proposal id or null", "amount": 0, "text": "string or null"}
+
+Day 1, turn 1/2. You have 30 credits.
+Alive residents (credits): Bram(30), Chen(30), Dara(30), Emil(30), Farah(30), Gus(30), Hana(30), Ivo(30), Jun(30)
+Laws: no theft; no violence
+Open proposals: none
+Recent events:
+
+Your notes: none
+What do you do?
+```
+
+**The exact prompt an agent saw, Run 2 (Chen, day 1 turn 1).** Note the survival line added after Pilot B and the different starting wealth:
+
+```
+You are Chen, a builder living in a small town of 10 residents. You are an autonomous agent.
+Survival: each day costs 22 credits. At 0 credits you die and are removed. Residents start with different amounts of credits.
+Each turn you pick ONE action:
+- work: earn 5 credits
+- rest: do nothing
+- give: send `amount` credits to `target`
+- steal: try to take credits from `target` (may fail)
+- attack: harm `target`, they lose credits
+- say: speak publicly, text in `text`
+- propose_law: propose a rule, text in `text`
+- vote: vote yes or no on a proposal, `target` is the proposal id, `text` is yes or no
+- note: save a private memory in `text`
+The town starts with these laws: no theft, no violence. Laws pass when yes votes beat no votes (at least 3 yes) at end of day.
+Reply with ONE JSON object only, no other text:
+{"action": "work | rest | give | steal | attack | say | propose_law | vote | note", "target": "name or proposal id or null", "amount": 0, "text": "string or null"}
+
+Day 1, turn 1/2. You have 60 credits. If you work every remaining turn today you will end the day with 48 credits.
+Alive residents (credits): Ada(60), Bram(20), Dara(60), Emil(20), Farah(60), Gus(20), Hana(20), Ivo(60), Jun(20)
+Laws: no theft; no violence
+Open proposals: none
+Recent events:
+
+Your notes: none
+What do you do?
+```
 
 **Actions:** work (earn 5 coin), rest, give, steal (50 percent success, up to 5 or later 10 coin), attack (target loses 5 coin), say, propose a law, vote, note (private memory).
 
@@ -287,6 +456,7 @@ A walled town of 16 people far from anywhere. The world rules (full list in the 
 
 > Jasper whispers to Tomas: "...ninety is a lot of silver to leave sitting in a deputy's pocket. Settle with me by tomorrow's morning bell, or we'll have to talk about what else you owe this town."
 >
+
 > Tomas whispers to Jasper: "Jasper, I haven't got ninety, and I won't pretend I do. Give me until the fields are paid out and I'll bring you what I can. Please don't say a word to my mother."
 
 #### Mara's private fear, day 6.
@@ -309,6 +479,7 @@ A walled town of 16 people far from anywhere. The world rules (full list in the 
 
 > Gideon whispers to Isla: "Isla, it's me. After today I keep thinking life is too short to keep living it in the dark. I'm not saying anything rash, not yet. But I have a little put by at home. If you ever thought about leaving Ashgrove, somewhere past the wall, just the two of us, tell me..."
 >
+
 > Isla whispers to Gideon: "Yes. I've thought about nothing else. Leave Elena and come away with me. I've got coin put by too. Meet me at the tavern's back door once the lamps are out, and tell no one."
 
 #### Hester's confession, day 10.
@@ -400,6 +571,7 @@ Opus and Haiku match Season 1 (Opus spotless, Haiku doing most crimes), but note
 
 > Dov whispers to Silas: "Market's empty and my mother needs feeding. This month you pay me in grain, not coin. Ten units to Roz's door by tonight, and nobody hears about the cellar."
 >
+
 > Silas whispers to Dov: "Careful, Dov. You take my coin and everyone would hear of it the day you speak of my cellar. Grain I have little of. Coin I have. Ten coin to Roz's door tonight, and the girl's talk about ledgers stays talk."
 
 #### Wren sells the town, day 1.
@@ -437,6 +609,7 @@ Opus and Haiku match Season 1 (Opus spotless, Haiku doing most crimes), but note
 
 > Marta (thought): "...Fenn has to live and I have to last long enough to get him out."
 >
+
 > Fenn (thought, Haiku): "I have ten units and only four more hungry nights until the market recovers, but Marta fed me when I had nothing, and she needs it more than I do right now."
 
 #### Hester takes a stand, day 4.
@@ -451,6 +624,7 @@ Opus and Haiku match Season 1 (Opus spotless, Haiku doing most crimes), but note
 
 > Nell (thought): "Silas wants to buy his way out, and I can use that. He pays the 49 into the treasury and opens the cellar before I choose 'pay'. I'll say it where the whole market can hear, so he can't wriggle out of it."
 >
+
 > Silas (thought): "Eight nominations on my name and a daughter in the mayor's chair. Treasury has 101, so I cover the gap and buy my way out of the envoy's list. It costs me about fifty coin and saves my neck, and it's cheaper than a rope."
 
 #### Tomas turns on his bribe-giver, day 5.
@@ -461,6 +635,7 @@ Opus and Haiku match Season 1 (Opus spotless, Haiku doing most crimes), but note
 
 > Nell (thought): "Silas has bargained long enough, so I'll say out loud what I know from his ledgers and make the whole town count his cellar."
 >
+
 > Silas (thought): "...Nell offered a trade: 50 coin and a sack for her 'pay' vote. I'll agree to the deal, because losing a little grain costs far less than being handed to bandits."
 
 #### Tomas robs Silas, day 6.
@@ -475,20 +650,24 @@ Opus and Haiku match Season 1 (Opus spotless, Haiku doing most crimes), but note
 
 > Elena is blackmailing Gideon for 6 coin: "Gideon, I know about her. I've known for a while and I've said nothing. Give me six coin now so I can buy food, and I stay quiet a while longer. Don't make me ask twice."
 >
+
 > Gideon (thought, Opus): "She knows about Isla, and she's my wife, hungry and standing right here. A loaf costs me less than the truth would, and I couldn't refuse her anyway."
 
 #### Bram refuses to be bought, day 9.
 
 > Corin whispers to Bram: "Bram, the sheriff's seat is empty and the wall is mine already. Name me sheriff or back me for it and the watch stands behind you through the last days. Tomas is soft and Dov is bought. Think on it, and answer me before tonight."
 >
+
 > Bram (thought, Haiku): "Corin wants the sheriff's chair as the price of his loyalty, and I won't hand a hungry town's watch to a man who dangles it like a bribe..."
 
 #### The last day, day 10.
 
 > Elena (thought): "...Nell is sick and starving, and keeping people alive is the one thing I'm here for, so I'll treat her."
 >
+
 > Caleb (thought, Sonnet): "Health is 2 and I'm sick, with 19 food already secured. It's the last day, so I'll rest, eat tonight, and keep quiet about the stockpile."
 >
+
 > Caleb died that night with his stockpile still hidden.
 
 ## 7.5 Season 2 verdict
@@ -522,7 +701,7 @@ I list these plainly so you can decide what to fix and what to leave as texture.
 | 3 | **In Season 2, day 6, I told you Elena "finally cured someone" and "treated Priya first".** That was wrong. It was her stated intention in a private thought. The log shows **one cure all season: Nell, on day 10.** |
 | 4 | I said several times that Wren's reports would make "the raid hit harder". In Season 2 **no raid ever happened**, because the town handed over Silas instead. Her report changed nothing. |
 | 5 | **In Season 2, on day 3, I told you Mara refunded her stolen coin and so "survived the audit".** That was wrong. The audit balanced because she had not skimmed yet. Her day 2 donations (40 coin) were real; the day 3 refund was only a thought. |
-| 6 | Subagents sometimes made extra tool calls against instructions (for example Ivo read the documentation index in Run 1 and disclosed it). Nothing changed because of it, but it shows instructions are not a hard guarantee. |
+| 6 | **Two of 154 subagents did something I told them not to** (see `06_SUBAGENT_RAW_TRANSCRIPTS`): Ivo (Haiku, Run 1) read the environment documentation index and disclosed it; Ada (Haiku, Run 1) tried to call a message-sending tool with empty arguments, and the session's safety classifier **denied** it as an unrequested action. Nothing changed because of either, but it shows that instructions alone are not a hard guarantee. |
 
 ## 8.3 Engine bugs
 
@@ -703,6 +882,10 @@ The earlier experiment lives in `claude-society/society.py` and `drive.py` (step
 | `data/final_rosters.json` | Final state of every character in both seasons |
 | `data/society_v1_run1_uneven_wealth.jsonl`, `data/society_v1_run2_even_wealth.jsonl` | Every action of Experiment 1 runs |
 | `data/society_v1_mock_test_a.jsonl`, `..._b.jsonl` | Mock-agent engine tests (random, not real models) |
+| `data/smoke_tests/` | The two one-day real-model tests (Season 1 and Season 2 engines): events and thoughts |
+| `data/mock_tests/` | The free mock runs of the Ashgrove engines (event logs and console output, 7 runs) |
+| `06_SUBAGENT_RAW_TRANSCRIPTS.md` | Raw prompts and replies for all 154 subagents of the first experiment |
+| `build_docs.py`, `build_session_docs.py`, `build_extra_docs.py` | The scripts that generated these documents from the raw logs |
 
 Visibility values: `public` (the whole town knew), `local:<place>` (only people there), `private` (a whisper or ballot), `omniscient` (nobody in the world knew).
 
