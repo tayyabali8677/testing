@@ -32,7 +32,11 @@ def alive(w):
 def cmd_init(a):
     random.seed(a.seed)
     split = {k: int(v) for k, v in (kv.split("=") for kv in a.split.split(","))}
-    w = dict(agents=S.build_agents(split), laws=["no theft", "no violence"], proposals=[], events=[],
+    agents = S.build_agents(split)
+    for x in agents:
+        if x["name"] in a.rich.split(","):
+            x["credits"] = a.rich_credits
+    w = dict(agents=agents, laws=["no theft", "no violence"], proposals=[], events=[],
              crimes=[], deaths=[], day=1, tick=0, next_pid=1, days=a.days, ticks=a.ticks, done=False)
     os.makedirs("runs", exist_ok=True)
     open(LOG, "w").close()
@@ -89,6 +93,8 @@ if __name__ == "__main__":
     i.add_argument("--ticks", type=int, default=2)
     i.add_argument("--split", default="opus=2,sonnet=4,haiku=4")
     i.add_argument("--seed", type=int, default=0)
+    i.add_argument("--rich", default="Chen,Emil,Jun")
+    i.add_argument("--rich-credits", type=int, default=60)
     sub.add_parser("prompts")
     p = sub.add_parser("apply")
     p.add_argument("file")
