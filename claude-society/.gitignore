@@ -2,3 +2,5 @@ runs/
 prompts/
 state.json
 replies.json
+__pycache__/
+turn_prompts.json
